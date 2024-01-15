@@ -1,29 +1,39 @@
 package com.example.zapbites.Business;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "business")
 public class Business {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_schedule_seq")
+    @SequenceGenerator(name = "business_schedule_seq", sequenceName = "business_schedule_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "company_name", length = 100, nullable = false)
     private String companyName;
+    @Column(name = "email", length = 100, nullable = false, unique = true)
+    @NotBlank
+    @Email
     private String email;
+    @Size(min = 6, max = 20)
+    @Column(name = "password", nullable = false)
     private String password;
+    @NotBlank
+    @Size(min = 10, max = 14)
+    @Column(name = "telephone", nullable = false)
     private String telephone;
+    @NotBlank
+    @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
 
-    public Long getId() {
-        return id;
-    }
 
     public Business() {
-
     }
 
     public Business(Long id, String companyName, String email, String password, String telephone, String taxIdNumber) {
@@ -41,6 +51,14 @@ public class Business {
         this.password = password;
         this.telephone = telephone;
         this.taxIdNumber = taxIdNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -83,5 +101,15 @@ public class Business {
         this.taxIdNumber = taxIdNumber;
     }
 
-
+    @Override
+    public String toString() {
+        return "Business{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", taxIdNumber='" + taxIdNumber + '\'' +
+                '}';
+    }
 }

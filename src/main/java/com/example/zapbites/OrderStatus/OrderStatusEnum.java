@@ -1,0 +1,15 @@
+package com.example.zapbites.OrderStatus;
+
+public enum OrderStatusEnum {
+    CART,
+    PROCESSING_ORDER,
+    ACCEPTED,
+    COOKING,
+    PREPARING,
+    DELIVERY,
+    DELIVERED,
+    DECLINED_BY_BUSINESS,
+    CANCELLED_BY_CUSTOMER,
+    REFUNDED
+
+}
