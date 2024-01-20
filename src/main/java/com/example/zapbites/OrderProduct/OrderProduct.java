@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 @Table(name = "order_product")
 public class OrderProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_product_seq")
+    @SequenceGenerator(name = "order_product_seq", sequenceName = "order_product_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"), nullable = false)
@@ -19,10 +21,7 @@ public class OrderProduct {
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product_id;
 
-    public OrderProduct(Order orderId, Integer quantity, Product product_id) {
-        this.orderId = orderId;
-        this.quantity = quantity;
-        this.product_id = product_id;
+    public OrderProduct() {
     }
 
     public OrderProduct(Long id, Order orderId, Integer quantity, Product product_id) {
@@ -32,16 +31,12 @@ public class OrderProduct {
         this.product_id = product_id;
     }
 
-    public OrderProduct() {
-
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Order getOrderId() {
@@ -66,5 +61,10 @@ public class OrderProduct {
 
     public void setProduct_id(Product product_id) {
         this.product_id = product_id;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderProduct{" + "id=" + id + ", orderId=" + orderId + ", quantity=" + quantity + ", product_id=" + product_id + '}';
     }
 }

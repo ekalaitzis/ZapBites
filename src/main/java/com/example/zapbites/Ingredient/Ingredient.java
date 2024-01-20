@@ -8,29 +8,21 @@ import java.util.List;
 @Entity
 @Table(name = "ingredient")
 public class Ingredient {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingredient_seq")
+    @SequenceGenerator(name = "ingredient_seq", sequenceName = "ingredient_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
     private boolean vegan;
     private boolean spicy;
     private boolean glutenFree;
-    @ManyToMany
-    @JoinTable(
-            name = "ingredient_product",
-            joinColumns = @JoinColumn(name = "ingredient_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @ManyToMany(mappedBy = "ingredients")
     private List<Product> products;
 
-
-    public Ingredient(String name, boolean vegan, boolean spicy, boolean glutenFree, List<Product> products) {
-        this.name = name;
-        this.vegan = vegan;
-        this.spicy = spicy;
-        this.glutenFree = glutenFree;
-        this.products = products;
+    public Ingredient() {
     }
 
     public Ingredient(Long id, String name, boolean vegan, boolean spicy, boolean glutenFree, List<Product> products) {
@@ -90,7 +82,8 @@ public class Ingredient {
         this.products = products;
     }
 
-    public Ingredient() {
-
+    @Override
+    public String toString() {
+        return "Ingredient{" + "id=" + id + ", name='" + name + '\'' + ", vegan=" + vegan + ", spicy=" + spicy + ", glutenFree=" + glutenFree + ", products=" + products + '}';
     }
 }

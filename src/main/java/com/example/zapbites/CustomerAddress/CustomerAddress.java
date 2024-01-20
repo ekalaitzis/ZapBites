@@ -2,40 +2,41 @@ package com.example.zapbites.CustomerAddress;
 
 import com.example.zapbites.Customer.Customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.awt.*;
 
 @Entity
+@Table(name = "customer_address")
 public class CustomerAddress {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_address_seq")
+    @SequenceGenerator(name = "customer_address_seq", sequenceName = "customer_address_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
+    @NotBlank
     @Column(name = "address", nullable = false, length = 65535)
     private String address;
+    @NotBlank
     @Column(name = "geolocation", nullable = false)
     private Point geolocation;
-    @Column(name = "customer_id", nullable = false)
-    private Integer customerId;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_customer"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
     public CustomerAddress() {
     }
 
-    public CustomerAddress(String address, Point geolocation, Integer customerId, Customer customer) {
-        this.address = address;
-        this.geolocation = geolocation;
-        this.customerId = customerId;
-        this.customer = customer;
-    }
-
-    public CustomerAddress(Long id, String address, Point geolocation, Integer customerId, Customer customer) {
+    public CustomerAddress(Long id, String address, Point geolocation, Customer customer) {
         this.id = id;
         this.address = address;
         this.geolocation = geolocation;
-        this.customerId = customerId;
         this.customer = customer;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
@@ -58,14 +59,6 @@ public class CustomerAddress {
         this.geolocation = geolocation;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -74,7 +67,8 @@ public class CustomerAddress {
         this.customer = customer;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "CustomerAddress{" + "id=" + id + ", address='" + address + '\'' + ", geolocation=" + geolocation + ", customer=" + customer + '}';
     }
 }

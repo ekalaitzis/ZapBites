@@ -10,7 +10,9 @@ import java.sql.Timestamp;
 @Table(name = "order_status")
 public class OrderStatus {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_status_seq")
+    @SequenceGenerator(name = "order_status_seq", sequenceName = "order_status_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
     @OneToOne
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order_status"), nullable = false)
@@ -23,11 +25,7 @@ public class OrderStatus {
     @Column(name = "status_changed_at", nullable = false)
     private Timestamp statusChangedAt;
 
-    public OrderStatus(Order orderId, Session session, Timestamp statusChangedAt) {
-        this.orderId = orderId;
-        this.session = session;
-        this.statusChangedAt = statusChangedAt;
-        this.orderStatusEnum = OrderStatusEnum.CART;
+    public OrderStatus() {
     }
 
     public OrderStatus(Long id, Order orderId, Session session, Timestamp statusChangedAt) {
@@ -38,16 +36,12 @@ public class OrderStatus {
         this.orderStatusEnum = OrderStatusEnum.CART;
     }
 
-    public OrderStatus() {
-
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Order getOrderId() {
@@ -80,5 +74,10 @@ public class OrderStatus {
 
     public void setOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
         this.orderStatusEnum = orderStatusEnum;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", orderStatusEnum=" + orderStatusEnum + ", session=" + session + ", statusChangedAt=" + statusChangedAt + '}';
     }
 }

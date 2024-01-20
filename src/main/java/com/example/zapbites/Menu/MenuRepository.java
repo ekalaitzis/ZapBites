@@ -1,4 +1,6 @@
 package com.example.zapbites.Menu;
 
-public interface MenuRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MenuRepository extends JpaRepository<Menu, Long> {
 }

@@ -7,25 +7,36 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.Collection;
-import java.util.List;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "first_name", length = 20, nullable = false)
     private String firstName;
+    @Column(name = "last_name", length = 20, nullable = false)
     private String lastName;
     @NotBlank
     @Email
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
     @Size(min = 6, max = 20)
+    @Column(name = "password", nullable = false)
     private String password;
     @NotBlank
     @Size(min = 10, max = 14)
     @Column(name = "telephone", nullable = false)
     private String telephone;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Collection<CustomerAddress> customerAddress;
+
+    public Customer() {
+    }
 
     public Customer(Long id, String firstName, String lastName, String email, String password, String telephone, Collection<CustomerAddress> customerAddress) {
         this.id = id;
@@ -37,29 +48,53 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
-    public Customer(String firstName, String lastName, String email, String password, String telephone, Collection<CustomerAddress> customerAddress) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.telephone = telephone;
-        this.customerAddress = customerAddress;
-    }
-
-    public Customer() {
-
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    @OneToMany(mappedBy = "customer")
-    private Collection<CustomerAddress> customerAddress;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public Collection<CustomerAddress> getCustomerAddress() {
         return customerAddress;
@@ -67,5 +102,10 @@ public class Customer {
 
     public void setCustomerAddress(Collection<CustomerAddress> customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + ", customerAddress=" + customerAddress + '}';
     }
 }

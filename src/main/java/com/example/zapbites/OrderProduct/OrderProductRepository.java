@@ -1,4 +1,6 @@
 package com.example.zapbites.OrderProduct;
 
-public interface OrderProductRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderProductRepository extends JpaRepository<OrderProduct, Long> {
 }

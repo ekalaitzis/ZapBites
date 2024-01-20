@@ -6,27 +6,25 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "menu")
 public class Menu {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "menu_seq")
+    @SequenceGenerator(name = "menu_seq", sequenceName = "menu_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     @ManyToOne
     @JoinColumn(name = "business_id", nullable = false, foreignKey = @ForeignKey(name ="fk_business_menu"))
     private Business business;
 
+    public Menu() {
+    }
+
     public Menu(Long id, String name, Business business) {
         this.id = id;
         this.name = name;
         this.business = business;
-    }
-
-    public Menu(String name, Business business) {
-        this.name = name;
-        this.business = business;
-    }
-
-    public Menu() {
-
     }
 
     public String getName() {
@@ -51,5 +49,14 @@ public class Menu {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", business=" + business +
+                '}';
     }
 }

@@ -9,17 +9,16 @@ import jakarta.validation.constraints.Size;
 @Table(name = "business")
 public class Business {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_schedule_seq")
-    @SequenceGenerator(name = "business_schedule_seq", sequenceName = "business_schedule_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
+    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "company_name", length = 100, nullable = false)
     private String companyName;
-    @Column(name = "email", length = 100, nullable = false, unique = true)
     @NotBlank
     @Email
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
     @Size(min = 6, max = 20)
     @Column(name = "password", nullable = false)
@@ -29,23 +28,15 @@ public class Business {
     @Column(name = "telephone", nullable = false)
     private String telephone;
     @NotBlank
+    @Size(min = 10, max = 10)
     @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
-
 
     public Business() {
     }
 
     public Business(Long id, String companyName, String email, String password, String telephone, String taxIdNumber) {
         this.id = id;
-        this.companyName = companyName;
-        this.email = email;
-        this.password = password;
-        this.telephone = telephone;
-        this.taxIdNumber = taxIdNumber;
-    }
-
-    public Business(String companyName, String email, String password, String telephone, String taxIdNumber) {
         this.companyName = companyName;
         this.email = email;
         this.password = password;
@@ -103,13 +94,6 @@ public class Business {
 
     @Override
     public String toString() {
-        return "Business{" +
-                "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", taxIdNumber='" + taxIdNumber + '\'' +
-                '}';
+        return "Business{" + "id=" + id + ", companyName='" + companyName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + ", taxIdNumber='" + taxIdNumber + '\'' + '}';
     }
 }

@@ -1,4 +1,6 @@
 package com.example.zapbites.OrderStatus;
 
-public interface OrderStatusRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderStatusRepository extends JpaRepository<OrderStatus, Long> {
 }

@@ -2,36 +2,31 @@ package com.example.zapbites.Category;
 
 import com.example.zapbites.Menu.Menu;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
-@Table(name = "catetgory")
+@Table(name = "category")
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+    @SequenceGenerator(name = "category_seq", sequenceName = "category_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_id", nullable = false, foreignKey = @ForeignKey(name = "fk_menu"))
     private Menu menu;
-
-    public Category(String name, Menu menu) {
-        this.name = name;
-        this.menu = menu;
+    public Category() {
     }
-
     public Category(Long id, String name, Menu menu) {
         this.id = id;
         this.name = name;
         this.menu = menu;
     }
-
-    public Category() {
-
-    }
-
     public Long getId() {
         return id;
     }
@@ -54,5 +49,14 @@ public class Category {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", menu=" + menu +
+                '}';
     }
 }
