@@ -5,23 +5,20 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "business")
 public class Business {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
-//    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
+    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
-    @Column(name = "company_name", nullable = false)
+    @Column(name = "company_name", length = 100, nullable = false)
     private String companyName;
     @NotBlank
     @Email
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
     @Size(min = 6, max = 20)
     @Column(name = "password", nullable = false)
@@ -31,7 +28,7 @@ public class Business {
     @Column(name = "telephone", nullable = false)
     private String telephone;
     @NotBlank
-//    @Size(min = 10, max = 10)
+    @Size(min = 10, max = 10)
     @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
 
@@ -98,18 +95,5 @@ public class Business {
     @Override
     public String toString() {
         return "Business{" + "id=" + id + ", companyName='" + companyName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + ", taxIdNumber='" + taxIdNumber + '\'' + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Business business = (Business) o;
-        return Objects.equals(id, business.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

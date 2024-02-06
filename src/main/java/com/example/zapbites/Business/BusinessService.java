@@ -1,7 +1,5 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,26 +30,22 @@ public class BusinessService {
     }
 
     public Business createBusiness(Business business) {
-        if (businessRepository.findById(business.getId()).isPresent()) {
-            throw new DuplicateBusinessException("Business with email " + business.getEmail() + " already exists");
-        }
         return businessRepository.save(business);
     }
 
-
     public Business updateBusiness(Business updatedBusiness) {
-        try {
-            return businessRepository.save(updatedBusiness);
-        } catch (DataAccessException e) {
-            throw new BusinessNotFoundException("Business with id " + updatedBusiness.getId() + " not found.", e);
-        }
+       try {
+           return businessRepository.save(updatedBusiness);
+       } catch (DataAccessException e) {
+           throw new EntityNotFoundException("Business with id " + updatedBusiness.getId() + " not found.", e);
+       }
     }
 
     public void deleteBusinessById(Long id) {
-        try {
-            businessRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new BusinessNotFoundException("Business with id " + id + " not found", e);
+    try {
+        businessRepository.deleteById(id);
+    } catch(EmptyResultDataAccessException e) {
+        throw new EntityNotFoundException("Business with id " + id + " not found", e);
         }
     }
 }
