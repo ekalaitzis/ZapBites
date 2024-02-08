@@ -38,6 +38,7 @@ public class ProductController {
         Product createdProduct = productService.createProduct(product);
         return new ResponseEntity(createdProduct, HttpStatus.CREATED);
     }
+
     @PostMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         try {
@@ -47,6 +48,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/{id}")
 
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {

@@ -15,7 +15,7 @@ public class Menu {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
     @ManyToOne
-    @JoinColumn(name = "business_id", nullable = false, foreignKey = @ForeignKey(name ="fk_business_menu"))
+    @JoinColumn(name = "business_id", nullable = false, foreignKey = @ForeignKey(name = "fk_business_menu"))
     private Business business;
 
     public Menu() {
@@ -43,20 +43,16 @@ public class Menu {
         this.business = business;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", business=" + business +
-                '}';
+        return "Menu{" + "id=" + id + ", name='" + name + '\'' + ", business=" + business + '}';
     }
 }

@@ -23,21 +23,24 @@ public class MenuService {
     public List<Menu> getAllMenus() {
         return menuRepository.findAll();
     }
+
     public Optional<Menu> getMenuById(Long id) {
         return menuRepository.findById(id);
     }
+
     public Menu createmenu(Menu menu) {
         return menuRepository.save(menu);
     }
 
     public Menu updateMenu(Menu menu) {
-    try {
-        Menu updateMenu = menuRepository.save(menu);
-        return updateMenu;
-    } catch (DataAccessException e) {
-        throw new EntityNotFoundException("Menu with id " + menu.getId() + " not found", e);
+        try {
+            Menu updateMenu = menuRepository.save(menu);
+            return updateMenu;
+        } catch (DataAccessException e) {
+            throw new EntityNotFoundException("Menu with id " + menu.getId() + " not found", e);
+        }
     }
-    }
+
     public void deleteMenuById(Long id) {
         try {
             menuRepository.deleteById(id);

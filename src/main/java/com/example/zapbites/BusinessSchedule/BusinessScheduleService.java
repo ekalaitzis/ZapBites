@@ -20,7 +20,7 @@ public class BusinessScheduleService {
         this.businessScheduleRepository = businessScheduleRepository;
     }
 
-    public List<BusinessSchedule> getAllBusinessSchedulles() {
+    public List<BusinessSchedule> getAllBusinessSchedules() {
         return businessScheduleRepository.findAll();
     }
 

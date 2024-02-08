@@ -22,34 +22,27 @@ public class BusinessScheduleController {
 
     @GetMapping
     public ResponseEntity<List<BusinessSchedule>> getAllBusinessSchedules() {
-        List<BusinessSchedule> businessSchedules = businessScheduleService.getAllBusinessSchedulles();
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(businessSchedules);
+        List<BusinessSchedule> businessSchedules = businessScheduleService.getAllBusinessSchedules();
+        return ResponseEntity.status(HttpStatus.OK).body(businessSchedules);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BusinessSchedule> getBusinessScheduleById(@PathVariable Long id) {
         Optional<BusinessSchedule> optionalBusinessSchedule = businessScheduleService.getBusinessScheduleById(id);
-        return optionalBusinessSchedule
-                .map(businessSchedule -> new ResponseEntity<>(businessSchedule, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return optionalBusinessSchedule.map(businessSchedule -> new ResponseEntity<>(businessSchedule, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<BusinessSchedule> createBusinessSchedule(@RequestBody BusinessSchedule businessSchedule) {
         var createdBusinessSchedule = businessScheduleService.createBusinessSchedule(businessSchedule);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(createdBusinessSchedule);
+        return ResponseEntity.status(HttpStatus.OK).body(createdBusinessSchedule);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BusinessSchedule> updateBusinessSchedule(@RequestBody BusinessSchedule businessSchedule) {
         try {
             var updatedBusinessSchedule = businessScheduleService.updateBusinessSchedule(businessSchedule);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(updatedBusinessSchedule);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedBusinessSchedule);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

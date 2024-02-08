@@ -1,6 +1,5 @@
 package com.example.zapbites.OrderStatus;
 
-import com.example.zapbites.OrderStatus.OrderStatus;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ public class OrderStatusController {
     public OrderStatusController(OrderStatusService orderStatusService) {
         this.orderStatusService = orderStatusService;
     }
+
     @GetMapping
     public ResponseEntity<List<OrderStatus>> getAllOrderStatuses() {
         List<OrderStatus> orderStatuses = orderStatusService.getAllOrderStatuses();
@@ -26,8 +26,7 @@ public class OrderStatusController {
     @GetMapping("/{id}")
     public ResponseEntity<OrderStatus> getOrderStatusById(@PathVariable Long id) {
         Optional<OrderStatus> optionalOrderStatus = orderStatusService.getOrderStatusById(id);
-        return optionalOrderStatus.map(orderStatus -> new ResponseEntity<>(orderStatus, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return optionalOrderStatus.map(orderStatus -> new ResponseEntity<>(orderStatus, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping

@@ -33,6 +33,7 @@ public class Order {
 
     public Order() {
     }
+
     public Order(Long id, Business businessId, Customer customerId, CustomerAddress customerAddressId, BigDecimal totalprice, Timestamp createdAt) {
         this.id = id;
         this.businessId = businessId;

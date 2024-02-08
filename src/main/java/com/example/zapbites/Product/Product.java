@@ -29,11 +29,7 @@ public class Product {
     private Category category;
 
     @ManyToMany
-    @JoinTable(
-            name = "product_ingredient",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-    )
+    @JoinTable(name = "product_ingredient", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
 
     public Product() {
