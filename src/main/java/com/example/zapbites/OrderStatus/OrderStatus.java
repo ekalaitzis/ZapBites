@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.Session;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_status")
@@ -79,5 +80,18 @@ public class OrderStatus {
     @Override
     public String toString() {
         return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", orderStatusEnum=" + orderStatusEnum + ", session=" + session + ", statusChangedAt=" + statusChangedAt + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderStatus that = (OrderStatus) o;
+        return Objects.equals(id, that.id) && Objects.equals(orderId, that.orderId) && orderStatusEnum == that.orderStatusEnum && Objects.equals(session, that.session) && Objects.equals(statusChangedAt, that.statusChangedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, orderId, orderStatusEnum, session, statusChangedAt);
     }
 }

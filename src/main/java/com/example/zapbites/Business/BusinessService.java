@@ -2,7 +2,6 @@ package com.example.zapbites.Business;
 
 import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

@@ -1,6 +1,8 @@
 package com.example.zapbites.OrderProduct;
 
+import com.example.zapbites.OrderProduct.Exceptions.DuplicateOrderProductException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +32,13 @@ public class OrderProductController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderProduct> createOrderProduct(@RequestBody OrderProduct orderProduct) {
-        OrderProduct createdOrderProduct = orderProductService.createOrderProduct(orderProduct);
-        return new ResponseEntity<>(createdOrderProduct, HttpStatus.CREATED);
+    public ResponseEntity<Object> createOrderProduct(@Valid @RequestBody OrderProduct orderProduct) {
+        try {
+            OrderProduct createdOrderProduct = orderProductService.createOrderProduct(orderProduct);
+            return new ResponseEntity<>(createdOrderProduct, HttpStatus.CREATED);
+        } catch (DuplicateOrderProductException e) {
+            return new ResponseEntity<>("This OrderProduct already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")

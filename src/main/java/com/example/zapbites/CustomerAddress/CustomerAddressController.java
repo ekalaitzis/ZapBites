@@ -1,9 +1,12 @@
 package com.example.zapbites.CustomerAddress;
 
+import com.example.zapbites.CustomerAddress.Exceptions.DuplicateCustomerAddressException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("customer_address")
+@Validated
 public class CustomerAddressController {
     private final CustomerAddressService customerAddressService;
 
@@ -32,9 +36,13 @@ public class CustomerAddressController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerAddress> createCustomerAddress(@RequestBody CustomerAddress customerAddress) {
-        CustomerAddress createdCustomerAddress = customerAddressService.createCustomerAddress(customerAddress);
-        return new ResponseEntity<>(createdCustomerAddress, HttpStatus.CREATED);
+    public ResponseEntity<Object> createCustomerAddress(@Valid @RequestBody CustomerAddress customerAddress) {
+        try {
+            var createdCustomerAddress = customerAddressService.createCustomerAddress(customerAddress);
+            return new ResponseEntity<>(createdCustomerAddress, HttpStatus.CREATED);
+        } catch (DuplicateCustomerAddressException e) {
+            return new ResponseEntity<>("This Address already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")

@@ -1,9 +1,12 @@
 package com.example.zapbites.Customer;
 
+import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
+@Validated
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -33,9 +37,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer createCustomer = customerService.createCustomer(customer);
-        return new ResponseEntity<>(createCustomer, HttpStatus.CREATED);
+    public ResponseEntity<Object> createCustomer(@Valid @RequestBody Customer customer) {
+        try {
+            Customer createCustomer = customerService.createCustomer(customer);
+            return new ResponseEntity<>(createCustomer, HttpStatus.CREATED);
+        } catch (DuplicateCustomerException e) {
+            return new ResponseEntity<>("This Customer already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{id}")

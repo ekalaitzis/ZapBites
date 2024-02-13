@@ -4,6 +4,8 @@ import com.example.zapbites.Order.Order;
 import com.example.zapbites.Product.Product;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "order_product")
 public class OrderProduct {
@@ -66,5 +68,18 @@ public class OrderProduct {
     @Override
     public String toString() {
         return "OrderProduct{" + "id=" + id + ", orderId=" + orderId + ", quantity=" + quantity + ", product_id=" + product_id + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderProduct that = (OrderProduct) o;
+        return Objects.equals(id, that.id) && Objects.equals(orderId, that.orderId) && Objects.equals(quantity, that.quantity) && Objects.equals(product_id, that.product_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, orderId, quantity, product_id);
     }
 }

@@ -1,9 +1,12 @@
 package com.example.zapbites.Menu;
 
+import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/menu")
+@Validated
 public class MenuController {
 
     private final MenuService menuService;
@@ -33,9 +37,13 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<Menu> createMenu(@RequestBody Menu menu) {
-        Menu createdMenu = menuService.createmenu(menu);
-        return new ResponseEntity<>(createdMenu, HttpStatus.CREATED);
+    public ResponseEntity<Object> createMenu(@Valid @RequestBody Menu menu) {
+        try {
+            Menu createdMenu = menuService.createmenu(menu);
+            return new ResponseEntity<>(createdMenu, HttpStatus.CREATED);
+        } catch (DuplicateMenuException e) {
+            return new ResponseEntity<>("This Menu already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{id}")

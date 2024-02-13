@@ -1,5 +1,7 @@
 package com.example.zapbites.BusinessSchedule;
 
+import com.example.zapbites.Business.Business;
+import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class BusinessScheduleService {
     }
 
     public BusinessSchedule createBusinessSchedule(BusinessSchedule businessSchedule) {
+        if (businessScheduleRepository.findById(businessSchedule.getId()).isPresent()) {
+            throw new DuplicateBusinessException("This business already has a Schedule. You can update the existing one.");
+        }
         return businessScheduleRepository.save(businessSchedule);
     }
 

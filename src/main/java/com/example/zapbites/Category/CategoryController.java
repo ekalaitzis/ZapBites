@@ -1,9 +1,12 @@
 package com.example.zapbites.Category;
 
+import com.example.zapbites.Category.Exceptions.DuplicateCategoryException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
+@Validated
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -33,9 +37,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category createdCategory = categoryService.createCategory(category);
-        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
+    public ResponseEntity<Object> createCategory(@Valid @RequestBody Category category) {
+        try {
+            Category createdCategory = categoryService.createCategory(category);
+            return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
+        } catch (DuplicateCategoryException e) {
+            return new ResponseEntity<>("This Category already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{id}")

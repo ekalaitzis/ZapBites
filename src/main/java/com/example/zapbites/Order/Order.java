@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order")
@@ -94,5 +95,18 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" + "id=" + id + ", businessId=" + businessId + ", customerId=" + customerId + ", CustomerAddressId=" + CustomerAddressId + ", totalPrice=" + totalPrice + ", createdAt=" + createdAt + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) && Objects.equals(businessId, order.businessId) && Objects.equals(customerId, order.customerId) && Objects.equals(CustomerAddressId, order.CustomerAddressId) && Objects.equals(totalPrice, order.totalPrice) && Objects.equals(createdAt, order.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, businessId, customerId, CustomerAddressId, totalPrice, createdAt);
     }
 }

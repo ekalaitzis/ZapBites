@@ -2,8 +2,10 @@ package com.example.zapbites.Ingredient;
 
 import com.example.zapbites.Product.Product;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ingredient")
@@ -14,6 +16,7 @@ public class Ingredient {
     @SequenceGenerator(name = "ingredient_seq", sequenceName = "ingredient_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
     private boolean vegan;
@@ -85,5 +88,18 @@ public class Ingredient {
     @Override
     public String toString() {
         return "Ingredient{" + "id=" + id + ", name='" + name + '\'' + ", vegan=" + vegan + ", spicy=" + spicy + ", glutenFree=" + glutenFree + ", products=" + products + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return vegan == that.vegan && spicy == that.spicy && glutenFree == that.glutenFree && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(products, that.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, vegan, spicy, glutenFree, products);
     }
 }

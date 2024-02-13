@@ -12,4 +12,6 @@ Build with Spring Boot Framework using Maven, Spring Data JPA, Hibernate, log4j,
 - DTOs
 - Validation and Logging
 - Security
+- Spring Caching
 - Build FrontEnd
+  

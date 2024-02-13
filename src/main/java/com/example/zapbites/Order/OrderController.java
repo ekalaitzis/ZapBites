@@ -1,8 +1,11 @@
 package com.example.zapbites.Order;
 
+import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
+@Validated
 public class OrderController {
     private final OrderService orderService;
 
@@ -30,9 +34,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    public ResponseEntity<Object> createOrder(@Valid @RequestBody Order order) {
+        try {
+            Order createdOrder = orderService.createOrder(order);
+            return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+        } catch (DuplicateOrderException e) {
+            return new ResponseEntity<>("This Order already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")

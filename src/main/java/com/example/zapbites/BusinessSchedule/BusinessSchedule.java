@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "business_schedule")
@@ -76,5 +77,18 @@ public class BusinessSchedule {
                 ", closingTime=" + closingTime +
                 ", business=" + business +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BusinessSchedule that = (BusinessSchedule) o;
+        return Objects.equals(id, that.id) && Objects.equals(openingTime, that.openingTime) && Objects.equals(closingTime, that.closingTime) && Objects.equals(business, that.business);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, openingTime, closingTime, business);
     }
 }

@@ -1,15 +1,16 @@
 package com.example.zapbites.Business;
 
+import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,8 +58,8 @@ public class BusinessController {
         try {
             Business updatedBusiness = businessService.updateBusiness(business);
             return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
+        } catch (BusinessNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

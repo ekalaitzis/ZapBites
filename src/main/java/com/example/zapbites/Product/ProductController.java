@@ -1,5 +1,7 @@
 package com.example.zapbites.Product;
 
+import com.example.zapbites.Product.Exceptions.DuplicateProductException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -34,9 +36,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
-        return new ResponseEntity(createdProduct, HttpStatus.CREATED);
+    public ResponseEntity<Object> createProduct(@Valid @RequestBody Product product) {
+        try {
+            Product createdProduct = productService.createProduct(product);
+            return new ResponseEntity(createdProduct, HttpStatus.CREATED);
+        } catch (DuplicateProductException e) {
+            return new ResponseEntity<>("This Category already exists.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{id}")

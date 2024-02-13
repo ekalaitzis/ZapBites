@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.awt.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customer_address")
@@ -70,5 +71,18 @@ public class CustomerAddress {
     @Override
     public String toString() {
         return "CustomerAddress{" + "id=" + id + ", address='" + address + '\'' + ", geolocation=" + geolocation + ", customer=" + customer + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerAddress that = (CustomerAddress) o;
+        return Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(geolocation, that.geolocation) && Objects.equals(customer, that.customer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address, geolocation, customer);
     }
 }

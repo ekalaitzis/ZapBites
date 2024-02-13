@@ -2,6 +2,9 @@ package com.example.zapbites.Menu;
 
 import com.example.zapbites.Business.Business;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "menu")
@@ -12,6 +15,7 @@ public class Menu {
     @SequenceGenerator(name = "menu_seq", sequenceName = "menu_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
+    @NotBlank
     @Column(name = "name", nullable = false, unique = true)
     private String name;
     @ManyToOne
@@ -54,5 +58,18 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu{" + "id=" + id + ", name='" + name + '\'' + ", business=" + business + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(id, menu.id) && Objects.equals(name, menu.name) && Objects.equals(business, menu.business);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, business);
     }
 }

@@ -4,6 +4,8 @@ import com.example.zapbites.Menu.Menu;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "category")
@@ -57,5 +59,18 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" + "id=" + id + ", name='" + name + '\'' + ", menu=" + menu + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) && Objects.equals(name, category.name) && Objects.equals(menu, category.menu);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, menu);
     }
 }
