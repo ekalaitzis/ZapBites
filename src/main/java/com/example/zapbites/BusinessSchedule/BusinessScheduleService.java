@@ -1,6 +1,5 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.Business.Business;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

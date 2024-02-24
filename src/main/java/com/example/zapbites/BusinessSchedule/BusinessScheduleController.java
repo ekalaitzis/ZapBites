@@ -1,6 +1,5 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

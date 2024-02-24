@@ -2,7 +2,6 @@ package com.example.zapbites.Business;
 
 import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
