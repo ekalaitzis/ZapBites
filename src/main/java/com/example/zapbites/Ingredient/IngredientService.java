@@ -1,6 +1,7 @@
 package com.example.zapbites.Ingredient;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Ingredient.Exceptions.DuplicateIngredientException;
+import com.example.zapbites.Ingredient.Exceptions.IngredientNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -29,6 +30,9 @@ public class IngredientService {
     }
 
     public Ingredient createIngredient(Ingredient ingredient) {
+        if (ingredientRepository.findById(ingredient.getId()).isPresent()) {
+            throw new DuplicateIngredientException("Ingredient  " + ingredient.getName() + " already exists");
+        }
         return ingredientRepository.save(ingredient);
     }
 
@@ -36,7 +40,7 @@ public class IngredientService {
         try {
             return ingredientRepository.save(ingredient);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("The ingredient with id " + ingredient.getId() + " not found.", e);
+            throw new IngredientNotFoundException("The ingredient with id " + ingredient.getId() + " not found.", e);
         }
     }
 
@@ -44,7 +48,7 @@ public class IngredientService {
         try {
             ingredientRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("The ingredient with id " + id + " not found.", e);
+            throw new IngredientNotFoundException("The ingredient with id " + id + " not found.", e);
         }
     }
 }

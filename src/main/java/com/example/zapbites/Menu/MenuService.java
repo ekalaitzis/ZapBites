@@ -1,9 +1,11 @@
 package com.example.zapbites.Menu;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
+import com.example.zapbites.Menu.Exceptions.MenuNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class MenuService {
     }
 
     public Menu createmenu(Menu menu) {
+        if (menuRepository.findById(menu.getId()).isPresent()) {
+            throw new DuplicateMenuException("Menu " + menu.getName() + " already exists");
+        }
         return menuRepository.save(menu);
     }
 
@@ -37,15 +42,15 @@ public class MenuService {
             Menu updateMenu = menuRepository.save(menu);
             return updateMenu;
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("Menu with id " + menu.getId() + " not found", e);
+            throw new MenuNotFoundException("Menu with id " + menu.getId() + " not found", e);
         }
     }
 
     public void deleteMenuById(Long id) {
         try {
             menuRepository.deleteById(id);
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Menu with id " + id + " not found", e);
+        } catch (EmptyResultDataAccessException e) {
+            throw new MenuNotFoundException("Menu with id " + id + " not found", e);
         }
     }
 }

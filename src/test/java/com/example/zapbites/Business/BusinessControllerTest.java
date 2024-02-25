@@ -1,13 +1,11 @@
-package com.example.zapbites.BusinessTest;
+package com.example.zapbites.Business;
 
 
-import com.example.zapbites.Business.Business;
-import com.example.zapbites.Business.BusinessController;
-import com.example.zapbites.Business.BusinessService;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,6 +40,7 @@ public class BusinessControllerTest {
     }
 
     @Test
+    @DisplayName("Should return a list of all businesses")
     void getAllBusinesses_ShouldReturnListOfBusinesses() throws Exception {
         List<Business> businessList = new ArrayList<>();
         businessList.add(new Business());
@@ -53,6 +52,7 @@ public class BusinessControllerTest {
     }
 
     @Test
+    @DisplayName("Should return a business when an id is given")
     void getBusinessById_WithValidId_ShouldReturnBusiness() throws Exception {
         when(businessService.getBusinessById(testBusiness.getId())).thenReturn(Optional.of(testBusiness));
 
@@ -61,6 +61,7 @@ public class BusinessControllerTest {
     }
 
     @Test
+    @DisplayName("Should return not found when an invalid id is given")
     void getBusinessById_WithInvalidId_ShouldReturnNotFound() throws Exception {
         Long businessId = 99L;
         when(businessService.getBusinessById(businessId)).thenReturn(Optional.empty());
@@ -70,6 +71,7 @@ public class BusinessControllerTest {
     }
 
     @Test
+    @DisplayName("Should create a business when valid business attributes are given")
     void createBusiness_WithValidBusiness_ShouldReturnCreatedBusiness() throws Exception {
         when(businessService.createBusiness(testBusiness)).thenReturn(testBusiness);
 
@@ -81,6 +83,7 @@ public class BusinessControllerTest {
 
 
     @Test
+    @DisplayName("Should return bad request when an email already exists")
     void createBusiness_WithDuplicateEmail_ShouldReturnBadRequest() throws Exception {
         when(businessService.createBusiness(testBusiness)).thenThrow(new DuplicateBusinessException("Business with this email already exists"));
 
@@ -90,6 +93,7 @@ public class BusinessControllerTest {
 
 
     @Test
+    @DisplayName("Should return an updated business when valid updated attributes are given")
     void updateBusiness_WithValidBusiness_ShouldReturnUpdatedBusiness() throws Exception {
         Long businessId = 89L;
         Business originalBusiness = new Business();
@@ -107,6 +111,7 @@ public class BusinessControllerTest {
 
 
     @Test
+    @DisplayName("Should return not found when trying to update a non existing business")
     void updateBusiness_WithNonExistingId_ShouldReturnNotFound() throws Exception {
         Long businessId = 1L;
         Business business = new Business();
@@ -119,6 +124,7 @@ public class BusinessControllerTest {
     }
 
     @Test
+    @DisplayName("Should return no content when deleting a business ")
     void deleteBusinessById_WithValidId_ShouldReturnNoContent() throws Exception {
         Long businessId = 1L;
 

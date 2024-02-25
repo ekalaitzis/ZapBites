@@ -1,6 +1,7 @@
 package com.example.zapbites.CustomerAddress;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
+import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,6 +28,9 @@ public class CustomerAddressService {
     }
 
     public CustomerAddress createCustomerAddress(CustomerAddress customerAddress) {
+        if (customerAddressRepository.findById(customerAddress.getId()).isPresent()) {
+            throw new DuplicateBusinessException("customerAddress " + customerAddress.getId() + " already exists");
+        }
         return customerAddressRepository.save(customerAddress);
     }
 
@@ -34,7 +38,7 @@ public class CustomerAddressService {
         try {
             return customerAddressRepository.save(updatedCustomerAddress);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("CustomerAddress with id " + updatedCustomerAddress.getId() + " not found.", e);
+            throw new CustomerAddressNotFoundException("CustomerAddress with id " + updatedCustomerAddress.getId() + " not found.", e);
         }
     }
 
@@ -42,7 +46,7 @@ public class CustomerAddressService {
         try {
             customerAddressRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("CustomerAddress with id " + id + " not found", e);
+            throw new CustomerAddressNotFoundException("CustomerAddress with id " + id + " not found", e);
         }
     }
 }

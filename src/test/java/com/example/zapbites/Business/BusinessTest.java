@@ -1,6 +1,5 @@
-package com.example.zapbites.BusinessTest;
+package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Business;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

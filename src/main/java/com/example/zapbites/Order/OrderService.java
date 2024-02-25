@@ -1,6 +1,7 @@
 package com.example.zapbites.Order;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
+import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,6 +28,9 @@ public class OrderService {
     }
 
     public Order createOrder(Order order) {
+        if (orderRepository.findById(order.getId()).isPresent()) {
+            throw new DuplicateOrderException("Order with Id " + order.getId() + " already exists");
+        }
         return orderRepository.save(order);
     }
 
@@ -34,7 +38,7 @@ public class OrderService {
         try {
             return orderRepository.save(order);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("The order with id " + order.getId() + " not found.", e);
+            throw new OrderNotFoundException("The order with id " + order.getId() + " not found.", e);
         }
     }
 
@@ -42,7 +46,7 @@ public class OrderService {
         try {
             orderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("The order with id " + id + " not found.", e);
+            throw new OrderNotFoundException("The order with id " + id + " not found.", e);
         }
     }
 }

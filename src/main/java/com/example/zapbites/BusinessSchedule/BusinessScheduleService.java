@@ -1,9 +1,10 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
+import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class BusinessScheduleService {
 
     public BusinessSchedule createBusinessSchedule(BusinessSchedule businessSchedule) {
         if (businessScheduleRepository.findById(businessSchedule.getId()).isPresent()) {
-            throw new DuplicateBusinessException("This business already has a Schedule. You can update the existing one.");
+            throw new DuplicateBusinessScheduleException("This business already has a Schedule. You can update the existing one.");
         }
         return businessScheduleRepository.save(businessSchedule);
     }
@@ -39,8 +40,8 @@ public class BusinessScheduleService {
     public BusinessSchedule updateBusinessSchedule(BusinessSchedule updatedBusinessSchedule) {
         try {
             return businessScheduleRepository.save(updatedBusinessSchedule);
-        } catch (IllegalArgumentException e) {
-            throw new EntityNotFoundException("BusinessSchedule with id " + updatedBusinessSchedule.getId() + "not found");
+        } catch (DataAccessException e) {
+            throw new BusinessScheduleNotFoundException("Business with id " + updatedBusinessSchedule.getId() + " not found.", e);
             // in the future the exception message might be replaced with "BusinessSchedule  for " + business + 'not found"
         }
     }
@@ -49,7 +50,7 @@ public class BusinessScheduleService {
         try {
             businessScheduleRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("BusinessSchedule with id " + id + "not found");
+            throw new BusinessScheduleNotFoundException("Business schedule with id " + id + " not found", e);
         }
     }
 }

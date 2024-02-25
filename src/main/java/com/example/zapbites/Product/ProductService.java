@@ -1,9 +1,11 @@
 package com.example.zapbites.Product;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Product.Exceptions.DuplicateProductException;
+import com.example.zapbites.Product.Exceptions.ProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,15 +33,17 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
+        if (productRepository.findById(product.getId()).isPresent()) {
+            throw new DuplicateProductException("Product " + product.getName() + " already exists");
+        }
         return productRepository.save(product);
-
     }
 
     public Product updateProduct(Product product) {
         try {
             return productRepository.save(product);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("the product with id " + product.getId() + " not found.", e);
+            throw new ProductNotFoundException("the product with id " + product.getId() + " not found.", e);
         }
 
     }
@@ -47,8 +51,8 @@ public class ProductService {
     public void deleteProduct(Long id) {
         try {
             productRepository.deleteById(id);
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("the product with id " + id + " not found.", e);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ProductNotFoundException("the product with id " + id + " not found.", e);
         }
     }
 }

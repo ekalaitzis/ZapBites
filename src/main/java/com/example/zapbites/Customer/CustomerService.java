@@ -1,5 +1,7 @@
 package com.example.zapbites.Customer;
 
+import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
+import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class CustomerService {
     }
 
     public Customer createCustomer(Customer customer) {
+        if (customerRepository.findById(customer.getId()).isPresent()) {
+            throw new DuplicateBusinessException("customer with email " + customer.getEmail() + " already exists");
+        }
         return customerRepository.save(customer);
     }
 
@@ -36,7 +41,7 @@ public class CustomerService {
         try {
             return customerRepository.save(customer);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("Customer wih id " + customer.getId() + " not found");
+            throw new CustomerNotFoundException("Customer wih id " + customer.getId() + " not found");
         }
     }
 
@@ -44,7 +49,7 @@ public class CustomerService {
         try {
             customerRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("Customer wih id " + id + " not found", e);
+            throw new CustomerNotFoundException("Customer wih id " + id + " not found", e);
         }
     }
 }

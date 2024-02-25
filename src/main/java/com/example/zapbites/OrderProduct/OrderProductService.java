@@ -1,6 +1,7 @@
 package com.example.zapbites.OrderProduct;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.OrderProduct.Exceptions.DuplicateOrderProductException;
+import com.example.zapbites.OrderProduct.Exceptions.OrderProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,6 +28,9 @@ public class OrderProductService {
     }
 
     public OrderProduct createOrderProduct(OrderProduct orderProduct) {
+        if (orderProductRepository.findById(orderProduct.getId()).isPresent()) {
+            throw new DuplicateOrderProductException("OrderProduct  " + orderProduct + " already exists");
+        }
         return orderProductRepository.save(orderProduct);
     }
 
@@ -34,7 +38,7 @@ public class OrderProductService {
         try {
             return orderProductRepository.save(orderProduct);
         } catch (DataAccessException e) {
-            throw new EntityNotFoundException("The orderProduct with id " + orderProduct.getOrderId() + " not found.", e);
+            throw new OrderProductNotFoundException("The orderProduct with id " + orderProduct.getOrderId() + " not found.", e);
         }
 
     }
@@ -43,7 +47,7 @@ public class OrderProductService {
         try {
             orderProductRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException("The orderProduct with id " + id + " not found.", e);
+            throw new OrderProductNotFoundException("The orderProduct with id " + id + " not found.", e);
         }
     }
 }

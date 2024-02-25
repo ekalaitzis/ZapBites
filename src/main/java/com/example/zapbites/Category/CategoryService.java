@@ -1,8 +1,9 @@
 package com.example.zapbites.Category;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.zapbites.Category.Exceptions.CategoryNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,8 @@ public class CategoryService {
     public Category updateCategory(Category category) {
         try {
             return categoryRepository.save(category);
-        } catch (IllegalArgumentException e) {
-            throw new EntityNotFoundException("Category with id " + category.getId() + " not found.");
+        } catch (DataAccessException e) {
+            throw new CategoryNotFoundException("Category with id " + category.getId() + " not found.");
         }
     }
 
@@ -44,7 +45,8 @@ public class CategoryService {
         try {
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("Category with id " + id + " not found");
+            throw new CategoryNotFoundException("Business with id " + id + " not found", e);
+
         }
     }
 

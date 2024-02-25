@@ -1,8 +1,5 @@
-package com.example.zapbites.BusinessTest;
+package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Business;
-import com.example.zapbites.Business.BusinessRepository;
-import com.example.zapbites.Business.BusinessService;
 import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import org.junit.jupiter.api.Test;
