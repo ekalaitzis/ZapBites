@@ -1,5 +1,6 @@
 package com.example.zapbites.BusinessSchedule;
 
+import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
 import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
 import jakarta.transaction.Transactional;
@@ -36,15 +37,16 @@ public class BusinessScheduleService {
         }
         return businessScheduleRepository.save(businessSchedule);
     }
-
     public BusinessSchedule updateBusinessSchedule(BusinessSchedule updatedBusinessSchedule) {
-        try {
+        List<BusinessSchedule> allBusinessSchedules = getAllBusinessSchedules();
+
+        if (allBusinessSchedules.stream().anyMatch(b -> b.getId().equals(updatedBusinessSchedule.getId()))) {
             return businessScheduleRepository.save(updatedBusinessSchedule);
-        } catch (DataAccessException e) {
-            throw new BusinessScheduleNotFoundException("Business with id " + updatedBusinessSchedule.getId() + " not found.", e);
-            // in the future the exception message might be replaced with "BusinessSchedule  for " + business + 'not found"
+        } else {
+            throw new BusinessScheduleNotFoundException("Business schedule with id " + updatedBusinessSchedule.getId() + " not found.");
         }
     }
+
 
     public void deleteBusinessSchedule(Long id) {
         try {

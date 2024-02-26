@@ -3,7 +3,6 @@ package com.example.zapbites.OrderProduct;
 import com.example.zapbites.OrderProduct.Exceptions.DuplicateOrderProductException;
 import com.example.zapbites.OrderProduct.Exceptions.OrderProductNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +33,14 @@ public class OrderProductService {
         return orderProductRepository.save(orderProduct);
     }
 
-    public OrderProduct updateOrderProduct(OrderProduct orderProduct) {
-        try {
-            return orderProductRepository.save(orderProduct);
-        } catch (DataAccessException e) {
-            throw new OrderProductNotFoundException("The orderProduct with id " + orderProduct.getOrderId() + " not found.", e);
-        }
+    public OrderProduct updateOrderProduct(OrderProduct updatedOrderProduct) {
+        List<OrderProduct> allOrderProducts = getAllOrderProducts();
 
+        if (allOrderProducts.stream().anyMatch(op -> op.getId().equals(updatedOrderProduct.getId()))) {
+            return orderProductRepository.save(updatedOrderProduct);
+        } else {
+            throw new OrderProductNotFoundException("OrderProduct with id " + updatedOrderProduct.getId() + " not found.");
+        }
     }
 
     public void deleteOrderProductById(Long id) {

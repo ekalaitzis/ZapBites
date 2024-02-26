@@ -39,7 +39,7 @@ public class MenuController {
     @PostMapping
     public ResponseEntity<Object> createMenu(@Valid @RequestBody Menu menu) {
         try {
-            Menu createdMenu = menuService.createmenu(menu);
+            Menu createdMenu = menuService.createMenu(menu);
             return new ResponseEntity<>(createdMenu, HttpStatus.CREATED);
         } catch (DuplicateMenuException e) {
             return new ResponseEntity<>("This Menu already exists.", HttpStatus.BAD_REQUEST);

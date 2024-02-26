@@ -3,7 +3,6 @@ package com.example.zapbites.Order;
 import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
 import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +33,13 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order updateOrder(Order order) {
-        try {
-            return orderRepository.save(order);
-        } catch (DataAccessException e) {
-            throw new OrderNotFoundException("The order with id " + order.getId() + " not found.", e);
+    public Order updateOrder(Order updatedOrder) {
+        List<Order> allOrders = getAllOrders();
+
+        if (allOrders.stream().anyMatch(o -> o.getId().equals(updatedOrder.getId()))) {
+            return orderRepository.save(updatedOrder);
+        } else {
+            throw new OrderNotFoundException("Order with id " + updatedOrder.getId() + " not found.");
         }
     }
 

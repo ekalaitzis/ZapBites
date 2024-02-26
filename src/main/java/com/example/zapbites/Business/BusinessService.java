@@ -39,10 +39,12 @@ public class BusinessService {
 
 
     public Business updateBusiness(Business updatedBusiness) {
-        try {
+        List<Business> allBusinesses = getAllBusinesses();
+
+        if (allBusinesses.stream().anyMatch(b -> b.getId().equals(updatedBusiness.getId()))) {
             return businessRepository.save(updatedBusiness);
-        } catch (DataAccessException e) {
-            throw new BusinessNotFoundException("Business with id " + updatedBusiness.getId() + " not found.", e);
+        } else {
+            throw new BusinessNotFoundException("Business with id " + updatedBusiness.getCompanyName() + " not found.");
         }
     }
 

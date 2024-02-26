@@ -3,7 +3,6 @@ package com.example.zapbites.Category;
 import com.example.zapbites.Category.Exceptions.CategoryNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +32,25 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category updateCategory(Category category) {
-        try {
-            return categoryRepository.save(category);
-        } catch (DataAccessException e) {
-            throw new CategoryNotFoundException("Category with id " + category.getId() + " not found.");
+    public Category updateCategory(Category updatedCategory) {
+        Long categoryId = updatedCategory.getId();
+        List<Category> allCategories = getAllCategories();
+
+        if (allCategories.stream().anyMatch(c -> c.getId().equals(updatedCategory.getId()))) {
+            return categoryRepository.save(updatedCategory);
+        } else {
+            throw new CategoryNotFoundException("Category with id " + updatedCategory.getName() + " not found.");
         }
     }
+
+
+
 
     public void deleteCategoryById(Long id) {
         try {
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new CategoryNotFoundException("Business with id " + id + " not found", e);
-
         }
     }
 

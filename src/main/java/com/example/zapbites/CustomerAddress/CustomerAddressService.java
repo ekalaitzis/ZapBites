@@ -3,7 +3,6 @@ package com.example.zapbites.CustomerAddress;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -35,10 +34,12 @@ public class CustomerAddressService {
     }
 
     public CustomerAddress updateCustomerAddress(CustomerAddress updatedCustomerAddress) {
-        try {
+        List<CustomerAddress> allCustomerAddresses = getAllCustomerAddresses();
+
+        if (allCustomerAddresses.stream().anyMatch(c -> c.getId().equals(updatedCustomerAddress.getId()))) {
             return customerAddressRepository.save(updatedCustomerAddress);
-        } catch (DataAccessException e) {
-            throw new CustomerAddressNotFoundException("CustomerAddress with id " + updatedCustomerAddress.getId() + " not found.", e);
+        } else {
+            throw new CustomerAddressNotFoundException("CustomerAddress with id " + updatedCustomerAddress.getId() + " not found.");
         }
     }
 

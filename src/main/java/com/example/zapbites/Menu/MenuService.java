@@ -4,7 +4,6 @@ import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
 import com.example.zapbites.Menu.Exceptions.MenuNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -30,19 +29,20 @@ public class MenuService {
         return menuRepository.findById(id);
     }
 
-    public Menu createmenu(Menu menu) {
+    public Menu createMenu(Menu menu) {
         if (menuRepository.findById(menu.getId()).isPresent()) {
             throw new DuplicateMenuException("Menu " + menu.getName() + " already exists");
         }
         return menuRepository.save(menu);
     }
 
-    public Menu updateMenu(Menu menu) {
-        try {
-            Menu updateMenu = menuRepository.save(menu);
-            return updateMenu;
-        } catch (DataAccessException e) {
-            throw new MenuNotFoundException("Menu with id " + menu.getId() + " not found", e);
+    public Menu updateMenu(Menu updatedMenu) {
+        List<Menu> allMenus = getAllMenus();
+
+        if (allMenus.stream().anyMatch(m -> m.getId().equals(updatedMenu.getId()))) {
+            return menuRepository.save(updatedMenu);
+        } else {
+            throw new MenuNotFoundException("Menu with id " + updatedMenu.getId() + " not found.");
         }
     }
 
