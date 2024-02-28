@@ -1,6 +1,7 @@
 package com.example.zapbites.OrderStatus;
 
 import com.example.zapbites.OrderStatus.Exceptions.DuplicateOrderStatusException;
+import com.example.zapbites.OrderStatus.Exceptions.OrderStatusNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class OrderStatusController {
         try {
             OrderStatus updatedOrderStatus = orderStatusService.updateOrderStatus(orderStatus);
             return new ResponseEntity<>(updatedOrderStatus, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (OrderStatusNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

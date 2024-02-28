@@ -1,6 +1,7 @@
 package com.example.zapbites.Ingredient;
 
 import com.example.zapbites.Ingredient.Exceptions.DuplicateIngredientException;
+import com.example.zapbites.Ingredient.Exceptions.IngredientNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class IngredientController {
         try {
             Ingredient updatedIngredient = ingredientService.updateIngredient(ingredient);
             return new ResponseEntity<>(updatedIngredient, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (IngredientNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

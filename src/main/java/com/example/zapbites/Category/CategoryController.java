@@ -1,5 +1,6 @@
 package com.example.zapbites.Category;
 
+import com.example.zapbites.Category.Exceptions.CategoryNotFoundException;
 import com.example.zapbites.Category.Exceptions.DuplicateCategoryException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -51,7 +52,7 @@ public class CategoryController {
         try {
             Category updatedCategory = categoryService.updateCategory(category);
             return new ResponseEntity<>(category, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (CategoryNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

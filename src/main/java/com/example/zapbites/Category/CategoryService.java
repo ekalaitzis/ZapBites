@@ -43,9 +43,6 @@ public class CategoryService {
         }
     }
 
-
-
-
     public void deleteCategoryById(Long id) {
         try {
             categoryRepository.deleteById(id);
@@ -53,6 +50,4 @@ public class CategoryService {
             throw new CategoryNotFoundException("Business with id " + id + " not found", e);
         }
     }
-
-
 }

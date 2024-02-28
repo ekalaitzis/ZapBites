@@ -1,9 +1,9 @@
 package com.example.zapbites.Product;
 
 import com.example.zapbites.Product.Exceptions.DuplicateProductException;
+import com.example.zapbites.Product.Exceptions.ProductNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +50,7 @@ public class ProductController {
         try {
             Product updatedProduct = productService.updateProduct(product);
             return new ResponseEntity(updatedProduct, HttpStatus.OK);
-        } catch (DataAccessException e) {
+        } catch (ProductNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -59,7 +59,7 @@ public class ProductController {
 
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

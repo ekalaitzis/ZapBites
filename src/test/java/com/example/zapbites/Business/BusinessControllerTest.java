@@ -1,6 +1,7 @@
 package com.example.zapbites.Business;
 
 
+import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +37,7 @@ public class BusinessControllerTest {
 
     @BeforeEach
     void init() {
+        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         testBusiness = new Business(1L, "Test Company", "test@example.com", "password123", "1234567890", "1234567890");
     }
 
@@ -47,8 +49,8 @@ public class BusinessControllerTest {
         businessList.add(new Business());
         when(businessService.getAllBusinesses()).thenReturn(businessList);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(get("/business")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray()).andExpect(jsonPath("$.length()").value(2));
+        verify(businessService, times(1)).getAllBusinesses();
     }
 
     @Test
@@ -56,8 +58,8 @@ public class BusinessControllerTest {
     void getBusinessById_WithValidId_ShouldReturnBusiness() throws Exception {
         when(businessService.getBusinessById(testBusiness.getId())).thenReturn(Optional.of(testBusiness));
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(get("/business/{id}", testBusiness.getId())).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(testBusiness.getId()));
+        verify(businessService, times(1)).getBusinessById(testBusiness.getId());
     }
 
     @Test
@@ -66,8 +68,8 @@ public class BusinessControllerTest {
         Long businessId = 99L;
         when(businessService.getBusinessById(businessId)).thenReturn(Optional.empty());
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(get("/business/{id}", businessId)).andExpect(status().isNotFound());
+        verify(businessService, times(1)).getBusinessById(businessId);
     }
 
     @Test
@@ -75,7 +77,6 @@ public class BusinessControllerTest {
     void createBusiness_WithValidBusiness_ShouldReturnCreatedBusiness() throws Exception {
         when(businessService.createBusiness(testBusiness)).thenReturn(testBusiness);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         String response = mockMvc.perform(post("/business").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(testBusiness))).andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
 
         System.out.println("Response: " + response);
@@ -87,7 +88,6 @@ public class BusinessControllerTest {
     void createBusiness_WithDuplicateEmail_ShouldReturnBadRequest() throws Exception {
         when(businessService.createBusiness(testBusiness)).thenThrow(new DuplicateBusinessException("Business with this email already exists"));
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(post("/business").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(testBusiness))).andExpect(status().isBadRequest()).andExpect(content().string("Business with this email already exists"));
     }
 
@@ -105,8 +105,8 @@ public class BusinessControllerTest {
 
         when(businessService.updateBusiness(any(Business.class))).thenReturn(updatedBusiness);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(put("/business/{id}", businessId).contentType(MediaType.APPLICATION_JSON).content("{\"id\":89, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}")).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(businessId)).andExpect(jsonPath("$.companyName").value("UpdatedCompany"));
+        verify(businessService, times(1)).updateBusiness(any(Business.class));
     }
 
 
@@ -117,10 +117,10 @@ public class BusinessControllerTest {
         Business business = new Business();
         business.setId(businessId);
 
-        when(businessService.updateBusiness(business)).thenThrow(new EntityNotFoundException());
+        when(businessService.updateBusiness(business)).thenThrow(new BusinessNotFoundException(" "));
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(put("/business/{id}", businessId).contentType(MediaType.APPLICATION_JSON).content("{\"id\":1, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}")).andExpect(status().isNotFound());
+        verify(businessService, times(1)).updateBusiness(business);
     }
 
     @Test
@@ -128,7 +128,6 @@ public class BusinessControllerTest {
     void deleteBusinessById_WithValidId_ShouldReturnNoContent() throws Exception {
         Long businessId = 1L;
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessController).build();
         mockMvc.perform(delete("/business/{id}", businessId)).andExpect(status().isNoContent());
 
         verify(businessService, times(1)).deleteBusinessById(businessId);

@@ -2,10 +2,10 @@ package com.example.zapbites.BusinessSchedule;
 
 
 import com.example.zapbites.Business.Business;
+import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,18 +55,20 @@ public class BusinessScheduleControllerTest {
 
         testBusiness = new Business(1L, "Test Company", "test@example.com", "password123", "1234567890", "1234567890");
         testBusinessSchedule = new BusinessSchedule(1L, LocalTime.of(6, 0), LocalTime.of(16, 0), testBusiness);
+        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
+
     }
 
-
     @Test
+    @DisplayName("Should return a list of all business schedules")
     public void getAllBusinessSchedulesShouldReturnAListOfBusinessSchedules() throws Exception {
         List<BusinessSchedule> businessScheduleList = new ArrayList<>();
         businessScheduleList.add(new BusinessSchedule(1L, LocalTime.of(9, 0), LocalTime.of(17, 0), new Business()));
         businessScheduleList.add(new BusinessSchedule(2L, LocalTime.of(10, 0), LocalTime.of(18, 0), new Business()));
         when(businessScheduleService.getAllBusinessSchedules()).thenReturn(businessScheduleList);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
         mockMvc.perform(get("/businessSchedule")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray()).andExpect(jsonPath("$.length()").value(2));
+        verify(businessScheduleService, times(1)).getAllBusinessSchedules();
     }
 
     @Test
@@ -74,8 +76,8 @@ public class BusinessScheduleControllerTest {
     void getBusinessById_WithValidId_ShouldReturnBusiness() throws Exception {
         when(businessScheduleService.getBusinessScheduleById(testBusiness.getId())).thenReturn(Optional.of(testBusinessSchedule));
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
         mockMvc.perform(get("/businessSchedule/{id}", testBusiness.getId())).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(testBusinessSchedule.getId()));
+        verify(businessScheduleService, times(1)).getBusinessScheduleById(testBusinessSchedule.getId());
     }
 
     @Test
@@ -84,8 +86,8 @@ public class BusinessScheduleControllerTest {
         Long businessScheduleId = 99L;
         when(businessScheduleService.getBusinessScheduleById(businessScheduleId)).thenReturn(Optional.empty());
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
         mockMvc.perform(get("/businessSchedule/{id}", businessScheduleId)).andExpect(status().isNotFound());
+        verify(businessScheduleService, times(1)).getBusinessScheduleById(businessScheduleId);
     }
 
     @Test
@@ -93,10 +95,14 @@ public class BusinessScheduleControllerTest {
     void createBusinessSchedule_WithValidBusinessSchedule_ShouldReturnCreatedBusinessSchedule() throws Exception {
         when(businessScheduleService.createBusinessSchedule(testBusinessSchedule)).thenReturn(testBusinessSchedule);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
-        String response = mockMvc.perform(post("/businessSchedule").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(testBusinessSchedule))).andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+        mockMvc.perform(post("/businessSchedule")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(testBusinessSchedule)))
+                .andExpect(status().isCreated())  // Asserting the response status code
+                .andExpect(jsonPath("$.id").value(testBusinessSchedule.getId()));  // Asserting the response body contains the correct ID
 
-        System.out.println("Response: " + response);
+        // Verifying that the service method was called once
+        verify(businessScheduleService, times(1)).createBusinessSchedule(testBusinessSchedule);
     }
 
     //The following test needs to be revised
@@ -121,12 +127,12 @@ public class BusinessScheduleControllerTest {
         when(businessScheduleService.updateBusinessSchedule(any(BusinessSchedule.class))).thenReturn(updatedSchedule);
 
         // Building the mockMvc instance
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
 
         // Performing the PUT request and verifying the response
         mockMvc.perform(put("/businessSchedule/{id}", scheduleId).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updatedSchedule))).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(scheduleId));
 //                .andExpect(jsonPath("$.openingTime").value("9:0")) //Failing the test. Problems with serialization of LocalTime to json
 //                .andExpect(jsonPath("$.closingTime").value("18:00")); //Failing the test. Problems with serialization of LocalTime to json
+        verify(businessScheduleService, times(1)).updateBusinessSchedule(updatedSchedule);
     }
 
 
@@ -137,9 +143,8 @@ public class BusinessScheduleControllerTest {
         BusinessSchedule schedule = new BusinessSchedule();
         schedule.setId(scheduleId);
 
-        when(businessScheduleService.updateBusinessSchedule(schedule)).thenThrow(new EntityNotFoundException());
+        when(businessScheduleService.updateBusinessSchedule(schedule)).thenThrow(new BusinessScheduleNotFoundException(" "));
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
         mockMvc.perform(put("/businessSchedule/{id}", scheduleId).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(schedule))).andExpect(status().isNotFound());
     }
 
@@ -148,7 +153,6 @@ public class BusinessScheduleControllerTest {
     void deleteBusinessScheduleById_WithValidId_ShouldReturnNoContent() throws Exception {
         Long scheduleId = 1L;
 
-        mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
         mockMvc.perform(delete("/businessSchedule/{id}", scheduleId)).andExpect(status().isNoContent());
 
         verify(businessScheduleService, times(1)).deleteBusinessSchedule(scheduleId);

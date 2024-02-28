@@ -1,5 +1,6 @@
 package com.example.zapbites.BusinessSchedule;
 
+import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
 import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class BusinessScheduleController {
         try {
             var updatedBusinessSchedule = businessScheduleService.updateBusinessSchedule(businessSchedule);
             return new ResponseEntity<>(updatedBusinessSchedule, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (BusinessScheduleNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

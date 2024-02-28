@@ -1,5 +1,6 @@
 package com.example.zapbites.CustomerAddress;
 
+import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
 import com.example.zapbites.CustomerAddress.Exceptions.DuplicateCustomerAddressException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -50,7 +51,7 @@ public class CustomerAddressController {
         try {
             CustomerAddress updatedCustomerAddress = customerAddressService.updateCustomerAddress(customerAddress);
             return new ResponseEntity<>(updatedCustomerAddress, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (CustomerAddressNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

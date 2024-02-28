@@ -1,6 +1,7 @@
 package com.example.zapbites.Menu;
 
 import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
+import com.example.zapbites.Menu.Exceptions.MenuNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class MenuController {
         try {
             Menu updatedMenu = menuService.updateMenu(menu);
             return new ResponseEntity<>(updatedMenu, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (MenuNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

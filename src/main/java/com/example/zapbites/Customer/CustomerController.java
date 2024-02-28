@@ -1,5 +1,6 @@
 package com.example.zapbites.Customer;
 
+import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -51,7 +52,7 @@ public class CustomerController {
         try {
             Customer updateCustomer = customerService.updateCustomer(customer);
             return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
+        } catch (CustomerNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
