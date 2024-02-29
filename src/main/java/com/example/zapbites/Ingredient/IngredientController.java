@@ -2,13 +2,13 @@ package com.example.zapbites.Ingredient;
 
 import com.example.zapbites.Ingredient.Exceptions.DuplicateIngredientException;
 import com.example.zapbites.Ingredient.Exceptions.IngredientNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +23,13 @@ public class IngredientController {
 
     }
 
+
+    @GetMapping
+    public ResponseEntity<List<Ingredient>> getAllIngredients() {
+        List<Ingredient> ingredients = ingredientService.getAllIngredients();
+        return new ResponseEntity<>(ingredients, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Ingredient> getIngredientById(@PathVariable Long id) {
         Optional<Ingredient> optionalIngredient = ingredientService.getIngredientById(id);
@@ -34,7 +41,7 @@ public class IngredientController {
         try {
             Ingredient createdingredient = ingredientService.createIngredient(ingredient);
             return new ResponseEntity<>(createdingredient, HttpStatus.CREATED);
-        } catch (DuplicateIngredientException e) {
+        } catch (DuplicateIngredientException e) { // this might not be needed in the future
             return new ResponseEntity<>("This Ingredient already exists.", HttpStatus.BAD_REQUEST);
         }
     }

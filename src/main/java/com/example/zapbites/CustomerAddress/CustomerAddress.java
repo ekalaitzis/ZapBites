@@ -19,7 +19,6 @@ public class CustomerAddress {
     @NotBlank
     @Column(name = "address", nullable = false, length = 65535)
     private String address;
-    @NotBlank
     @Column(name = "geolocation", nullable = false)
     private Point geolocation;
     @ManyToOne(cascade = CascadeType.ALL)

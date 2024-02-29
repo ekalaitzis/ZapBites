@@ -41,7 +41,7 @@ public class CustomerAddressController {
         try {
             var createdCustomerAddress = customerAddressService.createCustomerAddress(customerAddress);
             return new ResponseEntity<>(createdCustomerAddress, HttpStatus.CREATED);
-        } catch (DuplicateCustomerAddressException e) {
+        } catch (DuplicateCustomerAddressException e) { //this might not be needed as a customer might have multiple addresses//
             return new ResponseEntity<>("This Address already exists.", HttpStatus.BAD_REQUEST);
         }
     }

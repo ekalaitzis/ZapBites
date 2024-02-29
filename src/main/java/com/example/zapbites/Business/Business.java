@@ -32,7 +32,7 @@ public class Business {
     private String telephone;
     @NotBlank
 //    @Size(min = 10, max = 10)
-    @Column(name = "tax_id_number", nullable = false)
+    @Column(name = "tax_id_number", nullable = false, unique = true)
     private String taxIdNumber;
 
     public Business() {

@@ -68,7 +68,8 @@ public class BusinessControllerTest {
         Long businessId = 99L;
         when(businessService.getBusinessById(businessId)).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/business/{id}", businessId)).andExpect(status().isNotFound());
+        mockMvc.perform(get("/business/{id}", businessId))
+                .andExpect(status().isNotFound());
         verify(businessService, times(1)).getBusinessById(businessId);
     }
 
@@ -105,7 +106,16 @@ public class BusinessControllerTest {
 
         when(businessService.updateBusiness(any(Business.class))).thenReturn(updatedBusiness);
 
-        mockMvc.perform(put("/business/{id}", businessId).contentType(MediaType.APPLICATION_JSON).content("{\"id\":89, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}")).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(businessId)).andExpect(jsonPath("$.companyName").value("UpdatedCompany"));
+        mockMvc.perform(put("/business/{id}", businessId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"id\":89, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}"))
+                        .andExpect(status()
+                        .isOk())
+                        .andExpect(jsonPath("$.id")
+                        .value(businessId))
+                        .andExpect(jsonPath("$.companyName")
+                        .value("UpdatedCompany"));
+
         verify(businessService, times(1)).updateBusiness(any(Business.class));
     }
 
@@ -119,7 +129,10 @@ public class BusinessControllerTest {
 
         when(businessService.updateBusiness(business)).thenThrow(new BusinessNotFoundException(" "));
 
-        mockMvc.perform(put("/business/{id}", businessId).contentType(MediaType.APPLICATION_JSON).content("{\"id\":1, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}")).andExpect(status().isNotFound());
+        mockMvc.perform(put("/business/{id}", businessId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\":1, \"companyName\":\"UpdatedCompany\", \"email\":\"updated@example.com\", \"password\":\"updatedPassword\", \"telephone\":\"1234567890\", \"taxIdNumber\":\"12345678901234\"}"))
+                .andExpect(status().isNotFound());
         verify(businessService, times(1)).updateBusiness(business);
     }
 

@@ -61,7 +61,7 @@ public class BusinessScheduleControllerTest {
 
     @Test
     @DisplayName("Should return a list of all business schedules")
-    public void getAllBusinessSchedulesShouldReturnAListOfBusinessSchedules() throws Exception {
+    public void getAllBusinessSchedules_ShouldReturnListOfBusinessSchedules() throws Exception {
         List<BusinessSchedule> businessScheduleList = new ArrayList<>();
         businessScheduleList.add(new BusinessSchedule(1L, LocalTime.of(9, 0), LocalTime.of(17, 0), new Business()));
         businessScheduleList.add(new BusinessSchedule(2L, LocalTime.of(10, 0), LocalTime.of(18, 0), new Business()));

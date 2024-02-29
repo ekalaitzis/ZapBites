@@ -41,7 +41,7 @@ public class ProductController {
             Product createdProduct = productService.createProduct(product);
             return new ResponseEntity(createdProduct, HttpStatus.CREATED);
         } catch (DuplicateProductException e) {
-            return new ResponseEntity<>("This Category already exists.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("This Product already exists.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -61,5 +61,4 @@ public class ProductController {
         productService.deleteProduct(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
 }
