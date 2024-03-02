@@ -17,6 +17,9 @@ public class BusinessSchedule {
     @Column(name = "id")
     private Long id;
     @NotBlank
+    @NotBlank
+    @Column(name = "weekday", nullable = false)
+    private String weekday;
     @Column(name = "opening", nullable = false)
     private LocalTime openingTime;
     @NotBlank
@@ -30,8 +33,9 @@ public class BusinessSchedule {
     public BusinessSchedule() {
     }
 
-    public BusinessSchedule(Long id, LocalTime openingTime, LocalTime closingTime, Business business) {
+    public BusinessSchedule(Long id, String weekday, LocalTime openingTime, LocalTime closingTime, Business business) {
         this.id = id;
+        this.weekday = weekday;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.business = business;
@@ -43,6 +47,14 @@ public class BusinessSchedule {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(String weekday) {
+        this.weekday = weekday;
     }
 
     public LocalTime getOpeningTime() {
@@ -73,6 +85,7 @@ public class BusinessSchedule {
     public String toString() {
         return "BusinessSchedule{" +
                 "id=" + id +
+                ", weekday='" + weekday + '\'' +
                 ", openingTime=" + openingTime +
                 ", closingTime=" + closingTime +
                 ", business=" + business +
@@ -84,11 +97,11 @@ public class BusinessSchedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BusinessSchedule that = (BusinessSchedule) o;
-        return Objects.equals(id, that.id) && Objects.equals(openingTime, that.openingTime) && Objects.equals(closingTime, that.closingTime) && Objects.equals(business, that.business);
+        return Objects.equals(id, that.id) && Objects.equals(weekday, that.weekday) && Objects.equals(openingTime, that.openingTime) && Objects.equals(closingTime, that.closingTime) && Objects.equals(business, that.business);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, openingTime, closingTime, business);
+        return Objects.hash(id, weekday, openingTime, closingTime, business);
     }
 }

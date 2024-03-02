@@ -54,7 +54,7 @@ public class BusinessScheduleControllerTest {
         objectMapper.setDateFormat(dateFormat);
 
         testBusiness = new Business(1L, "Test Company", "test@example.com", "password123", "1234567890", "1234567890");
-        testBusinessSchedule = new BusinessSchedule(1L, LocalTime.of(6, 0), LocalTime.of(16, 0), testBusiness);
+        testBusinessSchedule = new BusinessSchedule(1L,"Monday", LocalTime.of(6, 0), LocalTime.of(16, 0), testBusiness);
         mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
 
     }
@@ -63,8 +63,8 @@ public class BusinessScheduleControllerTest {
     @DisplayName("Should return a list of all business schedules")
     public void getAllBusinessSchedules_ShouldReturnListOfBusinessSchedules() throws Exception {
         List<BusinessSchedule> businessScheduleList = new ArrayList<>();
-        businessScheduleList.add(new BusinessSchedule(1L, LocalTime.of(9, 0), LocalTime.of(17, 0), new Business()));
-        businessScheduleList.add(new BusinessSchedule(2L, LocalTime.of(10, 0), LocalTime.of(18, 0), new Business()));
+        businessScheduleList.add(testBusinessSchedule);
+        businessScheduleList.add(testBusinessSchedule);
         when(businessScheduleService.getAllBusinessSchedules()).thenReturn(businessScheduleList);
 
         mockMvc.perform(get("/businessSchedule")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray()).andExpect(jsonPath("$.length()").value(2));

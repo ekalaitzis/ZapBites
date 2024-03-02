@@ -19,11 +19,12 @@ public class BusinessScheduleTest {
         String expectedTelephone = "1234567890";
         String expectedTaxIdNumber = "ABC123";
         Long expectedScheduleId = 1L;
+        String expectedWeekday = "Monday";
         LocalTime expectedOpeningTime = LocalTime.of(6, 0);
         LocalTime expectedClosingTime = LocalTime.of(18, 0);
         Business expectedBusiness = new Business(expectedScheduleId, expectedCompanyName, expectedEmail, expectedPassword, expectedTelephone, expectedTaxIdNumber);
 
-        BusinessSchedule businessSchedule = new BusinessSchedule(expectedId, expectedOpeningTime, expectedClosingTime, expectedBusiness);
+        BusinessSchedule businessSchedule = new BusinessSchedule(expectedId,expectedWeekday, expectedOpeningTime, expectedClosingTime, expectedBusiness);
 
         assertNotNull(businessSchedule);
         assertEquals(expectedScheduleId, businessSchedule.getId());

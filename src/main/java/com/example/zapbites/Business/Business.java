@@ -12,10 +12,8 @@ import java.util.Objects;
 public class Business {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
-//    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
+    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
     private Long id;
     @Column(name = "company_name", nullable = false)
     private String companyName;

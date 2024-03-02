@@ -25,15 +25,16 @@ CREATE TABLE business (
     telephone           VARCHAR(15)    NOT NULL,
     tax_id_number       VARCHAR(255)    NOT NULL
 );
-comment on table business is 'This is the business'; 
+comment on table business is 'This is the business';
 comment on column business.company_name is 'The name of the business ex. Flavors of Curry';
 comment on column business.email is 'The email of the business Eg. flavor@curry.al';
-comment on column business.password is 'The password of the business account on ZapBites'; 
+comment on column business.password is 'The password of the business account on ZapBites';
 comment on column business.telephone is 'The telephone of the business Eg.1234567890';
 comment on column business.tax_id_number is 'The unique tax identification number of the business';
 
 CREATE TABLE business_schedule (
     id                  SERIAL          PRIMARY KEY,
+    weekday             VARCHAR(255)    NOT NULL,
     opening             time            NOT NULL,
     closing             time            NOT NULL,
     business_id         INTEGER         NOT NULL,
@@ -42,9 +43,9 @@ CREATE TABLE business_schedule (
         REFERENCES business(id)
         ON DELETE CASCADE
 );
-comment on table business_schedule is ' this is the business schedule'; 
-comment on column business_schedule.opening is ' this is the opening business schedule'; 
-comment on column business_schedule.closing is ' this is the closing business schedule'; 
+comment on table business_schedule is ' this is the business schedule';
+comment on column business_schedule.opening is ' this is the opening business schedule';
+comment on column business_schedule.closing is ' this is the closing business schedule';
 
 CREATE TABLE menu (
     id                  SERIAL          PRIMARY KEY,
@@ -137,7 +138,7 @@ comment on table customer is 'The user of the ZapBites application';
 comment on column customer.first_name is 'The first name of the user';
 comment on column customer.last_name is 'The last name of the user';
 comment on column customer.email is 'The email of the user';
-comment on column customer.password is 'The password of the user account on ZapBites'; 
+comment on column customer.password is 'The password of the user account on ZapBites';
 comment on column customer.telephone is 'The telephone of the user Eg.1234567890';
 
 CREATE TABLE customer_address (
