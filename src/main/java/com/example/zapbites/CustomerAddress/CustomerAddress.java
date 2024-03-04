@@ -1,6 +1,8 @@
 package com.example.zapbites.CustomerAddress;
 
 import com.example.zapbites.Customer.Customer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -21,17 +23,21 @@ public class CustomerAddress {
     private String address;
     @Column(name = "geolocation", nullable = false)
     private Point geolocation;
+    @Column(name = "primary_address")
+    private boolean primary;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_customer"))
+    @JsonBackReference
     private Customer customer;
 
     public CustomerAddress() {
     }
 
-    public CustomerAddress(Long id, String address, Point geolocation, Customer customer) {
+    public CustomerAddress(Long id, String address, Point geolocation, boolean primary, Customer customer) {
         this.id = id;
         this.address = address;
         this.geolocation = geolocation;
+        this.primary = primary;
         this.customer = customer;
     }
 
@@ -59,6 +65,14 @@ public class CustomerAddress {
         this.geolocation = geolocation;
     }
 
+    public boolean isPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -67,9 +81,10 @@ public class CustomerAddress {
         this.customer = customer;
     }
 
+
     @Override
     public String toString() {
-        return "CustomerAddress{" + "id=" + id + ", address='" + address + '\'' + ", geolocation=" + geolocation + ", customer=" + customer + '}';
+        return "CustomerAddress{" + "id=" + id + ", address='" + address + '\'' + ", geolocation=" + geolocation + ", primary=" + primary + ", customer=" + customer + '}';
     }
 
     @Override
@@ -77,11 +92,11 @@ public class CustomerAddress {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerAddress that = (CustomerAddress) o;
-        return Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(geolocation, that.geolocation) && Objects.equals(customer, that.customer);
+        return primary == that.primary && Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(geolocation, that.geolocation) && Objects.equals(customer, that.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, address, geolocation, customer);
+        return Objects.hash(id, address, geolocation, primary, customer);
     }
 }

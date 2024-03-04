@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS business_schedule;
 DROP TABLE IF EXISTS business;
 
 DROP TYPE IF EXISTS order_status_enum;
+DROP TYPE IF EXISTS day_of_week_enum;
 
 
 CREATE TABLE business (
@@ -32,20 +33,34 @@ comment on column business.password is 'The password of the business account on 
 comment on column business.telephone is 'The telephone of the business Eg.1234567890';
 comment on column business.tax_id_number is 'The unique tax identification number of the business';
 
+CREATE TYPE day_of_week_enum AS ENUM (
+    'SUNDAY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY',
+    'CLOSED'
+    );
+
 CREATE TABLE business_schedule (
-    id                  SERIAL          PRIMARY KEY,
-    weekday             VARCHAR(255)    NOT NULL,
-    opening             time            NOT NULL,
-    closing             time            NOT NULL,
-    business_id         INTEGER         NOT NULL,
-        CONSTRAINT fk_business_schedule
+    id          SERIAL          PRIMARY KEY,
+    day_of_week day_of_week_enum NOT NULL,
+    opening     TIME,
+    closing     TIME,
+    business_id INTEGER         NOT NULL,
+        CONSTRAINT fk_business_schedule_business_id
         FOREIGN KEY(business_id)
         REFERENCES business(id)
         ON DELETE CASCADE
 );
-comment on table business_schedule is ' this is the business schedule';
-comment on column business_schedule.opening is ' this is the opening business schedule';
-comment on column business_schedule.closing is ' this is the closing business schedule';
+
+COMMENT ON TABLE business_schedule IS 'The business schedule for each day.';
+COMMENT ON COLUMN business_schedule.day_of_week IS 'The day of the week.';
+COMMENT ON COLUMN business_schedule.opening IS 'The opening time of the business for the specific day.';
+COMMENT ON COLUMN business_schedule.closing IS 'The closing time of the business for the specific day.';
+COMMENT ON COLUMN business_schedule.business_id IS 'The ID of the business associated with the schedule.';
 
 CREATE TABLE menu (
     id                  SERIAL          PRIMARY KEY,
@@ -145,6 +160,7 @@ CREATE TABLE customer_address (
     id                  SERIAL          PRIMARY KEY,
     address             VARCHAR(65535)  NOT NULL,
     geolocation         POINT           NOT NULL,
+    primary_address     BOOLEAN         NOT NULL,
     customer_id         INTEGER         NOT NULL,
         CONSTRAINT fk_customer
         FOREIGN KEY(customer_id)

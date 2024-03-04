@@ -4,6 +4,7 @@ import com.example.zapbites.Business.Business;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -17,13 +18,12 @@ public class BusinessSchedule {
     @Column(name = "id")
     private Long id;
     @NotBlank
-    @NotBlank
     @Column(name = "weekday", nullable = false)
-    private String weekday;
-    @Column(name = "opening", nullable = false)
+    private DayOfWeek weekday;
+    @Column(name = "opening")
     private LocalTime openingTime;
     @NotBlank
-    @Column(name = "closing", nullable = false)
+    @Column(name = "closing")
     private LocalTime closingTime;
     @NotBlank
     @ManyToOne
@@ -33,12 +33,28 @@ public class BusinessSchedule {
     public BusinessSchedule() {
     }
 
-    public BusinessSchedule(Long id, String weekday, LocalTime openingTime, LocalTime closingTime, Business business) {
-        this.id = id;
-        this.weekday = weekday;
-        this.openingTime = openingTime;
-        this.closingTime = closingTime;
-        this.business = business;
+    @Override
+    public String toString() {
+        return "BusinessSchedule{" +
+                "id=" + id +
+                ", weekday=" + weekday +
+                ", openingTime=" + openingTime +
+                ", closingTime=" + closingTime +
+                ", business=" + business +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BusinessSchedule that = (BusinessSchedule) o;
+        return Objects.equals(id, that.id) && weekday == that.weekday && Objects.equals(openingTime, that.openingTime) && Objects.equals(closingTime, that.closingTime) && Objects.equals(business, that.business);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, weekday, openingTime, closingTime, business);
     }
 
     public Long getId() {
@@ -49,11 +65,11 @@ public class BusinessSchedule {
         this.id = id;
     }
 
-    public String getWeekday() {
+    public DayOfWeek getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(String weekday) {
+    public void setWeekday(DayOfWeek weekday) {
         this.weekday = weekday;
     }
 
@@ -81,27 +97,11 @@ public class BusinessSchedule {
         this.business = business;
     }
 
-    @Override
-    public String toString() {
-        return "BusinessSchedule{" +
-                "id=" + id +
-                ", weekday='" + weekday + '\'' +
-                ", openingTime=" + openingTime +
-                ", closingTime=" + closingTime +
-                ", business=" + business +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BusinessSchedule that = (BusinessSchedule) o;
-        return Objects.equals(id, that.id) && Objects.equals(weekday, that.weekday) && Objects.equals(openingTime, that.openingTime) && Objects.equals(closingTime, that.closingTime) && Objects.equals(business, that.business);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, weekday, openingTime, closingTime, business);
+    public BusinessSchedule(Long id, DayOfWeek weekday, LocalTime openingTime, LocalTime closingTime, Business business) {
+        this.id = id;
+        this.weekday = weekday;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+        this.business = business;
     }
 }

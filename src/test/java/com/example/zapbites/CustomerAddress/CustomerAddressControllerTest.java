@@ -43,15 +43,15 @@ public class CustomerAddressControllerTest {
     void init() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(customerAddressController).build();
-        testCustomerAddress = new CustomerAddress(1L, "123 Main St", new Point(1, 2), new Customer());
+        testCustomerAddress = new CustomerAddress(1L, "123 Main St", new Point(1, 2),true, new Customer());
     }
 
     @Test
     @DisplayName("Should return a list of all customer addresses")
     public void getAllCustomerAddressesShouldReturnListOfCustomerAddresses() throws Exception {
         List<CustomerAddress> customerAddressList = new ArrayList<>();
-        customerAddressList.add(new CustomerAddress(1L, "123 Main St", new Point(1, 2), new Customer()));
-        customerAddressList.add(new CustomerAddress(2L, "456 Elm St", new Point(3, 4), new Customer()));
+        customerAddressList.add(testCustomerAddress);
+        customerAddressList.add(testCustomerAddress);
         when(customerAddressService.getAllCustomerAddresses()).thenReturn(customerAddressList);
 
         mockMvc.perform(get("/customer_address"))
@@ -99,7 +99,7 @@ public class CustomerAddressControllerTest {
     @Test
     @DisplayName("Should return an updated customer address when valid updated attributes are given")
     void updateCustomerAddressWithValidAttributesShouldReturnUpdatedCustomerAddress() throws Exception {
-        CustomerAddress updatedCustomerAddress = new CustomerAddress(1L, "456 Elm St", new Point(3, 4), new Customer());
+        CustomerAddress updatedCustomerAddress = new CustomerAddress(1L, "456 Elm St", new Point(3, 4),true, new Customer());
 
         when(customerAddressService.updateCustomerAddress(any(CustomerAddress.class))).thenReturn(updatedCustomerAddress);
 
@@ -115,7 +115,7 @@ public class CustomerAddressControllerTest {
     @DisplayName("Should return not found when trying to update a non-existing customer address")
     void updateCustomerAddressWithNonExistingIdShouldReturnNotFound() throws Exception {
         Long customerAddressId = 1L;
-        CustomerAddress customerAddress = new CustomerAddress(customerAddressId, "123 Main St", new Point(1, 2), new Customer());
+        CustomerAddress customerAddress = new CustomerAddress(customerAddressId, "123 Main St", new Point(1, 2),true, new Customer());
 
         when(customerAddressService.updateCustomerAddress(customerAddress)).thenThrow(new CustomerAddressNotFoundException(""));
 

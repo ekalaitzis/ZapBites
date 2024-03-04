@@ -17,7 +17,7 @@ public class CustomerAddressTest {
         // Given
         Customer customer = new Customer();
         customer.setId(1L); // Assuming customer ID 1 exists
-        CustomerAddress customerAddress = new CustomerAddress(1L, "123 Main St", new Point(1, 2), customer);
+        CustomerAddress customerAddress = new CustomerAddress(1L, "123 Main St", new Point(1, 2),true, customer);
 
         // When - No action needed as this is just a simple entity test
 

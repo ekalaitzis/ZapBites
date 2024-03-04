@@ -3,6 +3,7 @@ package com.example.zapbites.BusinessSchedule;
 import com.example.zapbites.Business.Business;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +20,7 @@ public class BusinessScheduleTest {
         String expectedTelephone = "1234567890";
         String expectedTaxIdNumber = "ABC123";
         Long expectedScheduleId = 1L;
-        String expectedWeekday = "Monday";
+        DayOfWeek expectedWeekday = DayOfWeek.MONDAY;
         LocalTime expectedOpeningTime = LocalTime.of(6, 0);
         LocalTime expectedClosingTime = LocalTime.of(18, 0);
         Business expectedBusiness = new Business(expectedScheduleId, expectedCompanyName, expectedEmail, expectedPassword, expectedTelephone, expectedTaxIdNumber);
