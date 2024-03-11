@@ -55,7 +55,7 @@ public class BusinessScheduleControllerTest {
         objectMapper.setDateFormat(dateFormat);
 
         testBusiness = new Business(1L, "Test Company", "test@example.com", "password123", "1234567890", "1234567890");
-        testBusinessSchedule = new BusinessSchedule(1L, DayOfWeek.MONDAY, LocalTime.of(6, 0), LocalTime.of(16, 0), testBusiness);
+        testBusinessSchedule = new BusinessSchedule(1L, WeekdayEnum.MONDAY, LocalTime.of(6, 0), LocalTime.of(16, 0), testBusiness);
         mockMvc = MockMvcBuilders.standaloneSetup(businessScheduleController).build();
 
     }

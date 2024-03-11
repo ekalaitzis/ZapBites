@@ -2,7 +2,6 @@ package com.example.zapbites.Customer;
 
 import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +46,7 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
         try {
             Customer updateCustomer = customerService.updateCustomer(customer);

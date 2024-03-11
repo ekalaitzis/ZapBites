@@ -66,6 +66,25 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.15.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial -->
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-spatial -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-common -->
+        <dependency>
+            <groupId>com.oracle.oci.sdk</groupId>
+            <artifactId>oci-java-sdk-common</artifactId>
+            <version>3.36.0</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

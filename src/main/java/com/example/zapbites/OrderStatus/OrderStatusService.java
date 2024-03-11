@@ -27,9 +27,6 @@ public class OrderStatusService {
     }
 
     public OrderStatus createOrderStatus(OrderStatus orderStatus) {
-        if (orderStatusRepository.findById(orderStatus.getId()).isPresent()) {
-            throw new DuplicateOrderStatusException("OrderStatus  " + orderStatus + " already exists");
-        }
         return orderStatusRepository.save(orderStatus);
     }
 

@@ -1,8 +1,6 @@
 package com.example.zapbites.Customer;
 
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
-import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -30,9 +28,6 @@ public class CustomerService {
     }
 
     public Customer createCustomer(Customer customer) {
-        if (customerRepository.findById(customer.getId()).isPresent()) {
-            throw new DuplicateCustomerException("customer with email " + customer.getEmail() + " already exists");
-        }
         return customerRepository.save(customer);
     }
 

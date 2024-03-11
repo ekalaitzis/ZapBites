@@ -4,7 +4,6 @@ import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +30,11 @@ public class BusinessService {
     }
 
     public Business createBusiness(Business business) {
-        if (businessRepository.findById(business.getId()).isPresent()) {
-            throw new DuplicateBusinessException("Business with email " + business.getEmail() + " already exists");
+        String email = business.getEmail();
+        Optional<Business> existingBusiness = businessRepository.findByEmail(email);
+
+        if (existingBusiness.isPresent()) {
+            throw new DuplicateBusinessException("Business with email " + email + " already exists");
         }
         return businessRepository.save(business);
     }

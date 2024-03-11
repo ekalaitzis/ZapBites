@@ -10,8 +10,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
@@ -32,10 +32,10 @@ public class Order {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(Long id, Business businessId, Customer customerId, CustomerAddress customerAddressId, BigDecimal totalprice, Timestamp createdAt) {
+    public Orders(Long id, Business businessId, Customer customerId, CustomerAddress customerAddressId, BigDecimal totalprice, Timestamp createdAt) {
         this.id = id;
         this.businessId = businessId;
         this.customerId = customerId;
@@ -101,7 +101,7 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
+        Orders order = (Orders) o;
         return Objects.equals(id, order.id) && Objects.equals(businessId, order.businessId) && Objects.equals(customerId, order.customerId) && Objects.equals(CustomerAddressId, order.CustomerAddressId) && Objects.equals(totalPrice, order.totalPrice) && Objects.equals(createdAt, order.createdAt);
     }
 

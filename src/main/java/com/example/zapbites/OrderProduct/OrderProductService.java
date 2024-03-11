@@ -27,9 +27,6 @@ public class OrderProductService {
     }
 
     public OrderProduct createOrderProduct(OrderProduct orderProduct) {
-        if (orderProductRepository.findById(orderProduct.getId()).isPresent()) {
-            throw new DuplicateOrderProductException("OrderProduct  " + orderProduct + " already exists");
-        }
         return orderProductRepository.save(orderProduct);
     }
 

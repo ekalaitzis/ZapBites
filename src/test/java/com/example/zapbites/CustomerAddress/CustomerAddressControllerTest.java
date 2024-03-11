@@ -10,11 +10,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.geo.Point;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class CustomerAddressControllerTest {
     void init() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(customerAddressController).build();
-        testCustomerAddress = new CustomerAddress(1L, "123 Main St", new Point(1, 2),true, new Customer());
+        testCustomerAddress = new CustomerAddress(1L, "123 Main St", new org.springframework.data.geo.Point(1, 2),true, new Customer());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class CustomerAddressControllerTest {
     @Test
     @DisplayName("Should return an updated customer address when valid updated attributes are given")
     void updateCustomerAddressWithValidAttributesShouldReturnUpdatedCustomerAddress() throws Exception {
-        CustomerAddress updatedCustomerAddress = new CustomerAddress(1L, "456 Elm St", new Point(3, 4),true, new Customer());
+        CustomerAddress updatedCustomerAddress = new CustomerAddress(1L, "456 Elm St", new org.springframework.data.geo.Point(3, 4),true, new Customer());
 
         when(customerAddressService.updateCustomerAddress(any(CustomerAddress.class))).thenReturn(updatedCustomerAddress);
 

@@ -33,8 +33,7 @@ public class Customer {
     @Size(min = 10, max = 14)
     @Column(name = "telephone", nullable = false)
     private String telephone;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Collection<CustomerAddress> customerAddress;
+
 
     public Customer() {
     }
@@ -46,7 +45,6 @@ public class Customer {
         this.email = email;
         this.password = password;
         this.telephone = telephone;
-        this.customerAddress = customerAddress;
     }
 
     public Long getId() {
@@ -97,17 +95,9 @@ public class Customer {
         this.telephone = telephone;
     }
 
-    public Collection<CustomerAddress> getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(Collection<CustomerAddress> customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + ", customerAddress=" + customerAddress + '}';
+        return "Customer{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + '}';
     }
 
     @Override
@@ -115,11 +105,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(password, customer.password) && Objects.equals(telephone, customer.telephone) && Objects.equals(customerAddress, customer.customerAddress);
+        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(password, customer.password) && Objects.equals(telephone, customer.telephone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, telephone, customerAddress);
+        return Objects.hash(id, firstName, lastName, email, password, telephone);
     }
 }

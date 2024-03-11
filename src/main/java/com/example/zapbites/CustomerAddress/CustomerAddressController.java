@@ -1,9 +1,12 @@
 package com.example.zapbites.CustomerAddress;
 
+import com.example.zapbites.Business.BusinessController;
 import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
 import com.example.zapbites.CustomerAddress.Exceptions.DuplicateCustomerAddressException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,8 @@ import java.util.Optional;
 @RequestMapping("customer_address")
 @Validated
 public class CustomerAddressController {
+    private static final Logger logger = LogManager.getLogger(BusinessController.class);
+
     private final CustomerAddressService customerAddressService;
 
     @Autowired
@@ -48,6 +53,7 @@ public class CustomerAddressController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerAddress> updateCustomerAddress(@RequestBody CustomerAddress customerAddress) {
+        logger.info("all businesses: {}",customerAddress);
         try {
             CustomerAddress updatedCustomerAddress = customerAddressService.updateCustomerAddress(customerAddress);
             return new ResponseEntity<>(updatedCustomerAddress, HttpStatus.OK);

@@ -1,6 +1,6 @@
 package com.example.zapbites.OrderProduct;
 
-import com.example.zapbites.Order.Order;
+import com.example.zapbites.Order.Orders;
 import com.example.zapbites.Product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ public class OrderProductTest {
     @Test
     public void testOrderProductEntity() {
         // Given
-        Order order = new Order();
+        Orders order = new Orders();
         order.setId(1L); // Assuming order ID 1 exists
 
         Product product = new Product();

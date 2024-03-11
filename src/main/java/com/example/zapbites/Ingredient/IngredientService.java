@@ -29,9 +29,6 @@ public class IngredientService {
     }
 
     public Ingredient createIngredient(Ingredient ingredient) {
-        if (ingredientRepository.findById(ingredient.getId()).isPresent()) {
-            throw new DuplicateIngredientException("Ingredient  " + ingredient.getName() + " already exists");
-        }
         return ingredientRepository.save(ingredient);
     }
 

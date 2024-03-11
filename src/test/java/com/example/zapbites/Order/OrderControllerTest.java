@@ -37,21 +37,21 @@ public class OrderControllerTest {
 
     private MockMvc mockMvc;
 
-    private Order testOrder;
+    private Orders testOrder;
 
     @BeforeEach
     void init() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
-        testOrder = new Order(1L, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis()));
+        testOrder = new Orders(1L, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis()));
     }
 
     @Test
     @DisplayName("Should return a list of all orders")
     public void getAllOrdersShouldReturnListOfOrders() throws Exception {
-        List<Order> orderList = new ArrayList<>();
-        orderList.add(new Order(1L, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis())));
-        orderList.add(new Order(2L, null, null, null, BigDecimal.valueOf(200.00), new Timestamp(System.currentTimeMillis())));
+        List<Orders> orderList = new ArrayList<>();
+        orderList.add(new Orders(1L, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis())));
+        orderList.add(new Orders(2L, null, null, null, BigDecimal.valueOf(200.00), new Timestamp(System.currentTimeMillis())));
         when(orderService.getAllOrders()).thenReturn(orderList);
 
         mockMvc.perform(get("/order")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray()).andExpect(jsonPath("$.length()").value(2));
@@ -98,9 +98,9 @@ public class OrderControllerTest {
     @Test
     @DisplayName("Should return an updated order when valid updated attributes are given")
     void updateOrderWithValidAttributesShouldReturnUpdatedOrder() throws Exception {
-        Order updatedOrder = new Order(1L, null, null, null, BigDecimal.valueOf(150.00), new Timestamp(System.currentTimeMillis()));
+        Orders updatedOrder = new Orders(1L, null, null, null, BigDecimal.valueOf(150.00), new Timestamp(System.currentTimeMillis()));
 
-        when(orderService.updateOrder(any(Order.class))).thenReturn(updatedOrder);
+        when(orderService.updateOrder(any(Orders.class))).thenReturn(updatedOrder);
 
         mockMvc.perform(put("/order/{id}", updatedOrder.getId()).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updatedOrder))).andExpect(status().isOk()).andExpect(jsonPath("$.totalPrice").value(updatedOrder.getTotalPrice()));
         verify(orderService, times(1)).updateOrder(updatedOrder);
@@ -110,7 +110,7 @@ public class OrderControllerTest {
     @DisplayName("Should return not found when trying to update a non-existing order")
     void updateOrderWithNonExistingIdShouldReturnNotFound() throws Exception {
         Long orderId = 1L;
-        Order order = new Order(orderId, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis()));
+        Orders order = new Orders(orderId, null, null, null, BigDecimal.valueOf(100.00), new Timestamp(System.currentTimeMillis()));
 
         when(orderService.updateOrder(order)).thenThrow(new OrderNotFoundException(""));
 

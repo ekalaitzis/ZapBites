@@ -20,7 +20,7 @@ public class BusinessScheduleTest {
         String expectedTelephone = "1234567890";
         String expectedTaxIdNumber = "ABC123";
         Long expectedScheduleId = 1L;
-        DayOfWeek expectedWeekday = DayOfWeek.MONDAY;
+        WeekdayEnum expectedWeekday = WeekdayEnum.MONDAY;
         LocalTime expectedOpeningTime = LocalTime.of(6, 0);
         LocalTime expectedClosingTime = LocalTime.of(18, 0);
         Business expectedBusiness = new Business(expectedScheduleId, expectedCompanyName, expectedEmail, expectedPassword, expectedTelephone, expectedTaxIdNumber);

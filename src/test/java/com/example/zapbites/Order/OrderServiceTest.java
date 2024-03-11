@@ -28,12 +28,12 @@ public class OrderServiceTest {
 
     @Test
     void getAllOrders_ShouldReturnListOfOrders() {
-        List<Order> orderList = new ArrayList<>();
-        orderList.add(new Order());
-        orderList.add(new Order());
+        List<Orders> orderList = new ArrayList<>();
+        orderList.add(new Orders());
+        orderList.add(new Orders());
         when(orderRepository.findAll()).thenReturn(orderList);
 
-        List<Order> result = orderService.getAllOrders();
+        List<Orders> result = orderService.getAllOrders();
 
         assertEquals(2, result.size());
     }
@@ -41,10 +41,10 @@ public class OrderServiceTest {
     @Test
     void getOrderById_WithValidId_ShouldReturnOrder() {
         Long orderId = 1L;
-        Order order = new Order();
+        Orders order = new Orders();
         when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
 
-        Optional<Order> result = orderService.getOrderById(orderId);
+        Optional<Orders> result = orderService.getOrderById(orderId);
 
         assertTrue(result.isPresent());
         assertEquals(order, result.get());
@@ -55,46 +55,46 @@ public class OrderServiceTest {
         Long orderId = 1L;
         when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
 
-        Optional<Order> result = orderService.getOrderById(orderId);
+        Optional<Orders> result = orderService.getOrderById(orderId);
 
         assertTrue(result.isEmpty());
     }
 
     @Test
     void createOrder_WithValidOrder_ShouldReturnCreatedOrder() {
-        Order order = new Order();
+        Orders order = new Orders();
         when(orderRepository.findById(any())).thenReturn(Optional.empty());
         when(orderRepository.save(order)).thenReturn(order);
 
-        Order result = orderService.createOrder(order);
+        Orders result = orderService.createOrder(order);
 
         assertEquals(order, result);
     }
 
     @Test
     void createOrder_WithDuplicateId_ShouldThrowDuplicateOrderException() {
-        Order order = new Order();
-        when(orderRepository.findById(any())).thenReturn(Optional.of(new Order()));
+        Orders order = new Orders();
+        when(orderRepository.findById(any())).thenReturn(Optional.of(new Orders()));
 
         assertThrows(DuplicateOrderException.class, () -> orderService.createOrder(order));
     }
 
     @Test
     void updateOrder_WithValidOrder_ShouldReturnUpdatedOrder() {
-        Order updatedOrder = new Order();
+        Orders updatedOrder = new Orders();
         updatedOrder.setId(1L);
         // Mocking getAllOrders() to return a list containing the updated order
         when(orderService.getAllOrders()).thenReturn(Collections.singletonList(updatedOrder));
         when(orderRepository.save(updatedOrder)).thenReturn(updatedOrder);
 
-        Order result = orderService.updateOrder(updatedOrder);
+        Orders result = orderService.updateOrder(updatedOrder);
 
         assertEquals(updatedOrder, result);
     }
 
     @Test
     void updateOrder_WithNonExistingId_ShouldThrowOrderNotFoundException() {
-        Order updatedOrder = new Order();
+        Orders updatedOrder = new Orders();
         // Mocking getAllOrders() to return an empty list, simulating that the order does not exist
         when(orderService.getAllOrders()).thenReturn(Collections.emptyList());
 

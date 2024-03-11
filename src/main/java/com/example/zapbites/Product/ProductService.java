@@ -32,9 +32,6 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
-        if (productRepository.findById(product.getId()).isPresent()) {
-            throw new DuplicateProductException("Product " + product.getName() + " already exists");
-        }
         return productRepository.save(product);
     }
 

@@ -42,7 +42,7 @@ public class BusinessScheduleController {
             var createdBusinessSchedule = businessScheduleService.createBusinessSchedule(businessSchedule);
             return new ResponseEntity<>(createdBusinessSchedule, HttpStatus.CREATED);
         } catch (DuplicateBusinessScheduleException e) {    // This may not be needed as a Business can have multiple schedules but use only one as primary.//
-            return new ResponseEntity<>("This business already has a Schedule.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("This business already has a few Schedules.", HttpStatus.BAD_REQUEST);
         }
     }
 

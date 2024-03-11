@@ -45,7 +45,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         try {
             Product updatedProduct = productService.updateProduct(product);

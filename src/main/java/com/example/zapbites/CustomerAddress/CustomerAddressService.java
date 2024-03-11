@@ -27,9 +27,6 @@ public class CustomerAddressService {
     }
 
     public CustomerAddress createCustomerAddress(CustomerAddress customerAddress) {
-        if (customerAddressRepository.findById(customerAddress.getId()).isPresent()) {
-            throw new DuplicateBusinessException("customerAddress " + customerAddress.getId() + " already exists");
-        }
         return customerAddressRepository.save(customerAddress);
     }
 

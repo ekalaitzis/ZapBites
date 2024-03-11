@@ -29,8 +29,7 @@ public class Business {
     @Column(name = "telephone", nullable = false)
     private String telephone;
     @NotBlank
-//    @Size(min = 10, max = 10)
-    @Column(name = "tax_id_number", nullable = false, unique = true)
+    @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
 
     public Business() {

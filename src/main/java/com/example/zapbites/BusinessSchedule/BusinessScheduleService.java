@@ -1,11 +1,8 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
-import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +29,9 @@ public class BusinessScheduleService {
     }
 
     public BusinessSchedule createBusinessSchedule(BusinessSchedule businessSchedule) {
-        if (businessScheduleRepository.findById(businessSchedule.getId()).isPresent()) {
-            throw new DuplicateBusinessScheduleException("This business already has a Schedule. You can update the existing one.");
-        }
         return businessScheduleRepository.save(businessSchedule);
     }
+
     public BusinessSchedule updateBusinessSchedule(BusinessSchedule updatedBusinessSchedule) {
         List<BusinessSchedule> allBusinessSchedules = getAllBusinessSchedules();
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/category")
 @Validated
-public class CategoryController {
+public class  CategoryController {
 
     private final CategoryService categoryService;
 
@@ -47,7 +47,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
         try {
             Category updatedCategory = categoryService.updateCategory(category);

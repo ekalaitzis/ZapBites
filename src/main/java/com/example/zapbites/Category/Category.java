@@ -19,7 +19,7 @@ public class Category {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "menu_id", nullable = false, foreignKey = @ForeignKey(name = "fk_menu"))
     private Menu menu;
 

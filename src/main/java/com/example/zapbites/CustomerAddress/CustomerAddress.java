@@ -1,12 +1,10 @@
 package com.example.zapbites.CustomerAddress;
 
 import com.example.zapbites.Customer.Customer;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.geo.Point;
 
-import java.awt.*;
 import java.util.Objects;
 
 @Entity
@@ -25,9 +23,8 @@ public class CustomerAddress {
     private Point geolocation;
     @Column(name = "primary_address")
     private boolean primary;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_customer"))
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
     public CustomerAddress() {
@@ -40,6 +37,7 @@ public class CustomerAddress {
         this.primary = primary;
         this.customer = customer;
     }
+
 
     public Long getId() {
         return id;

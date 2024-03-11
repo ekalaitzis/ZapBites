@@ -1,6 +1,6 @@
 package com.example.zapbites.OrderProduct;
 
-import com.example.zapbites.Order.Order;
+import com.example.zapbites.Order.Orders;
 import com.example.zapbites.Product.Product;
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class OrderProduct {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"), nullable = false)
-    private Order orderId;
+    private Orders orderId;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @ManyToOne
@@ -26,7 +26,7 @@ public class OrderProduct {
     public OrderProduct() {
     }
 
-    public OrderProduct(Long id, Order orderId, Integer quantity, Product product_id) {
+    public OrderProduct(Long id, Orders orderId, Integer quantity, Product product_id) {
         this.id = id;
         this.orderId = orderId;
         this.quantity = quantity;
@@ -41,11 +41,11 @@ public class OrderProduct {
         this.id = id;
     }
 
-    public Order getOrderId() {
+    public Orders getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Order orderId) {
+    public void setOrderId(Orders orderId) {
         this.orderId = orderId;
     }
 

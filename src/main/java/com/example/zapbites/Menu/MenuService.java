@@ -30,9 +30,6 @@ public class MenuService {
     }
 
     public Menu createMenu(Menu menu) {
-        if (menuRepository.findById(menu.getId()).isPresent()) {
-            throw new DuplicateMenuException("Menu " + menu.getName() + " already exists");
-        }
         return menuRepository.save(menu);
     }
 

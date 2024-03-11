@@ -1,6 +1,6 @@
 package com.example.zapbites.OrderStatus;
 
-import com.example.zapbites.Order.Order;
+import com.example.zapbites.Order.Orders;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 
@@ -17,11 +17,11 @@ public class OrderStatus {
     private Long id;
     @OneToOne
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order_status"), nullable = false)
-    private Order orderId;
+    private Orders orderId;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private OrderStatusEnum orderStatusEnum;
-    @Column(name = "session", nullable = false)
+    @Column(name = "session")
     private Session session;
     @Column(name = "status_changed_at", nullable = false)
     private Timestamp statusChangedAt;
@@ -29,7 +29,7 @@ public class OrderStatus {
     public OrderStatus() {
     }
 
-    public OrderStatus(Long id, Order orderId, Session session, Timestamp statusChangedAt) {
+    public OrderStatus(Long id, Orders orderId, Session session, Timestamp statusChangedAt) {
         this.id = id;
         this.orderId = orderId;
         this.session = session;
@@ -45,11 +45,11 @@ public class OrderStatus {
         this.id = id;
     }
 
-    public Order getOrderId() {
+    public Orders getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Order orderId) {
+    public void setOrderId(Orders orderId) {
         this.orderId = orderId;
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 @Validated
 public class OrderController {
     private final OrderService orderService;
@@ -23,21 +23,21 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
+    public ResponseEntity<List<Orders>> getAllOrders() {
+        List<Orders> orders = orderService.getAllOrders();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        Optional<Order> optionalOrder = orderService.getOrderById(id);
+    public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
+        Optional<Orders> optionalOrder = orderService.getOrderById(id);
         return optionalOrder.map(order -> new ResponseEntity<>(order, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Object> createOrder(@Valid @RequestBody Order order) {
+    public ResponseEntity<Object> createOrder(@Valid @RequestBody Orders order) {
         try {
-            Order createdOrder = orderService.createOrder(order);
+            Orders createdOrder = orderService.createOrder(order);
             return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
         } catch (DuplicateOrderException e) {
             return new ResponseEntity<>("This Order already exists.", HttpStatus.BAD_REQUEST);
@@ -45,9 +45,9 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@RequestBody Order order) {
+    public ResponseEntity<Orders> updateOrder(@RequestBody Orders order) {
         try {
-            Order updatedOrder = orderService.updateOrder(order);
+            Orders updatedOrder = orderService.updateOrder(order);
             return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
         } catch (OrderNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -14,8 +14,8 @@ import java.util.Objects;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "business_seq")
-    @SequenceGenerator(name = "business_seq", sequenceName = "business_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "product_seq")
+    @SequenceGenerator(name = "product_seq", sequenceName = "product_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @NotBlank
@@ -25,10 +25,9 @@ public class Product {
     private String description;
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_category"))
     private Category category;
-
     @ManyToMany
     @JoinTable(name = "product_ingredient", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
