@@ -1,7 +1,5 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,6 @@ public class BusinessController {
     private static final Logger logger = LogManager.getLogger(BusinessController.class);
 
     private final BusinessService businessService;
-
 
     @Autowired
     public BusinessController(BusinessService businessService) {
@@ -44,22 +41,14 @@ public class BusinessController {
 
     @PostMapping
     public ResponseEntity<Object> createBusiness(@Valid @RequestBody Business business) {
-        try {
-            Business createdBusiness = businessService.createBusiness(business);
-            return new ResponseEntity<>(createdBusiness, HttpStatus.CREATED);
-        } catch (DuplicateBusinessException e) {
-            return new ResponseEntity<>("Business with this email already exists", HttpStatus.BAD_REQUEST);
-        }
+        Business createdBusiness = businessService.createBusiness(business);
+        return new ResponseEntity<>(createdBusiness, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Business> updateBusiness(@RequestBody Business business) {
-        try {
-            Business updatedBusiness = businessService.updateBusiness(business);
-            return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
-        } catch (BusinessNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Business updatedBusiness = businessService.updateBusiness(business);
+        return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

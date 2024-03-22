@@ -4,7 +4,6 @@ import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,15 +45,11 @@ public class BusinessService {
         if (allBusinesses.stream().anyMatch(b -> b.getId().equals(updatedBusiness.getId()))) {
             return businessRepository.save(updatedBusiness);
         } else {
-            throw new BusinessNotFoundException("Business with id " + updatedBusiness.getCompanyName() + " not found.");
+            throw new BusinessNotFoundException("Business: " + updatedBusiness.getCompanyName() + " not found.");
         }
     }
 
     public void deleteBusinessById(Long id) {
-        try {
-            businessRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new BusinessNotFoundException("Business with id " + id + " not found", e);
-        }
+        businessRepository.deleteById(id);
     }
 }
