@@ -4,6 +4,7 @@ import com.example.zapbites.Category.Category;
 import com.example.zapbites.Ingredient.Ingredient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
+    @Positive
     @Column(name = "price", nullable = false)
     private BigDecimal price;
     @ManyToOne

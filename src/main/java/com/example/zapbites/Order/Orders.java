@@ -4,6 +4,7 @@ import com.example.zapbites.Business.Business;
 import com.example.zapbites.Customer.Customer;
 import com.example.zapbites.CustomerAddress.CustomerAddress;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -27,6 +28,7 @@ public class Orders {
     @OneToOne
     @JoinColumn(name = "customer_address_id", foreignKey = @ForeignKey(name = "fk_customer_address"), nullable = false)
     private CustomerAddress CustomerAddressId;
+    @Positive
     @Column(name = "total_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal totalPrice;
     @Column(name = "created_at", nullable = false)
