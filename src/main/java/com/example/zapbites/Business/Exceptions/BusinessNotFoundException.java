@@ -8,5 +8,6 @@ public class BusinessNotFoundException extends EntityNotFoundException {
     }
 
     public BusinessNotFoundException(String message) {
+        super(message);
     }
 }

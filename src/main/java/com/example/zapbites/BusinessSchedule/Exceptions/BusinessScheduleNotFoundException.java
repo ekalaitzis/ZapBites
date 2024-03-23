@@ -8,5 +8,6 @@ public class BusinessScheduleNotFoundException extends EntityNotFoundException {
     }
 
     public BusinessScheduleNotFoundException(String message) {
+        super(message);
     }
 }

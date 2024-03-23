@@ -8,5 +8,6 @@ public class CustomerAddressNotFoundException extends EntityNotFoundException {
     }
 
     public CustomerAddressNotFoundException(String message) {
+        super(message);
     }
 }
