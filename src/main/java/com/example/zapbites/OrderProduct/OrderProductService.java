@@ -36,15 +36,11 @@ public class OrderProductService {
         if (allOrderProducts.stream().anyMatch(op -> op.getId().equals(updatedOrderProduct.getId()))) {
             return orderProductRepository.save(updatedOrderProduct);
         } else {
-            throw new OrderProductNotFoundException("OrderProduct with id " + updatedOrderProduct.getId() + " not found.");
+            throw new OrderProductNotFoundException("OrderProduct not found.");
         }
     }
 
     public void deleteOrderProductById(Long id) {
-        try {
             orderProductRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new OrderProductNotFoundException("The orderProduct with id " + id + " not found.", e);
-        }
     }
 }

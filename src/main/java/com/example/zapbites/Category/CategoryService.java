@@ -1,9 +1,9 @@
 package com.example.zapbites.Category;
 
 import com.example.zapbites.Category.Exceptions.CategoryNotFoundException;
+import com.example.zapbites.Category.Exceptions.DuplicateCategoryException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +29,12 @@ public class CategoryService {
     }
 
     public Category createCategory(Category category) {
+        String name = category.getName();
+        Optional<Category> existingCategory = categoryRepository.findByName(name);
+
+        if (existingCategory.isPresent()) {
+            throw new DuplicateCategoryException("Category:" + name + " already exists.");
+        }
         return categoryRepository.save(category);
     }
 
@@ -39,15 +45,11 @@ public class CategoryService {
         if (allCategories.stream().anyMatch(c -> c.getId().equals(updatedCategory.getId()))) {
             return categoryRepository.save(updatedCategory);
         } else {
-            throw new CategoryNotFoundException("Category with id " + updatedCategory.getName() + " not found.");
+            throw new CategoryNotFoundException("Category doesn't exist.");
         }
     }
 
     public void deleteCategoryById(Long id) {
-        try {
-            categoryRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new CategoryNotFoundException("Business with id " + id + " not found", e);
-        }
+        categoryRepository.deleteById(id);
     }
 }

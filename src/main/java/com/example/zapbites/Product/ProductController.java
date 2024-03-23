@@ -1,7 +1,5 @@
 package com.example.zapbites.Product;
 
-import com.example.zapbites.Product.Exceptions.DuplicateProductException;
-import com.example.zapbites.Product.Exceptions.ProductNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,41 +22,32 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List products = productService.getAllProducts();
-        return new ResponseEntity(products, HttpStatus.OK);
+        List<Product> products = productService.getAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> optionalProduct = productService.getProductById(id);
-
-        return optionalProduct.map(product -> new ResponseEntity(product, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return optionalProduct.map(product -> new ResponseEntity<>(product, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
     public ResponseEntity<Object> createProduct(@Valid @RequestBody Product product) {
-        try {
-            Product createdProduct = productService.createProduct(product);
-            return new ResponseEntity(createdProduct, HttpStatus.CREATED);
-        } catch (DuplicateProductException e) {
-            return new ResponseEntity<>("This Product already exists.", HttpStatus.BAD_REQUEST);
-        }
+        Product createdProduct = productService.createProduct(product);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        try {
-            Product updatedProduct = productService.updateProduct(product);
-            return new ResponseEntity(updatedProduct, HttpStatus.OK);
-        } catch (ProductNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Product updatedProduct = productService.updateProduct(product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
 
     public ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

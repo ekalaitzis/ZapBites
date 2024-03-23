@@ -36,15 +36,11 @@ public class OrderStatusService {
         if (allOrderStatuses.stream().anyMatch(os -> os.getId().equals(updatedOrderStatus.getId()))) {
             return orderStatusRepository.save(updatedOrderStatus);
         } else {
-            throw new OrderStatusNotFoundException("OrderStatus with id " + updatedOrderStatus.getId() + " not found.");
+            throw new OrderStatusNotFoundException("OrderStatus not found.");
         }
     }
 
     public void deleteOrderStatusById(Long id) {
-        try {
             orderStatusRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new OrderStatusNotFoundException("The orderStatus with id " + id + " not found.", e);
-        }
     }
 }

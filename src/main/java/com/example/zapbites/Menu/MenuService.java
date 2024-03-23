@@ -30,6 +30,12 @@ public class MenuService {
     }
 
     public Menu createMenu(Menu menu) {
+        String name = menu.getName();
+        Optional<Menu> existingMenu = menuRepository.findByName();
+
+        if (existingMenu.isPresent()) {
+            throw new DuplicateMenuException("Menu: " + name + " already exists.");
+        }
         return menuRepository.save(menu);
     }
 
@@ -39,7 +45,7 @@ public class MenuService {
         if (allMenus.stream().anyMatch(m -> m.getId().equals(updatedMenu.getId()))) {
             return menuRepository.save(updatedMenu);
         } else {
-            throw new MenuNotFoundException("Menu with id " + updatedMenu.getId() + " not found.");
+            throw new MenuNotFoundException("Menu:  " + updatedMenu.getName() + " doesn't exist.");
         }
     }
 

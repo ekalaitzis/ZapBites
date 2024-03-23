@@ -34,22 +34,14 @@ public class OrderProductController {
 
     @PostMapping
     public ResponseEntity<Object> createOrderProduct(@Valid @RequestBody OrderProduct orderProduct) {
-        try {
             OrderProduct createdOrderProduct = orderProductService.createOrderProduct(orderProduct);
             return new ResponseEntity<>(createdOrderProduct, HttpStatus.CREATED);
-        } catch (DuplicateOrderProductException e) {
-            return new ResponseEntity<>("This OrderProduct already exists.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<OrderProduct> updateOrderProduct(@RequestBody OrderProduct orderProduct) {
-        try {
             OrderProduct updatedOrderProduct = orderProductService.updateOrderProduct(orderProduct);
             return new ResponseEntity<>(updatedOrderProduct, HttpStatus.OK);
-        } catch (OrderProductNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

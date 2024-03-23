@@ -38,22 +38,14 @@ public class IngredientController {
 
     @PostMapping
     public ResponseEntity<Object> createIngredient(@Valid @RequestBody Ingredient ingredient) {
-        try {
             Ingredient createdingredient = ingredientService.createIngredient(ingredient);
             return new ResponseEntity<>(createdingredient, HttpStatus.CREATED);
-        } catch (DuplicateIngredientException e) { // this might not be needed in the future
-            return new ResponseEntity<>("This Ingredient already exists.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Ingredient> updateIngredient(@RequestBody Ingredient ingredient) {
-        try {
             Ingredient updatedIngredient = ingredientService.updateIngredient(ingredient);
             return new ResponseEntity<>(updatedIngredient, HttpStatus.OK);
-        } catch (IngredientNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

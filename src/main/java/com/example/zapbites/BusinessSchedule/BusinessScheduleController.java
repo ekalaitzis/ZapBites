@@ -38,22 +38,14 @@ public class BusinessScheduleController {
 
     @PostMapping
     public ResponseEntity<Object> createBusinessSchedule(@RequestBody BusinessSchedule businessSchedule) {
-        try {
             var createdBusinessSchedule = businessScheduleService.createBusinessSchedule(businessSchedule);
             return new ResponseEntity<>(createdBusinessSchedule, HttpStatus.CREATED);
-        } catch (DuplicateBusinessScheduleException e) {    // This may not be needed as a Business can have multiple schedules but use only one as primary.//
-            return new ResponseEntity<>("This business already has a few Schedules.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BusinessSchedule> updateBusinessSchedule(@RequestBody BusinessSchedule businessSchedule) {
-        try {
             var updatedBusinessSchedule = businessScheduleService.updateBusinessSchedule(businessSchedule);
             return new ResponseEntity<>(updatedBusinessSchedule, HttpStatus.OK);
-        } catch (BusinessScheduleNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

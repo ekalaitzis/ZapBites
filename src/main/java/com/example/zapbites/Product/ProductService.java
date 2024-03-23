@@ -32,6 +32,12 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
+        String name = product.getName();
+        Optional<Product> existingProduct = productRepository.findByName(name);
+
+        if (existingProduct.isPresent()) {
+            throw new DuplicateProductException("Product: " + name + " already exists.");
+        }
         return productRepository.save(product);
     }
 
@@ -41,15 +47,11 @@ public class ProductService {
         if (allProducts.stream().anyMatch(p -> p.getId().equals(updatedProduct.getId()))) {
             return productRepository.save(updatedProduct);
         } else {
-            throw new ProductNotFoundException("Product with id " + updatedProduct.getId() + " not found.");
+            throw new ProductNotFoundException("Product " + updatedProduct.getName() + " not found.");
         }
     }
 
     public void deleteProduct(Long id) {
-        try {
             productRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ProductNotFoundException("the product with id " + id + " not found.", e);
-        }
     }
 }

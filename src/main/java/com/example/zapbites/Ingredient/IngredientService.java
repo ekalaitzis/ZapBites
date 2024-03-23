@@ -29,6 +29,11 @@ public class IngredientService {
     }
 
     public Ingredient createIngredient(Ingredient ingredient) {
+        String name = ingredient.getName();
+        Optional<Ingredient> existingIngredient = ingredientRepository.findByName(name);
+        if (existingIngredient.isPresent()) {
+            throw new DuplicateIngredientException("The ingredient already exists.");
+        }
         return ingredientRepository.save(ingredient);
     }
 
@@ -38,15 +43,11 @@ public class IngredientService {
         if (allIngredients.stream().anyMatch(i -> i.getId().equals(updatedIngredient.getId()))) {
             return ingredientRepository.save(updatedIngredient);
         } else {
-            throw new IngredientNotFoundException("Ingredient with id " + updatedIngredient.getId() + " not found.");
+            throw new IngredientNotFoundException("Ingredient: " + updatedIngredient.getName() + " doesn't exist.");
         }
     }
 
     public void deleteIngredient(Long id) {
-        try {
             ingredientRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new IngredientNotFoundException("The ingredient with id " + id + " not found.", e);
-        }
     }
 }

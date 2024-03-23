@@ -1,6 +1,7 @@
 package com.example.zapbites.Customer;
 
 import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
+import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,6 +29,12 @@ public class CustomerService {
     }
 
     public Customer createCustomer(Customer customer) {
+        String email = customer.getEmail();
+        Optional<Customer> existingCustomer = customerRepository.findByEmail(email);
+
+        if (existingCustomer.isPresent()) {
+            throw new DuplicateCustomerException("Customer with email: " + email + " already exists.");
+        }
         return customerRepository.save(customer);
     }
 
@@ -37,15 +44,11 @@ public class CustomerService {
         if (allCustomers.stream().anyMatch(c -> c.getId().equals(updatedCustomer.getId()))) {
             return customerRepository.save(updatedCustomer);
         } else {
-            throw new CustomerNotFoundException("Customer with id " + updatedCustomer.getId() + " not found.");
+            throw new CustomerNotFoundException("Customer with id: " + updatedCustomer.getId() + " not found.");
         }
     }
 
     public void deleteCustomer(Long id) {
-        try {
             customerRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new CustomerNotFoundException("Customer wih id " + id + " not found", e);
-        }
     }
 }

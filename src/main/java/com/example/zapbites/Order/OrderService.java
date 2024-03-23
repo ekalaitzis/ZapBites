@@ -36,15 +36,11 @@ public class OrderService {
         if (allOrders.stream().anyMatch(o -> o.getId().equals(updatedOrder.getId()))) {
             return orderRepository.save(updatedOrder);
         } else {
-            throw new OrderNotFoundException("Order with id " + updatedOrder.getId() + " not found.");
+            throw new OrderNotFoundException("Order not found.");
         }
     }
 
     public void deleteOrderById(Long id) {
-        try {
             orderRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new OrderNotFoundException("The order with id " + id + " not found.", e);
-        }
     }
 }

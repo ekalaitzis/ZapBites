@@ -38,22 +38,14 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Object> createCustomer(@Valid @RequestBody Customer customer) {
-        try {
             Customer createCustomer = customerService.createCustomer(customer);
             return new ResponseEntity<>(createCustomer, HttpStatus.CREATED);
-        } catch (DuplicateCustomerException e) {
-            return new ResponseEntity<>("This Customer already exists.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-        try {
             Customer updateCustomer = customerService.updateCustomer(customer);
             return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
-        } catch (CustomerNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

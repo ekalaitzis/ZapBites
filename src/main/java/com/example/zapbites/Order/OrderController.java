@@ -36,22 +36,14 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Object> createOrder(@Valid @RequestBody Orders order) {
-        try {
             Orders createdOrder = orderService.createOrder(order);
             return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
-        } catch (DuplicateOrderException e) {
-            return new ResponseEntity<>("This Order already exists.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Orders> updateOrder(@RequestBody Orders order) {
-        try {
             Orders updatedOrder = orderService.updateOrder(order);
             return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
-        } catch (OrderNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

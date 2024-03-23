@@ -43,23 +43,14 @@ public class CustomerAddressController {
 
     @PostMapping
     public ResponseEntity<Object> createCustomerAddress(@Valid @RequestBody CustomerAddress customerAddress) {
-        try {
             var createdCustomerAddress = customerAddressService.createCustomerAddress(customerAddress);
             return new ResponseEntity<>(createdCustomerAddress, HttpStatus.CREATED);
-        } catch (DuplicateCustomerAddressException e) { //this might not be needed as a customer might have multiple addresses//
-            return new ResponseEntity<>("This Address already exists.", HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerAddress> updateCustomerAddress(@RequestBody CustomerAddress customerAddress) {
-        logger.info("all businesses: {}",customerAddress);
-        try {
             CustomerAddress updatedCustomerAddress = customerAddressService.updateCustomerAddress(customerAddress);
             return new ResponseEntity<>(updatedCustomerAddress, HttpStatus.OK);
-        } catch (CustomerAddressNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

@@ -1,9 +1,8 @@
 package com.example.zapbites.CustomerAddress;
 
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
+import com.example.zapbites.CustomerAddress.Exceptions.DuplicateCustomerAddressException;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +26,12 @@ public class CustomerAddressService {
     }
 
     public CustomerAddress createCustomerAddress(CustomerAddress customerAddress) {
+        String address = customerAddress.getAddress();
+        Optional<CustomerAddress> existingCustomerAddress = customerAddressRepository.findByAddress(address);
+
+        if (existingCustomerAddress.isPresent()) {
+            throw new DuplicateCustomerAddressException(address + " address already exists.");
+        }
         return customerAddressRepository.save(customerAddress);
     }
 
@@ -36,15 +41,11 @@ public class CustomerAddressService {
         if (allCustomerAddresses.stream().anyMatch(c -> c.getId().equals(updatedCustomerAddress.getId()))) {
             return customerAddressRepository.save(updatedCustomerAddress);
         } else {
-            throw new CustomerAddressNotFoundException("CustomerAddress with id " + updatedCustomerAddress.getId() + " not found.");
+            throw new CustomerAddressNotFoundException("Customer address doesn't exist.");
         }
     }
 
     public void deleteCustomerAddressById(Long id) {
-        try {
-            customerAddressRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new CustomerAddressNotFoundException("CustomerAddress with id " + id + " not found", e);
-        }
+        customerAddressRepository.deleteById(id);
     }
 }

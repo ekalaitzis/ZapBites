@@ -38,16 +38,12 @@ public class BusinessScheduleService {
         if (allBusinessSchedules.stream().anyMatch(b -> b.getId().equals(updatedBusinessSchedule.getId()))) {
             return businessScheduleRepository.save(updatedBusinessSchedule);
         } else {
-            throw new BusinessScheduleNotFoundException("Business schedule with id " + updatedBusinessSchedule.getId() + " not found.");
+            throw new BusinessScheduleNotFoundException("The business schedule doesn't exist.");
         }
     }
 
 
     public void deleteBusinessSchedule(Long id) {
-        try {
             businessScheduleRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new BusinessScheduleNotFoundException("Business schedule with id " + id + " not found", e);
-        }
     }
 }
