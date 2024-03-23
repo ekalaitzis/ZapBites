@@ -8,5 +8,6 @@ public class IngredientNotFoundException extends EntityNotFoundException {
     }
 
     public IngredientNotFoundException(String message) {
+        super(message);
     }
 }

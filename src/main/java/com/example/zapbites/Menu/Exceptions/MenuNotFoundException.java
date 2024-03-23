@@ -8,5 +8,6 @@ public class MenuNotFoundException extends EntityNotFoundException {
     }
 
     public MenuNotFoundException(String message) {
+        super(message);
     }
 }

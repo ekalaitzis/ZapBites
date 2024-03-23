@@ -8,5 +8,6 @@ public class OrderProductNotFoundException extends EntityNotFoundException {
     }
 
     public OrderProductNotFoundException(String message) {
+        super(message);
     }
 }
