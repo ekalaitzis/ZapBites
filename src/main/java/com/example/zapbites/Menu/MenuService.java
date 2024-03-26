@@ -31,7 +31,7 @@ public class MenuService {
 
     public Menu createMenu(Menu menu) {
         String name = menu.getName();
-        Optional<Menu> existingMenu = menuRepository.findByName();
+        Optional<Menu> existingMenu = menuRepository.findByName(name);
 
         if (existingMenu.isPresent()) {
             throw new DuplicateMenuException("Menu: " + name + " already exists.");

@@ -2,7 +2,6 @@ package com.example.zapbites.Menu;
 
 import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
 import com.example.zapbites.Menu.Exceptions.MenuNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
