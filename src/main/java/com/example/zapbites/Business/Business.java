@@ -102,11 +102,11 @@ public class Business {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Business business = (Business) o;
-        return Objects.equals(id, business.id);
+        return Objects.equals(id, business.id) && Objects.equals(companyName, business.companyName) && Objects.equals(email, business.email) && Objects.equals(password, business.password) && Objects.equals(telephone, business.telephone) && Objects.equals(taxIdNumber, business.taxIdNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, companyName, email, password, telephone, taxIdNumber);
     }
 }
