@@ -1,0 +1,19 @@
+{
+  "weekday": "SUNDAY",
+  "openingTime": [
+    8,
+    0
+  ],
+  "closingTime": [
+    20,
+    0
+  ],
+  "business": {
+    "id": 1,
+    "companyName": "Flavors of Curry",
+    "email": "flavor@curry.al",
+    "password": "password1",
+    "telephone": "1234567890",
+    "taxIdNumber": "TAX123"
+  }
+}

@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "weekday": "MONDAY",
+    "openingTime": "08:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 2,
+    "weekday": "TUESDAY",
+    "openingTime": "08:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 3,
+    "weekday": "WEDNESDAY",
+    "openingTime": "08:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 4,
+    "weekday": "THURSDAY",
+    "openingTime": "08:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 5,
+    "weekday": "FRIDAY",
+    "openingTime": "08:00:00",
+    "closingTime": "22:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 6,
+    "weekday": "SATURDAY",
+    "openingTime": "10:00:00",
+    "closingTime": "22:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 7,
+    "weekday": "SUNDAY",
+    "openingTime": "10:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "password1",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123"
+    }
+  },
+  {
+    "id": 8,
+    "weekday": "MONDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "21:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 9,
+    "weekday": "TUESDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "21:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 10,
+    "weekday": "WEDNESDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "21:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 11,
+    "weekday": "THURSDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "21:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 12,
+    "weekday": "FRIDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "21:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 13,
+    "weekday": "SATURDAY",
+    "openingTime": "10:00:00",
+    "closingTime": "22:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 14,
+    "weekday": "SUNDAY",
+    "openingTime": "10:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 2,
+      "companyName": "Crispy Bites",
+      "email": "crispy@bites.com",
+      "password": "password2",
+      "telephone": "9876543210",
+      "taxIdNumber": "TAX456"
+    }
+  },
+  {
+    "id": 15,
+    "weekday": "MONDAY",
+    "openingTime": "07:00:00",
+    "closingTime": "19:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  },
+  {
+    "id": 16,
+    "weekday": "TUESDAY",
+    "openingTime": "07:00:00",
+    "closingTime": "19:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  },
+  {
+    "id": 17,
+    "weekday": "WEDNESDAY",
+    "openingTime": "07:00:00",
+    "closingTime": "19:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  },
+  {
+    "id": 18,
+    "weekday": "THURSDAY",
+    "openingTime": "07:00:00",
+    "closingTime": "19:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  },
+  {
+    "id": 19,
+    "weekday": "FRIDAY",
+    "openingTime": "07:00:00",
+    "closingTime": "19:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  },
+  {
+    "id": 20,
+    "weekday": "SATURDAY",
+    "openingTime": "09:00:00",
+    "closingTime": "20:00:00",
+    "business": {
+      "id": 3,
+      "companyName": "Green Delight",
+      "email": "green@delight.com",
+      "password": "password3",
+      "telephone": "5556667777",
+      "taxIdNumber": "TAX789"
+    }
+  }
+]
