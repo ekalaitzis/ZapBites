@@ -1,8 +1,5 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
-import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/businessSchedule")
+@RequestMapping("/business_schedule")
 @Validated
 public class BusinessScheduleController {
 
