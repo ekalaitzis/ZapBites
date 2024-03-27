@@ -1,7 +1,7 @@
 -- Dummy data for business
 INSERT INTO business (id, company_name, email, password, telephone, tax_id_number)
 VALUES
-    (11, 'Flavors of Curry', 'flavor@curry.al', 'password1', '1234567890', 'TAX123'),
+    (1, 'Flavors of Curry', 'flavor@curry.al', 'password1', '1234567890', 'TAX123'),
     (2, 'Crispy Bites', 'crispy@bites.com', 'password2', '9876543210', 'TAX456'),
     (3, 'Green Delight', 'green@delight.com', 'password3', '5556667777', 'TAX789'),
     (4, 'Vegan Vibes', 'vegan@vibes.com', 'password4', '1112223333', 'TAX999'),
@@ -15,13 +15,13 @@ VALUES
 -- Dummy data for business_schedule
 INSERT INTO business_schedule (id, weekday, opening, closing, business_id)
 VALUES
-    (1, 'MONDAY', '08:00:00', '20:00:00', 11),
-    (2, 'TUESDAY', '08:00:00', '20:00:00', 11),
-    (3, 'WEDNESDAY', '08:00:00', '20:00:00', 11),
-    (4, 'THURSDAY', '08:00:00', '20:00:00', 11),
-    (5, 'FRIDAY', '08:00:00', '22:00:00', 11),
-    (6, 'SATURDAY', '10:00:00', '22:00:00', 11),
-    (7, 'SUNDAY', '10:00:00', '20:00:00', 11),
+    (1, 'MONDAY', '08:00:00', '20:00:00', 1),
+    (2, 'TUESDAY', '08:00:00', '20:00:00', 1),
+    (3, 'WEDNESDAY', '08:00:00', '20:00:00', 1),
+    (4, 'THURSDAY', '08:00:00', '20:00:00', 1),
+    (5, 'FRIDAY', '08:00:00', '22:00:00', 1),
+    (6, 'SATURDAY', '10:00:00', '22:00:00', 1),
+    (7, 'SUNDAY', '10:00:00', '20:00:00', 1),
     (8, 'MONDAY', '09:00:00', '21:00:00', 2),
     (9, 'TUESDAY', '09:00:00', '21:00:00', 2),
     (10, 'WEDNESDAY', '09:00:00', '21:00:00', 2),
@@ -39,7 +39,7 @@ VALUES
 -- Dummy data for menu
 INSERT INTO menu (id, name, business_id)
 VALUES
-    (1, 'Flavors of Curry Menu', 11),
+    (1, 'Flavors of Curry Menu', 1),
     (2, 'Crispy Bites Menu', 2),
     (3, 'Green Delight Menu', 3),
     (4, 'Vegan Vibes Menu', 4),
@@ -132,12 +132,12 @@ VALUES
 -- Dummy data for additional orders
 INSERT INTO orders (id, business_id, customer_id, customer_address_id, total_price, created_at)
 VALUES
-    (6, 11, 11, 10, 28.50, '2023-06-01 11:30:00'),
+    (6, 1, 11, 10, 28.50, '2023-06-01 11:30:00'),
     (7, 2, 4, 4, 20.75, '2023-07-01 16:45:00'),
     (8, 3, 5, 7, 16.99, '2023-08-01 21:00:00'),
     (9, 4, 8, 13, 35.25, '2023-09-01 10:15:00'),
     (10, 5, 4, 12, 40.00, '2023-10-01 12:30:00'),
-    (11, 11, 12, 6, 22.99, '2023-11-01 14:45:00'),
+    (11, 1, 12, 6, 22.99, '2023-11-01 14:45:00'),
     (12, 2, 13, 7, 18.50, '2023-12-01 18:00:00'),
     (13, 3, 10, 8, 32.75, '2024-01-01 09:15:00'),
     (14, 4, 11, 9, 19.99, '2024-02-01 11:30:00'),
@@ -195,3 +195,16 @@ VALUES
     (61, 10, 'PREPARING', 'session10', '2023-10-01 12:45:00'),
     (62, 10, 'DELIVERY', 'session10', '2023-10-01 13:00:00'),
     (63, 10, 'DELIVERED', 'session10', '2023-10-01 13:15:00');
+
+
+ALTER SEQUENCE business_seq RESTART WITH 11;
+ALTER SEQUENCE business_schedule_seq RESTART WITH 21;
+ALTER SEQUENCE category_seq START WITH 26;
+ALTER SEQUENCE menu_seq START WITH 11;
+ALTER SEQUENCE ingredient_seq START WITH 16;
+ALTER SEQUENCE customer_address_seq START WITH 14;
+ALTER SEQUENCE order_product_seq START WITH 21;
+ALTER SEQUENCE order_status_seq START WITH 64;
+ALTER SEQUENCE customer_seq START WITH 14;
+ALTER SEQUENCE order_seq START WITH 16;
+ALTER SEQUENCE product_seq START WITH 36;
