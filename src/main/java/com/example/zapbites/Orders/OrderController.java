@@ -1,8 +1,5 @@
-package com.example.zapbites.Order;
+package com.example.zapbites.Orders;
 
-import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
-import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

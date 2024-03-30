@@ -1,7 +1,5 @@
 package com.example.zapbites.Customer;
 
-import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
-import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,14 +36,14 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Object> createCustomer(@Valid @RequestBody Customer customer) {
-            Customer createCustomer = customerService.createCustomer(customer);
-            return new ResponseEntity<>(createCustomer, HttpStatus.CREATED);
+        Customer createCustomer = customerService.createCustomer(customer);
+        return new ResponseEntity<>(createCustomer, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-            Customer updateCustomer = customerService.updateCustomer(customer);
-            return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
+        Customer updateCustomer = customerService.updateCustomer(customer);
+        return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

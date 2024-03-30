@@ -1,4 +1,4 @@
-package com.example.zapbites.Order;
+package com.example.zapbites.Orders;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

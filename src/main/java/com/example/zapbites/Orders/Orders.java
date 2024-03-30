@@ -1,4 +1,4 @@
-package com.example.zapbites.Order;
+package com.example.zapbites.Orders;
 
 import com.example.zapbites.Business.Business;
 import com.example.zapbites.Customer.Customer;

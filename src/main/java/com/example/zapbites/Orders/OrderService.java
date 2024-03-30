@@ -1,9 +1,7 @@
-package com.example.zapbites.Order;
+package com.example.zapbites.Orders;
 
-import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
-import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
+import com.example.zapbites.Orders.Exceptions.OrderNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

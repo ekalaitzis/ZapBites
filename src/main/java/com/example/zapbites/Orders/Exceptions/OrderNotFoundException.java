@@ -1,4 +1,4 @@
-package com.example.zapbites.Order.Exceptions;
+package com.example.zapbites.Orders.Exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 

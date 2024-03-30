@@ -4,7 +4,6 @@ import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +48,6 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Long id) {
-            customerRepository.deleteById(id);
+        customerRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.zapbites.Order.Exceptions;
+package com.example.zapbites.Orders.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
