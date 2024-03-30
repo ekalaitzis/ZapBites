@@ -1,4 +1,4 @@
-package com.example.zapbites.CustomerAddress;
+package com.example.zapbites.CustomerAddress.Point;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

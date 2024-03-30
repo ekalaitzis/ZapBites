@@ -3,8 +3,7 @@ package com.example.zapbites.CustomerAddress;
 import com.example.zapbites.Customer.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.awt.Point;
+import org.springframework.data.geo.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
