@@ -1,0 +1,17 @@
+{
+  "id": 14,
+  "address": "123 Maple Avenue, Arnhem, Netherlands",
+  "geolocation": {
+    "x": 34.0521,
+    "y": -118.2436
+  },
+  "primary": false,
+  "customer": {
+    "id": 4,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "email": "alice.johnson@email.com",
+    "password": "password4",
+    "telephone": "5551234567"
+  }
+}

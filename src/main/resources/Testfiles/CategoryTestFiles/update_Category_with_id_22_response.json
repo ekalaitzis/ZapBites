@@ -1,0 +1,16 @@
+{
+  "id": 22,
+  "name": "updated Burgers",
+  "menu": {
+    "id": 4,
+    "name": "Vegan Vibes Menu",
+    "business": {
+      "id": 4,
+      "companyName": "Vegan Vibes",
+      "email": "vegan@vibes.com",
+      "password": "password4",
+      "telephone": "1112223333",
+      "taxIdNumber": "TAX999"
+    }
+  }
+}

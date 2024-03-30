@@ -1,0 +1,31 @@
+{
+  "id": 3,
+  "name": "Mango Puree",
+  "vegan": true,
+  "spicy": false,
+  "glutenFree": true,
+  "products": [
+    {
+      "id": 33,
+      "name": "Margherita Pizza",
+      "description": "Classic pizza with tomato sauce and mozzarella",
+      "price": 10.99,
+      "category": {
+        "id": 23,
+        "name": "Pizza",
+        "menu": {
+          "id": 5,
+          "name": "Sizzling Grill Menu",
+          "business": {
+            "id": 5,
+            "companyName": "Sizzling Grill",
+            "email": "sizzle@grill.com",
+            "password": "password5",
+            "telephone": "9998887777",
+            "taxIdNumber": "TAX000"
+          }
+        }
+      }
+    }
+  ]
+}

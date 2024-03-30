@@ -1,0 +1,12 @@
+{
+  "id": 11,
+  "name": "new Flavors of Curry Menu",
+  "business": {
+    "id": 1,
+    "companyName": "Flavors of Curry",
+    "email": "flavor@curry.al",
+    "password": "password1",
+    "telephone": "1234567890",
+    "taxIdNumber": "TAX123"
+  }
+}

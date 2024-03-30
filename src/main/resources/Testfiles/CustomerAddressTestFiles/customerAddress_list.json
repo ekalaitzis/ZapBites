@@ -1,0 +1,172 @@
+[
+  {
+    "id": 4,
+    "address": "789 Oak Street, Another Town, USA",
+    "geolocation": {
+      "x": 37.7749,
+      "y": -122.4194
+    },
+    "primary": false,
+    "customer": {
+      "id": 4,
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.johnson@email.com",
+      "password": "password4",
+      "telephone": "5551234567"
+    }
+  },
+  {
+    "id": 5,
+    "address": "123 Maple Avenue, Different City, USA",
+    "geolocation": {
+      "x": 34.0522,
+      "y": -118.2437
+    },
+    "primary": false,
+    "customer": {
+      "id": 4,
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.johnson@email.com",
+      "password": "password4",
+      "telephone": "5551234567"
+    }
+  },
+  {
+    "id": 6,
+    "address": "456 Pine Street, New Place, USA",
+    "geolocation": {
+      "x": 40.7128,
+      "y": -74.006
+    },
+    "primary": true,
+    "customer": {
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "password5",
+      "telephone": "5552345678"
+    }
+  },
+  {
+    "id": 7,
+    "address": "789 Elm Street, New City, USA",
+    "geolocation": {
+      "x": 41.8781,
+      "y": -87.6298
+    },
+    "primary": false,
+    "customer": {
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "password5",
+      "telephone": "5552345678"
+    }
+  },
+  {
+    "id": 8,
+    "address": "234 Birch Lane, Nearby Town, USA",
+    "geolocation": {
+      "x": 42.3601,
+      "y": -71.0589
+    },
+    "primary": true,
+    "customer": {
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "password5",
+      "telephone": "5552345678"
+    }
+  },
+  {
+    "id": 9,
+    "address": "567 Cedar Street, Next Door, USA",
+    "geolocation": {
+      "x": 39.7392,
+      "y": -104.9903
+    },
+    "primary": false,
+    "customer": {
+      "id": 6,
+      "firstName": "Emily",
+      "lastName": "Martinez",
+      "email": "emily.martinez@email.com",
+      "password": "password6",
+      "telephone": "5553456789"
+    }
+  },
+  {
+    "id": 10,
+    "address": "890 Spruce Street, Faraway City, USA",
+    "geolocation": {
+      "x": 37.7749,
+      "y": -122.4194
+    },
+    "primary": false,
+    "customer": {
+      "id": 6,
+      "firstName": "Emily",
+      "lastName": "Martinez",
+      "email": "emily.martinez@email.com",
+      "password": "password6",
+      "telephone": "5553456789"
+    }
+  },
+  {
+    "id": 11,
+    "address": "901 Pine Street, Downtown, USA",
+    "geolocation": {
+      "x": 34.0522,
+      "y": -118.2437
+    },
+    "primary": true,
+    "customer": {
+      "id": 7,
+      "firstName": "Daniel",
+      "lastName": "Garcia",
+      "email": "daniel.garcia@email.com",
+      "password": "password7",
+      "telephone": "5554567890"
+    }
+  },
+  {
+    "id": 12,
+    "address": "345 Elm Street, Suburbia, USA",
+    "geolocation": {
+      "x": 40.7128,
+      "y": -74.006
+    },
+    "primary": false,
+    "customer": {
+      "id": 7,
+      "firstName": "Daniel",
+      "lastName": "Garcia",
+      "email": "daniel.garcia@email.com",
+      "password": "password7",
+      "telephone": "5554567890"
+    }
+  },
+  {
+    "id": 13,
+    "address": "678 Maple Lane, Quiet Town, USA",
+    "geolocation": {
+      "x": 41.8781,
+      "y": -87.6298
+    },
+    "primary": true,
+    "customer": {
+      "id": 8,
+      "firstName": "Olivia",
+      "lastName": "Lopez",
+      "email": "olivia.lopez@email.com",
+      "password": "password8",
+      "telephone": "5555678901"
+    }
+  }
+]

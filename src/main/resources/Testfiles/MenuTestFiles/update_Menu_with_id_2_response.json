@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "updated Crispy Bites Menu",
+  "business": {
+    "id": 2,
+    "companyName": "Crispy Bites",
+    "email": "crispy@bites.com",
+    "password": "password2",
+    "telephone": "9876543210",
+    "taxIdNumber": "TAX456"
+  }
+}

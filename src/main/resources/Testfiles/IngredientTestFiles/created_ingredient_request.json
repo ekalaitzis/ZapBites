@@ -1,0 +1,7 @@
+{
+  "name": "new ingredient",
+  "vegan": true,
+  "spicy": false,
+  "glutenFree": true,
+  "products": []
+}

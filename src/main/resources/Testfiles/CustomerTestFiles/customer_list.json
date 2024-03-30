@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@email.com",
+    "password": "password1",
+    "telephone": "5551112233"
+  },
+  {
+    "id": 2,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@email.com",
+    "password": "password2",
+    "telephone": "5554445566"
+  },
+  {
+    "id": 3,
+    "firstName": "Bob",
+    "lastName": "Johnson",
+    "email": "bob.johnson@email.com",
+    "password": "password3",
+    "telephone": "5557778899"
+  },
+  {
+    "id": 4,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "email": "alice.johnson@email.com",
+    "password": "password4",
+    "telephone": "5551234567"
+  },
+  {
+    "id": 5,
+    "firstName": "Michael",
+    "lastName": "Brown",
+    "email": "michael.brown@email.com",
+    "password": "password5",
+    "telephone": "5552345678"
+  },
+  {
+    "id": 6,
+    "firstName": "Emily",
+    "lastName": "Martinez",
+    "email": "emily.martinez@email.com",
+    "password": "password6",
+    "telephone": "5553456789"
+  },
+  {
+    "id": 7,
+    "firstName": "Daniel",
+    "lastName": "Garcia",
+    "email": "daniel.garcia@email.com",
+    "password": "password7",
+    "telephone": "5554567890"
+  },
+  {
+    "id": 8,
+    "firstName": "Olivia",
+    "lastName": "Lopez",
+    "email": "olivia.lopez@email.com",
+    "password": "password8",
+    "telephone": "5555678901"
+  },
+  {
+    "id": 9,
+    "firstName": "William",
+    "lastName": "Gonzalez",
+    "email": "william.gonzalez@email.com",
+    "password": "password9",
+    "telephone": "5556789012"
+  },
+  {
+    "id": 10,
+    "firstName": "Sophia",
+    "lastName": "Hernandez",
+    "email": "sophia.hernandez@email.com",
+    "password": "password10",
+    "telephone": "5557890123"
+  },
+  {
+    "id": 11,
+    "firstName": "James",
+    "lastName": "Smith",
+    "email": "james.smith@email.com",
+    "password": "password11",
+    "telephone": "5558901234"
+  },
+  {
+    "id": 12,
+    "firstName": "Emma",
+    "lastName": "Johnson",
+    "email": "emma.johnson@email.com",
+    "password": "password12",
+    "telephone": "5559012345"
+  },
+  {
+    "id": 13,
+    "firstName": "Alexander",
+    "lastName": "Miller",
+    "email": "alexander.miller@email.com",
+    "password": "password13",
+    "telephone": "5550123456"
+  }
+]

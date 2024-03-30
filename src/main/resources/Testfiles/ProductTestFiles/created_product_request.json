@@ -1,0 +1,22 @@
+{
+  "name": "new Chicken Tacos",
+  "description": "Delicious tacos with grilled chicken",
+  "price": 8.99,
+  "category": {
+    "id": 16,
+    "name": "Tacos",
+    "menu": {
+      "id": 5,
+      "name": "Sizzling Grill Menu",
+      "business": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "password5",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000"
+      }
+    }
+  },
+  "ingredients": []
+}

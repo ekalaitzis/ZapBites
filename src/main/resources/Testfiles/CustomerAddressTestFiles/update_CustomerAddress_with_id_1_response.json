@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "address": "123 Maple Avenue, Updated City, USA",
+  "geolocation": {
+    "x": 34.0521,
+    "y": -118.2427
+  },
+  "primary": false,
+  "customer": {
+    "id": 4,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "email": "alice.johnson@email.com",
+    "password": "password4",
+    "telephone": "5551234567"
+  }
+}
