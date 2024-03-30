@@ -102,6 +102,6 @@ public class BusinessScheduleIntegrationTest {
     @DisplayName("Delete an existing business schedule")
     @DirtiesContext
     void deleteAnExistingBusinessSchedule() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/business_schedule/4")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/business_schedule/3")).andExpect(status().isNoContent());
     }
 }

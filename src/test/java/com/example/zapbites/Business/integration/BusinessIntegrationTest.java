@@ -98,6 +98,6 @@ public class BusinessIntegrationTest {
     @DisplayName("Delete an existing business")
     @DirtiesContext
     void deleteAnExistingBusiness() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/business/4")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/business/1")).andExpect(status().isNoContent());
     }
 }
