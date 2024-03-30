@@ -95,7 +95,18 @@ VALUES
     (13, 'Beef', false, true, true),
     (14, 'Salmon', false, false, true),
     (15, 'Potatoes', true, false, true);
--- Dummy data for additional customers
+-- Dummy data for product_ingredient
+INSERT INTO product_ingredient (id, product_id, ingredient_id)
+VALUES
+    (1, 31, 1),
+    (2, 32, 2),
+    (3, 33, 3),
+    (4, 34, 4),
+    (5, 35, 5),
+    (6, 26, 6),
+    (7, 27, 7),
+    (8, 28, 8);
+
 -- Dummy data for additional customers
 INSERT INTO customer (id, first_name, last_name, email, password, telephone)
 VALUES
@@ -199,12 +210,12 @@ VALUES
 
 ALTER SEQUENCE business_seq RESTART WITH 11;
 ALTER SEQUENCE business_schedule_seq RESTART WITH 21;
-ALTER SEQUENCE category_seq START WITH 26;
-ALTER SEQUENCE menu_seq START WITH 11;
-ALTER SEQUENCE ingredient_seq START WITH 16;
-ALTER SEQUENCE customer_address_seq START WITH 14;
-ALTER SEQUENCE order_product_seq START WITH 21;
-ALTER SEQUENCE order_status_seq START WITH 64;
-ALTER SEQUENCE customer_seq START WITH 14;
-ALTER SEQUENCE order_seq START WITH 16;
-ALTER SEQUENCE product_seq START WITH 36;
+ALTER SEQUENCE category_seq RESTART WITH 26;
+ALTER SEQUENCE menu_seq RESTART WITH 11;
+ALTER SEQUENCE ingredient_seq RESTART WITH 16;
+ALTER SEQUENCE customer_address_seq RESTART WITH 14;
+ALTER SEQUENCE order_product_seq RESTART WITH 21;
+ALTER SEQUENCE order_status_seq RESTART WITH 64;
+ALTER SEQUENCE customer_seq RESTART WITH 14;
+ALTER SEQUENCE order_seq RESTART WITH 16;
+ALTER SEQUENCE product_seq RESTART WITH 36;
