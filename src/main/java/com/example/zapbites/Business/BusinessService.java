@@ -1,55 +1,45 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
-public class BusinessService {
-
-    private final BusinessRepository businessRepository;
-
-    @Autowired
-    public BusinessService(BusinessRepository businessRepository) {
-        this.businessRepository = businessRepository;
-    }
-
-    public List<Business> getAllBusinesses() {
-        return businessRepository.findAll();
-    }
-
-    public Optional<Business> getBusinessById(Long businessId) {
-        return businessRepository.findById(businessId);
-    }
-
-    public Business createBusiness(Business business) {
-        String email = business.getEmail();
-        Optional<Business> existingBusiness = businessRepository.findByEmail(email);
-
-        if (existingBusiness.isPresent()) {
-            throw new DuplicateBusinessException("Business with email " + email + " already exists");
-        }
-        return businessRepository.save(business);
-    }
+public interface BusinessService {
 
 
-    public Business updateBusiness(Business updatedBusiness) {
-        List<Business> allBusinesses = getAllBusinesses();
+    /**
+     * Retrieves all businesses
+     *
+     * @return
+     */
+    List<Business> getAllBusinesses();
 
-        if (allBusinesses.stream().anyMatch(b -> b.getId().equals(updatedBusiness.getId()))) {
-            return businessRepository.save(updatedBusiness);
-        } else {
-            throw new BusinessNotFoundException("Business: " + updatedBusiness.getCompanyName() + " not found.");
-        }
-    }
+    /**
+     * @param businessId The id of the business
+     * @return The business with the requested id
+     */
 
-    public void deleteBusinessById(Long id) {
-        businessRepository.deleteById(id);
-    }
+    Optional<Business> getBusinessById(Long businessId);
+
+    /**
+     * @param createdBusiness The business object to be created
+     * @return The business object that was created
+     */
+
+    Business createBusiness(Business createdBusiness);
+
+    /**
+     * @param updatedBusiness The business object to be updated
+     * @return The updated business object
+     */
+
+
+    Business updateBusiness(Business updatedBusiness);
+
+    /**
+     * @param id the id of the business to be deleted
+     */
+
+    void deleteBusinessById(Long id);
+
+
 }
