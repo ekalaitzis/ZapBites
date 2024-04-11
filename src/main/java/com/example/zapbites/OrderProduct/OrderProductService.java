@@ -1,46 +1,17 @@
 package com.example.zapbites.OrderProduct;
 
-import com.example.zapbites.OrderProduct.Exceptions.DuplicateOrderProductException;
-import com.example.zapbites.OrderProduct.Exceptions.OrderProductNotFoundException;
-import jakarta.transaction.Transactional;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
-public class OrderProductService {
-    private final OrderProductRepository orderProductRepository;
+public interface OrderProductService {
 
-    public OrderProductService(OrderProductRepository orderProductRepository) {
-        this.orderProductRepository = orderProductRepository;
-    }
+    List<OrderProduct> getAllOrderProducts();
 
-    public List<OrderProduct> getAllOrderProducts() {
-        return orderProductRepository.findAll();
-    }
+    Optional<OrderProduct> getOrderProductById(Long id);
 
-    public Optional<OrderProduct> getOrderProductById(Long id) {
-        return orderProductRepository.findById(id);
-    }
+    OrderProduct createOrderProduct(OrderProduct orderProduct);
 
-    public OrderProduct createOrderProduct(OrderProduct orderProduct) {
-        return orderProductRepository.save(orderProduct);
-    }
+    OrderProduct updateOrderProduct(OrderProduct updatedOrderProduct);
 
-    public OrderProduct updateOrderProduct(OrderProduct updatedOrderProduct) {
-        List<OrderProduct> allOrderProducts = getAllOrderProducts();
-
-        if (allOrderProducts.stream().anyMatch(op -> op.getId().equals(updatedOrderProduct.getId()))) {
-            return orderProductRepository.save(updatedOrderProduct);
-        } else {
-            throw new OrderProductNotFoundException("OrderProduct not found.");
-        }
-    }
-
-    public void deleteOrderProductById(Long id) {
-            orderProductRepository.deleteById(id);
-    }
+    void deleteOrderProductById(Long id);
 }

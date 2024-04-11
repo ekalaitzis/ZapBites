@@ -1,57 +1,17 @@
 package com.example.zapbites.Product;
 
-import com.example.zapbites.Product.Exceptions.DuplicateProductException;
-import com.example.zapbites.Product.Exceptions.ProductNotFoundException;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    List<Product> getAllProducts();
 
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    Optional<Product> getProductById(Long id);
 
+    Product createProduct(Product product);
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+    Product updateProduct(Product updatedProduct);
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
-
-    }
-
-    public Product createProduct(Product product) {
-        String name = product.getName();
-        Optional<Product> existingProduct = productRepository.findByName(name);
-
-        if (existingProduct.isPresent()) {
-            throw new DuplicateProductException("Product: " + name + " already exists.");
-        }
-        return productRepository.save(product);
-    }
-
-    public Product updateProduct(Product updatedProduct) {
-        List<Product> allProducts = getAllProducts();
-
-        if (allProducts.stream().anyMatch(p -> p.getId().equals(updatedProduct.getId()))) {
-            return productRepository.save(updatedProduct);
-        } else {
-            throw new ProductNotFoundException("Product " + updatedProduct.getName() + " not found.");
-        }
-    }
-
-    public void deleteProduct(Long id) {
-            productRepository.deleteById(id);
-    }
+    void deleteProduct(Long id);
 }
