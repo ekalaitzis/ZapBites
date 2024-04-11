@@ -1,12 +1,13 @@
 package com.example.zapbites.Customer;
 
 import com.example.zapbites.CustomerAddress.CustomerAddress;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,18 +34,23 @@ public class Customer {
     @Size(min = 10, max = 14)
     @Column(name = "telephone", nullable = false)
     private String telephone;
+    @JsonIgnore
+    @Transient
+    @OneToMany(mappedBy = "customer")
+    private List<CustomerAddress> customerAddresses;
 
 
     public Customer() {
     }
 
-    public Customer(Long id, String firstName, String lastName, String email, String password, String telephone, Collection<CustomerAddress> customerAddress) {
+    public Customer(Long id, String firstName, String lastName, String email, String password, String telephone, List<CustomerAddress> customerAddresses) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.telephone = telephone;
+        this.customerAddresses = customerAddresses;
     }
 
     public Long getId() {
