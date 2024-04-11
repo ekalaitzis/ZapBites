@@ -1,6 +1,7 @@
 package com.example.zapbites.Ingredient;
 
 import com.example.zapbites.Product.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -23,6 +24,7 @@ public class Ingredient {
     private boolean spicy;
     private boolean glutenFree;
     @ManyToMany(mappedBy = "ingredients")
+    @JsonBackReference
     private List<Product> products;
 
     public Ingredient() {
