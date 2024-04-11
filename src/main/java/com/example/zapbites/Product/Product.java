@@ -2,6 +2,7 @@ package com.example.zapbites.Product;
 
 import com.example.zapbites.Category.Category;
 import com.example.zapbites.Ingredient.Ingredient;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -32,6 +33,7 @@ public class Product {
     private Category category;
     @ManyToMany
     @JoinTable(name = "product_ingredient", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    @JsonManagedReference
     private List<Ingredient> ingredients;
 
     public Product() {
