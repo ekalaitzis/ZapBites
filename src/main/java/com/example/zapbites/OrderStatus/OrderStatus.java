@@ -1,6 +1,6 @@
 package com.example.zapbites.OrderStatus;
 
-import com.example.zapbites.Order.Orders;
+import com.example.zapbites.Orders.Orders;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 
@@ -29,12 +29,12 @@ public class OrderStatus {
     public OrderStatus() {
     }
 
-    public OrderStatus(Long id, Orders orderId, Session session, Timestamp statusChangedAt) {
+    public OrderStatus(Long id, Orders orderId, OrderStatusEnum orderStatusEnum, Session session, Timestamp statusChangedAt) {
         this.id = id;
         this.orderId = orderId;
+        this.orderStatusEnum = orderStatusEnum;
         this.session = session;
         this.statusChangedAt = statusChangedAt;
-        this.orderStatusEnum = OrderStatusEnum.CART;
     }
 
     public Long getId() {
@@ -53,6 +53,14 @@ public class OrderStatus {
         this.orderId = orderId;
     }
 
+    public OrderStatusEnum getOrderStatusEnum() {
+        return orderStatusEnum;
+    }
+
+    public void setOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
+        this.orderStatusEnum = orderStatusEnum;
+    }
+
     public Session getSession() {
         return session;
     }
@@ -69,19 +77,6 @@ public class OrderStatus {
         this.statusChangedAt = statusChangedAt;
     }
 
-    public OrderStatusEnum getOrderStatusEnum() {
-        return orderStatusEnum;
-    }
-
-    public void setOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
-        this.orderStatusEnum = orderStatusEnum;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderStatus{" + "id=" + id + ", orderId=" + orderId + ", orderStatusEnum=" + orderStatusEnum + ", session=" + session + ", statusChangedAt=" + statusChangedAt + '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,5 +88,16 @@ public class OrderStatus {
     @Override
     public int hashCode() {
         return Objects.hash(id, orderId, orderStatusEnum, session, statusChangedAt);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderStatus{" +
+                "id=" + id +
+                ", orderId=" + orderId +
+                ", orderStatusEnum=" + orderStatusEnum +
+                ", session=" + session +
+                ", statusChangedAt=" + statusChangedAt +
+                '}';
     }
 }

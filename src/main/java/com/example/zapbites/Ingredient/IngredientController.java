@@ -1,7 +1,5 @@
 package com.example.zapbites.Ingredient;
 
-import com.example.zapbites.Ingredient.Exceptions.DuplicateIngredientException;
-import com.example.zapbites.Ingredient.Exceptions.IngredientNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +18,7 @@ public class IngredientController {
 
     public IngredientController(IngredientService ingredientService) {
         this.ingredientService = ingredientService;
-
     }
-
 
     @GetMapping
     public ResponseEntity<List<Ingredient>> getAllIngredients() {
