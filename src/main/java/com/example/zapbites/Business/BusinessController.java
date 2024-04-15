@@ -1,11 +1,13 @@
 package com.example.zapbites.Business;
 
+import com.example.zapbites.Business.Security.BusinessUserDetails;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,10 +48,19 @@ public class BusinessController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Business> updateBusiness(@RequestBody Business business) {
-        Business updatedBusiness = businessService.updateBusiness(business);
-        return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
+    public ResponseEntity<Business> updateBusiness(@PathVariable Long id, @RequestBody Business business, Authentication authentication) {
+        BusinessUserDetails userDetails = (BusinessUserDetails) authentication.getPrincipal();
+        Business currentBusiness = userDetails.getBusiness();
+
+        if (currentBusiness.getId().equals(id)) {
+            Business updatedBusiness = businessService.updateBusiness(business);
+            return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBusinessById(@PathVariable Long id) {
