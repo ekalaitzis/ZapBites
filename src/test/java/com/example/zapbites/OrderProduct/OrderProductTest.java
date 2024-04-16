@@ -1,6 +1,6 @@
 package com.example.zapbites.OrderProduct;
 
-import com.example.zapbites.Order.Orders;
+import com.example.zapbites.Orders.Orders;
 import com.example.zapbites.Product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

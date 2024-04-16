@@ -1,22 +1,15 @@
 package com.example.zapbites.OrderStatus;
 
-import com.example.zapbites.Order.Order;
-import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.sql.Timestamp;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class OrderStatusTest {
 
-//    @Test
-//    public void testOrderStatusEntity() {
-//        // Given
-//        Order order = new Order();
+    @Test
+    public void testOrderStatusEntity() {
+        // Given
+//        Orders order = new Orders();
 //        order.setId(1L); // Assuming order ID 1 exists
 //
 //        Session session = new Session(); // Assuming you have a valid Session object
@@ -35,5 +28,5 @@ public class OrderStatusTest {
 //        assertEquals(statusChangedAt, orderStatus.getStatusChangedAt());
 //        // Assuming default status is set correctly
 //        assertEquals(OrderStatusEnum.CART, orderStatus.getOrderStatusEnum());
-//    }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.zapbites.Order;
 import com.example.zapbites.Business.Business;
 import com.example.zapbites.Customer.Customer;
 import com.example.zapbites.CustomerAddress.CustomerAddress;
+import com.example.zapbites.Orders.Orders;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -29,7 +30,7 @@ public class OrderTest {
 
         Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
-        Order order = new Order(1L, business, customer, customerAddress, BigDecimal.valueOf(100.00), createdAt);
+        Orders order = new Orders(1L, business, customer, customerAddress, BigDecimal.valueOf(100.00), createdAt);
 
         // When - No action needed as this is just a simple entity test
 

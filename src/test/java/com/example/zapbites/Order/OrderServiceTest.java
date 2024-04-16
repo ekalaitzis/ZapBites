@@ -1,7 +1,10 @@
 package com.example.zapbites.Order;
 
-import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
-import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
+import com.example.zapbites.Orders.Exceptions.DuplicateOrderException;
+import com.example.zapbites.Orders.Exceptions.OrderNotFoundException;
+import com.example.zapbites.Orders.OrderRepository;
+import com.example.zapbites.Orders.OrderService;
+import com.example.zapbites.Orders.Orders;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
