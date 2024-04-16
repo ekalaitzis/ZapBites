@@ -38,8 +38,7 @@ public class SecurityConfig {
 //
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/business/**")
-                        .authenticated())
+                        .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable());
         return http.build();

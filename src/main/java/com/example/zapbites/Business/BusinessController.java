@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class BusinessController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('business')")
     public ResponseEntity<List<Business>> getAllBusinesses() {
         List<Business> businesses = businessService.getAllBusinesses();
         logger.info("all businesses: {}", businesses);
@@ -48,6 +50,7 @@ public class BusinessController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("business == authentication.principal")
     public ResponseEntity<Business> updateBusiness(@PathVariable Long id, @RequestBody Business business, Authentication authentication) {
         BusinessUserDetails userDetails = (BusinessUserDetails) authentication.getPrincipal();
         Business currentBusiness = userDetails.getBusiness();
