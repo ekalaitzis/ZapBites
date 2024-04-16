@@ -1,7 +1,10 @@
 package com.example.zapbites.Order;
 
-import com.example.zapbites.Order.Exceptions.DuplicateOrderException;
-import com.example.zapbites.Order.Exceptions.OrderNotFoundException;
+import com.example.zapbites.Orders.Exceptions.DuplicateOrderException;
+import com.example.zapbites.Orders.Exceptions.OrderNotFoundException;
+import com.example.zapbites.Orders.OrderController;
+import com.example.zapbites.Orders.OrderService;
+import com.example.zapbites.Orders.Orders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
