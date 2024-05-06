@@ -4,11 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "business")
+@AllArgsConstructor
+@Getter
+@Setter
 public class Business {
 
     @Id
@@ -21,7 +27,6 @@ public class Business {
     @Email
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Size(min = 6, max = 20)
     @Column(name = "password", nullable = false)
     private String password;
     @NotBlank
@@ -31,82 +36,37 @@ public class Business {
     @NotBlank
     @Column(name = "tax_id_number", nullable = false)
     private String taxIdNumber;
+    @Column(name = "role", nullable = false)
+    private String role = "BUSINESS";
+
 
     public Business() {
     }
 
-    public Business(Long id, String companyName, String email, String password, String telephone, String taxIdNumber) {
-        this.id = id;
-        this.companyName = companyName;
-        this.email = email;
-        this.password = password;
-        this.telephone = telephone;
-        this.taxIdNumber = taxIdNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getTaxIdNumber() {
-        return taxIdNumber;
-    }
-
-    public void setTaxIdNumber(String taxIdNumber) {
-        this.taxIdNumber = taxIdNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "Business{" + "id=" + id + ", companyName='" + companyName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", telephone='" + telephone + '\'' + ", taxIdNumber='" + taxIdNumber + '\'' + '}';
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Business business = (Business) o;
-        return Objects.equals(id, business.id) && Objects.equals(companyName, business.companyName) && Objects.equals(email, business.email) && Objects.equals(password, business.password) && Objects.equals(telephone, business.telephone) && Objects.equals(taxIdNumber, business.taxIdNumber);
+        return Objects.equals(id, business.id) && Objects.equals(companyName, business.companyName) && Objects.equals(email, business.email) && Objects.equals(password, business.password) && Objects.equals(telephone, business.telephone) && Objects.equals(taxIdNumber, business.taxIdNumber) && Objects.equals(role, business.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyName, email, password, telephone, taxIdNumber);
+        return Objects.hash(id, companyName, email, password, telephone, taxIdNumber, role);
+    }
+
+    @Override
+    public String toString() {
+        return "Business{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", taxIdNumber='" + taxIdNumber + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
