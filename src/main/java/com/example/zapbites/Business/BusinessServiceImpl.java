@@ -4,6 +4,7 @@ import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class BusinessServiceImpl implements BusinessService {
 
     private final BusinessRepository businessRepository;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public BusinessServiceImpl(BusinessRepository businessRepository) {
+    public BusinessServiceImpl(BusinessRepository businessRepository, BCryptPasswordEncoder encoder) {
         this.businessRepository = businessRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class BusinessServiceImpl implements BusinessService {
         if (existingBusiness.isPresent()) {
             throw new DuplicateBusinessException("Business with email " + email + " already exists");
         }
+        business.setPassword(encoder.encode(business.getPassword()));
         return businessRepository.save(business);
     }
 
