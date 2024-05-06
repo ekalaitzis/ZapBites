@@ -2,18 +2,18 @@ package com.example.zapbites.Business.Security;
 
 import com.example.zapbites.Business.Business;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 
+@Getter
 @AllArgsConstructor
 public class BusinessUserDetails implements UserDetails {
     private final Business business;
-    private final Set<Role> roles;
 
 
     @Override
@@ -29,7 +29,9 @@ public class BusinessUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_BUSINESS"));
+        return authorities;
     }
 
     @Override
@@ -52,7 +54,4 @@ public class BusinessUserDetails implements UserDetails {
         return true;
     }
 
-    public Business getBusiness() {
-        return business;
-    }
 }
