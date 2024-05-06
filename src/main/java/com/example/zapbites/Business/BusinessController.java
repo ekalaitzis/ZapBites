@@ -1,14 +1,10 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Security.BusinessUserDetails;
 import jakarta.validation.Valid;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("/business")
 @Validated
 public class BusinessController {
-    private static final Logger logger = LogManager.getLogger(BusinessController.class);
 
     private final BusinessService businessService;
 
@@ -29,43 +24,35 @@ public class BusinessController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('business')")
+    @PreAuthorize("hasAnyRole('BUSINESS')")
     public ResponseEntity<List<Business>> getAllBusinesses() {
         List<Business> businesses = businessService.getAllBusinesses();
-        logger.info("all businesses: {}", businesses);
-
         return new ResponseEntity<>(businesses, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@businessOwnerEvaluator.checkForOwnerById(#id)")
     public ResponseEntity<Business> getBusinessById(@PathVariable Long id) {
         Optional<Business> optionalBusiness = businessService.getBusinessById(id);
         return optionalBusiness.map(business -> new ResponseEntity<>(business, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Object> createBusiness(@Valid @RequestBody Business business) {
         Business createdBusiness = businessService.createBusiness(business);
         return new ResponseEntity<>(createdBusiness, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("business == authentication.principal")
-    public ResponseEntity<Business> updateBusiness(@PathVariable Long id, @RequestBody Business business, Authentication authentication) {
-        BusinessUserDetails userDetails = (BusinessUserDetails) authentication.getPrincipal();
-        Business currentBusiness = userDetails.getBusiness();
-
-        if (currentBusiness.getId().equals(id)) {
-            Business updatedBusiness = businessService.updateBusiness(business);
-            return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+    @PreAuthorize("@businessOwnerEvaluator.checkForOwnerByBusiness(#business)")
+    public ResponseEntity<Business> updateBusiness(@RequestBody Business business) {
+        Business updatedBusiness = businessService.updateBusiness(business);
+        return new ResponseEntity<>(updatedBusiness, HttpStatus.OK);
     }
 
 
-
     @DeleteMapping("/{id}")
+    @PreAuthorize("@businessOwnerEvaluator.checkForOwnerById(#id)")
     public ResponseEntity<Void> deleteBusinessById(@PathVariable Long id) {
         businessService.deleteBusinessById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
