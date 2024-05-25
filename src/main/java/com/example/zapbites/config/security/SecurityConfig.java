@@ -8,6 +8,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -26,10 +27,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/*/register").permitAll()
-                .requestMatchers("/business/***").hasRole("BUSINESS").anyRequest()
-                .authenticated());
+                .requestMatchers("/business/***").hasRole("BUSINESS")
+                .requestMatchers("/customer/***").hasRole("CUSTOMER").anyRequest().authenticated());
 
-        http.csrf(c -> c.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
 
 
