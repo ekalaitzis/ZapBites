@@ -4,17 +4,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.Objects;
+import lombok.*;
 
 @Entity
 @Table(name = "business")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 public class Business {
 
     @Id
@@ -40,33 +39,4 @@ public class Business {
     private String role = "BUSINESS";
 
 
-    public Business() {
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Business business = (Business) o;
-        return Objects.equals(id, business.id) && Objects.equals(companyName, business.companyName) && Objects.equals(email, business.email) && Objects.equals(password, business.password) && Objects.equals(telephone, business.telephone) && Objects.equals(taxIdNumber, business.taxIdNumber) && Objects.equals(role, business.role);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, companyName, email, password, telephone, taxIdNumber, role);
-    }
-
-    @Override
-    public String toString() {
-        return "Business{" +
-                "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", taxIdNumber='" + taxIdNumber + '\'' +
-                ", role='" + role + '\'' +
-                '}';
-    }
 }
