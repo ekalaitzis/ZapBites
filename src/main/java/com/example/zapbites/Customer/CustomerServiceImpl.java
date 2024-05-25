@@ -3,7 +3,8 @@ package com.example.zapbites.Customer;
 import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,13 +12,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    private final CustomerRepository customerRepository;
 
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+    private final CustomerRepository customerRepository;
+    private BCryptPasswordEncoder encoder;
+
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -37,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (existingCustomer.isPresent()) {
             throw new DuplicateCustomerException("Customer with email: " + email + " already exists.");
         }
+        customer.setPassword(encoder.encode(customer.getPassword()));
         return customerRepository.save(customer);
     }
 
