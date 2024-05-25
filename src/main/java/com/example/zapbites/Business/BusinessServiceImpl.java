@@ -3,7 +3,7 @@ package com.example.zapbites.Business;
 import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +12,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class BusinessServiceImpl implements BusinessService {
 
     private final BusinessRepository businessRepository;
     private BCryptPasswordEncoder encoder;
 
-    @Autowired
-    public BusinessServiceImpl(BusinessRepository businessRepository, BCryptPasswordEncoder encoder) {
-        this.businessRepository = businessRepository;
-        this.encoder = encoder;
-    }
 
     @Override
     public List<Business> getAllBusinesses() {
