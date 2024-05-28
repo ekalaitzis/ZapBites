@@ -1,16 +1,16 @@
 -- Dummy data for business
-INSERT INTO business (id, company_name, email, password, telephone, tax_id_number)
+INSERT INTO business (id, company_name, email, password, telephone, tax_id_number, role)
 VALUES
-    (1, 'Flavors of Curry', 'flavor@curry.al', 'password1', '1234567890', 'TAX123'),
-    (2, 'Crispy Bites', 'crispy@bites.com', 'password2', '9876543210', 'TAX456'),
-    (3, 'Green Delight', 'green@delight.com', 'password3', '5556667777', 'TAX789'),
-    (4, 'Vegan Vibes', 'vegan@vibes.com', 'password4', '1112223333', 'TAX999'),
-    (5, 'Sizzling Grill', 'sizzle@grill.com', 'password5', '9998887777', 'TAX000'),
-    (6, 'Taste of Mexico', 'taste@mexico.com', 'password6', '3332221111', 'TAX111'),
-    (7, 'Asian Fusion', 'asian@fusion.com', 'password7', '4445556666', 'TAX222'),
-    (8, 'Mediterranean Delights', 'med@delights.com', 'password8', '7778889999', 'TAX333'),
-    (9, 'Burger Haven', 'burger@haven.com', 'password9', '6667778888', 'TAX444'),
-    (10, 'Pizza Paradise', 'pizza@paradise.com', 'password10', '2223334444', 'TAX555');
+    (1, 'Flavors of Curry', 'flavor@curry.al', '$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6', '1234567890', 'TAX123', 'BUSINESS'),
+    (2, 'Crispy Bites', 'crispy@bites.com', '$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO', '9876543210', 'TAX456', 'BUSINESS'),
+    (3, 'Green Delight', 'green@delight.com', '$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG', '5556667777', 'TAX789', 'BUSINESS'),
+    (4, 'Vegan Vibes', 'vegan@vibes.com', '$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u', '1112223333', 'TAX999', 'BUSINESS'),
+    (5, 'Sizzling Grill', 'sizzle@grill.com', '$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm', '9998887777', 'TAX000', 'BUSINESS'),
+    (6, 'Taste of Mexico', 'taste@mexico.com', '$2a$10$LZoO97Q8rycW4dLBej5yFuvSRlz3q9qyp3EDAdABiVITkrtbKdROy', '3332221111', 'TAX111', 'BUSINESS'),
+    (7, 'Asian Fusion', 'asian@fusion.com', '$2a$10$HCF1xLHm5rb2ovRQdzWG6uz1LvspVwCZSmco4mLwyww2KyR3wv.jm', '4445556666', 'TAX222', 'BUSINESS'),
+    (8, 'Mediterranean Delights', 'med@delights.com', '$2a$10$vZOrH1QAZOfiOxUO4K6yu.GI/pF65wtNmIsz9.DHBL0zRUUh6yhJa', '7778889999', 'TAX333', 'BUSINESS'),
+    (9, 'Burger Haven', 'burger@haven.com', '$2a$10$9zF3njA88g66JtxTp0DJM.bSGl1SuHxzqYwi.oMwGEbK.cQr6LQv.', '6667778888', 'TAX444', 'BUSINESS'),
+    (10, 'Pizza Paradise', 'pizza@paradise.com', '$2a$10$dp4wJYtxd7OklcJNnuDuyu0QhFYY3kChnw2l9h0yMdIs3o45XkyMi', '2223334444', 'TAX555', 'BUSINESS');
 
 -- Dummy data for business_schedule
 INSERT INTO business_schedule (id, weekday, opening, closing, business_id)
@@ -108,21 +108,21 @@ VALUES
     (8, 28, 8);
 
 -- Dummy data for additional customers
-INSERT INTO customer (id, first_name, last_name, email, password, telephone)
+INSERT INTO customer (id, first_name, last_name, email, password, telephone, role)
 VALUES
-    (1, 'John', 'Doe', 'john.doe@email.com', 'password1', '5551112233'),
-    (2, 'Jane', 'Smith', 'jane.smith@email.com', 'password2', '5554445566'),
-    (3, 'Bob', 'Johnson', 'bob.johnson@email.com', 'password3', '5557778899'),
-    (4, 'Alice', 'Johnson', 'alice.johnson@email.com', 'password4', '5551234567'),
-    (5, 'Michael', 'Brown', 'michael.brown@email.com', 'password5', '5552345678'),
-    (6, 'Emily', 'Martinez', 'emily.martinez@email.com', 'password6', '5553456789'),
-    (7, 'Daniel', 'Garcia', 'daniel.garcia@email.com', 'password7', '5554567890'),
-    (8, 'Olivia', 'Lopez', 'olivia.lopez@email.com', 'password8', '5555678901'),
-    (9, 'William', 'Gonzalez', 'william.gonzalez@email.com', 'password9', '5556789012'),
-    (10, 'Sophia', 'Hernandez', 'sophia.hernandez@email.com', 'password10', '5557890123'),
-    (11, 'James', 'Smith', 'james.smith@email.com', 'password11', '5558901234'),
-    (12, 'Emma', 'Johnson', 'emma.johnson@email.com', 'password12', '5559012345'),
-    (13, 'Alexander', 'Miller', 'alexander.miller@email.com', 'password13', '5550123456');
+    (1, 'John', 'Doe', 'john.doe@email.com', '$2a$10$S2Dknl89hpp468yF49DHpuv3PLT2s2OM8AV0DJ2qAnW0Ivwlw1UPq', '5551112233', 'CUSTOMER'),
+    (2, 'Jane', 'Smith', 'jane.smith@email.com', '$2a$10$U/6fzCXGPEyI57xUlX50peF4DOIl17jRjobwC5.aFk.nj6/GDGGp2', '5554445566', 'CUSTOMER'),
+    (3, 'Bob', 'Johnson', 'bob.johnson@email.com', '$2a$10$UWUcTqdLVhJvmoFebZbFo.tFNJ3UwYI6ynYxfIFwhN716piaymmeG', '5557778899', 'CUSTOMER'),
+    (4, 'Alice', 'Johnson', 'alice.johnson@email.com', '$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i', '5551234567', 'CUSTOMER'),
+    (5, 'Michael', 'Brown', 'michael.brown@email.com', '$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq', '5552345678', 'CUSTOMER'),
+    (6, 'Emily', 'Martinez', 'emily.martinez@email.com', '$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2', '5553456789', 'CUSTOMER'),
+    (7, 'Daniel', 'Garcia', 'daniel.garcia@email.com', '$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6', '5554567890', 'CUSTOMER'),
+    (8, 'Olivia', 'Lopez', 'olivia.lopez@email.com', '$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm', '5555678901', 'CUSTOMER'),
+    (9, 'William', 'Gonzalez', 'william.gonzalez@email.com', '$2a$10$iLrOhVJ9SbwQ.aRyMN/3Aej650BzQZamt5FnFxjFPd0MWe3cc9ley', '5556789012', 'CUSTOMER'),
+    (10, 'Sophia', 'Hernandez', 'sophia.hernandez@email.com', '$2a$10$bmoHp7cSxabud510ZnwAMeFiZFYuJSGdL/c4XsOPbBvIapZ5DNjAG', '5557890123', 'CUSTOMER'),
+    (11, 'James', 'Smith', 'james.smith@email.com', '$2a$10$PD406.FvyEtqDl/RunnnmODkP7w0wJ2Ov/MDQdsWMdUGi3dOeYXWu', '5558901234', 'CUSTOMER'),
+    (12, 'Emma', 'Johnson', 'emma.johnson@email.com', '$2a$10$D7L1Nve4jLHL5Om/REQHbeNHIShMo2KBG9NLziN/kfpdxuo4fgLNm', '5559012345', 'CUSTOMER'),
+    (13, 'Alexander', 'Miller', 'alexander.miller@email.com', '$2a$10$Lcc5PjPUZXqMnMb5gHMcruXlVeOparhWdrPxLPgcH7z1fRD8pLZKG', '5550123456', 'CUSTOMER');
 
 
 -- Dummy data for additional addresses

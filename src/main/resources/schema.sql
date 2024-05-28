@@ -13,6 +13,8 @@ DROP TABLE IF EXISTS category CASCADE;
 DROP TABLE IF EXISTS menu CASCADE;
 DROP TABLE IF EXISTS business_schedule CASCADE;
 DROP TABLE IF EXISTS business CASCADE;
+DROP TABLE IF EXISTS role CASCADE;
+
 
 DROP TYPE IF EXISTS order_status_enum;
 DROP TYPE IF EXISTS day_of_week_enum;
@@ -28,6 +30,15 @@ DROP SEQUENCE IF EXISTS order_status_seq;
 DROP SEQUENCE IF EXISTS customer_seq;
 DROP SEQUENCE IF EXISTS order_seq;
 DROP SEQUENCE IF EXISTS product_seq;
+DROP SEQUENCE IF EXISTS role_seq;
+
+CREATE TABLE role (
+                      id              SERIAL               PRIMARY KEY,
+                      name            VARCHAR(50)          NOT NULL UNIQUE
+);
+
+CREATE SEQUENCE role_seq;
+
 
 CREATE TABLE business
 (
@@ -36,7 +47,8 @@ CREATE TABLE business
     email         VARCHAR(255) NOT NULL UNIQUE,
     password      VARCHAR(255) NOT NULL,
     telephone     VARCHAR(15)  NOT NULL,
-    tax_id_number VARCHAR(255) NOT NULL
+    tax_id_number VARCHAR(255) NOT NULL,
+    role          VARCHAR(25)     NOT NULL DEFAULT 'BUSINESS'
 );
 
 CREATE SEQUENCE business_seq;
@@ -173,7 +185,8 @@ CREATE TABLE customer
     last_name  VARCHAR(255) NOT NULL,
     email      VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
-    telephone  VARCHAR(15)  NOT NULL
+    telephone  VARCHAR(15)  NOT NULL,
+    role       VARCHAR(25)     NOT NULL DEFAULT 'CUSTOMER'
 );
 
 CREATE SEQUENCE customer_seq;
