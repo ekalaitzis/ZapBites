@@ -33,7 +33,6 @@ public class Customer {
     @Email
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
-    @Size(min = 6, max = 20)
     @Column(name = "password", nullable = false)
     private String password;
     @NotBlank
