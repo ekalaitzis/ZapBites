@@ -31,6 +31,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@customerOwnerEvaluator.checkForOwnerById(#id)")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
         Optional<Customer> optionalCustomer = customerService.getCustomerById(id);
         return optionalCustomer.map(customer -> new ResponseEntity<>(customer, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -43,12 +44,14 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@customerOwnerEvaluator.checkForOwnerByCustomer(#Customer)")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
         Customer updateCustomer = customerService.updateCustomer(customer);
         return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@customerOwnerEvaluator.checkForOwnerById(#id)")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
