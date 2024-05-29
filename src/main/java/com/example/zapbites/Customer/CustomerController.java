@@ -44,10 +44,10 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("@customerOwnerEvaluator.checkForOwnerByCustomer(#Customer)")
+    @PreAuthorize("@customerOwnerEvaluator.checkForOwnerByCustomer(#customer)")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-        Customer updateCustomer = customerService.updateCustomer(customer);
-        return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
+        Customer updatedCustomer = customerService.updateCustomer(customer);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
