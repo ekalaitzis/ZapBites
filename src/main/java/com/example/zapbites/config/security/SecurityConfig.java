@@ -1,8 +1,7 @@
 package com.example.zapbites.config.security;
 
-import com.example.zapbites.Business.Security.BusinessUserDetailsService;
-import com.example.zapbites.Customer.Security.CustomerUserDetailsService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -10,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,8 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final BusinessUserDetailsService businessUserDetailsService;
-    private final CustomerUserDetailsService customerUserDetailsService;
+    @Autowired
+    private final UserDetailsService businessUserDetailsService;
+
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -30,10 +31,21 @@ public class SecurityConfig {
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/*/register").permitAll()
                 .requestMatchers("/business/***").hasRole("BUSINESS")
-                .requestMatchers("/customer/***").hasRole("CUSTOMER").anyRequest().authenticated());
+                .requestMatchers("/business_schedule/***").hasRole("BUSINESS")
+                .requestMatchers("/category/***").hasRole("BUSINESS")
+                .requestMatchers("/menu/***").hasRole("BUSINESS")
+                .requestMatchers("/product/***").hasRole("BUSINESS")
+                .requestMatchers("/ingredient/***").hasRole("BUSINESS")
+                .requestMatchers("/orders/***").hasAnyRole("BUSINESS","CUSTOMER")
+                .requestMatchers("/order_product/***").hasAnyRole("BUSINESS","CUSTOMER")
+                .requestMatchers("/order_status/***").hasAnyRole("BUSINESS","CUSTOMER")
+                .requestMatchers("/search/***").hasAnyRole("BUSINESS","CUSTOMER")
+                .requestMatchers("/customer/***").hasRole("CUSTOMER")
+                .requestMatchers("/customer_address/***").hasRole("CUSTOMER")
+                .anyRequest()
+                .authenticated());
 
         http.csrf(AbstractHttpConfigurer::disable);
-
         return http.build();
     }
 
@@ -41,5 +53,4 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
