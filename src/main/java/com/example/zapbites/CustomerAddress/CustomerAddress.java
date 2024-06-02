@@ -3,12 +3,17 @@ package com.example.zapbites.CustomerAddress;
 import com.example.zapbites.Customer.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.data.geo.Point;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "customer_address")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class CustomerAddress {
 
     @Id
@@ -27,74 +32,4 @@ public class CustomerAddress {
     @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
-    public CustomerAddress() {
-    }
-
-    public CustomerAddress(Long id, String address, Point geolocation, boolean primary, Customer customer) {
-        this.id = id;
-        this.address = address;
-        this.geolocation = geolocation;
-        this.primary = primary;
-        this.customer = customer;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Point getGeolocation() {
-        return geolocation;
-    }
-
-    public void setGeolocation(Point geolocation) {
-        this.geolocation = geolocation;
-    }
-
-    public boolean isPrimary() {
-        return primary;
-    }
-
-    public void setPrimary(boolean primary) {
-        this.primary = primary;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
-    @Override
-    public String toString() {
-        return "CustomerAddress{" + "id=" + id + ", address='" + address + '\'' + ", geolocation=" + geolocation + ", primary=" + primary + ", customer=" + customer + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerAddress that = (CustomerAddress) o;
-        return primary == that.primary && Objects.equals(id, that.id) && Objects.equals(address, that.address) && Objects.equals(geolocation, that.geolocation) && Objects.equals(customer, that.customer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, address, geolocation, primary, customer);
-    }
 }
