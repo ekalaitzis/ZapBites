@@ -4,7 +4,6 @@ import com.example.zapbites.Menu.Exceptions.DuplicateMenuException;
 import com.example.zapbites.Menu.Exceptions.MenuNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,10 +49,6 @@ public class MenuServiceImpl implements MenuService{
     }
     @Override
     public void deleteMenuById(Long id) {
-        try {
             menuRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new MenuNotFoundException("Menu with id " + id + " not found", e);
-        }
     }
 }
