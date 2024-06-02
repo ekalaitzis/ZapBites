@@ -3,6 +3,8 @@ package com.example.zapbites.Customer.Security;
 
 import com.example.zapbites.Customer.Customer;
 import com.example.zapbites.Customer.CustomerService;
+import com.example.zapbites.CustomerAddress.CustomerAddress;
+import com.example.zapbites.CustomerAddress.CustomerAddressService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class CustomerOwnerEvaluator {
 
     private CustomerService customerService;
+    private CustomerAddressService customerAddressService;
+
+
 
     public boolean checkForOwnerById(Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -32,4 +37,20 @@ public class CustomerOwnerEvaluator {
         return checkForOwnerById(customer.getId());
     }
 
+    public boolean checkForOwnerByCustomerAddress(CustomerAddress customerAddress) {
+        return checkForOwnerByCustomerAddressId(customerAddress.getId());
+
+    }
+
+    public boolean checkForOwnerByCustomerAddressId(Long id) {
+        Optional<CustomerAddress> optionalCustomerAddress = customerAddressService.getCustomerAddressById(id);
+        if (optionalCustomerAddress.isPresent()) {
+            Long customerId = optionalCustomerAddress
+                    .map(customerAddress -> customerAddress.getCustomer().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Customer ID not found"));
+
+            return checkForOwnerById(customerId);
+        }
+        return false;
+    }
 }
