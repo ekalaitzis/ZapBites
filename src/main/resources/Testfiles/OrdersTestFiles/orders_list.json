@@ -5,17 +5,19 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 11,
-      "firstName": "James",
-      "lastName": "Smith",
-      "email": "james.smith@email.com",
-      "password": "password11",
-      "telephone": "5558901234"
+      "id": 6,
+      "firstName": "Emily",
+      "lastName": "Martinez",
+      "email": "emily.martinez@email.com",
+      "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+      "telephone": "5553456789",
+      "role": "CUSTOMER"
     },
     "totalPrice": 28.50,
     "createdAt": 1685611800000,
@@ -26,14 +28,15 @@
         "x": 37.7749,
         "y": -122.4194
       },
-      "primary": false,
+      "primary": true,
       "customer": {
         "id": 6,
         "firstName": "Emily",
         "lastName": "Martinez",
         "email": "emily.martinez@email.com",
-        "password": "password6",
-        "telephone": "5553456789"
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -43,17 +46,19 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     },
     "customerId": {
       "id": 4,
       "firstName": "Alice",
       "lastName": "Johnson",
       "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
+      "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+      "telephone": "5551234567",
+      "role": "CUSTOMER"
     },
     "totalPrice": 20.75,
     "createdAt": 1688222700000,
@@ -64,14 +69,15 @@
         "x": 37.7749,
         "y": -122.4194
       },
-      "primary": false,
+      "primary": true,
       "customer": {
         "id": 4,
         "firstName": "Alice",
         "lastName": "Johnson",
         "email": "alice.johnson@email.com",
-        "password": "password4",
-        "telephone": "5551234567"
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -81,17 +87,19 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     },
     "customerId": {
       "id": 5,
       "firstName": "Michael",
       "lastName": "Brown",
       "email": "michael.brown@email.com",
-      "password": "password5",
-      "telephone": "5552345678"
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     },
     "totalPrice": 16.99,
     "createdAt": 1690916400000,
@@ -108,8 +116,9 @@
         "firstName": "Michael",
         "lastName": "Brown",
         "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -119,17 +128,19 @@
       "id": 4,
       "companyName": "Vegan Vibes",
       "email": "vegan@vibes.com",
-      "password": "password4",
+      "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
       "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
+      "taxIdNumber": "TAX999",
+      "role": "BUSINESS"
     },
     "customerId": {
       "id": 8,
       "firstName": "Olivia",
       "lastName": "Lopez",
       "email": "olivia.lopez@email.com",
-      "password": "password8",
-      "telephone": "5555678901"
+      "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+      "telephone": "5555678901",
+      "role": "CUSTOMER"
     },
     "totalPrice": 35.25,
     "createdAt": 1693556100000,
@@ -146,8 +157,9 @@
         "firstName": "Olivia",
         "lastName": "Lopez",
         "email": "olivia.lopez@email.com",
-        "password": "password8",
-        "telephone": "5555678901"
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -157,17 +169,19 @@
       "id": 5,
       "companyName": "Sizzling Grill",
       "email": "sizzle@grill.com",
-      "password": "password5",
+      "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
       "telephone": "9998887777",
-      "taxIdNumber": "TAX000"
+      "taxIdNumber": "TAX000",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 4,
-      "firstName": "Alice",
-      "lastName": "Johnson",
-      "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
+      "id": 7,
+      "firstName": "Daniel",
+      "lastName": "Garcia",
+      "email": "daniel.garcia@email.com",
+      "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+      "telephone": "5554567890",
+      "role": "CUSTOMER"
     },
     "totalPrice": 40.00,
     "createdAt": 1696156200000,
@@ -184,8 +198,9 @@
         "firstName": "Daniel",
         "lastName": "Garcia",
         "email": "daniel.garcia@email.com",
-        "password": "password7",
-        "telephone": "5554567890"
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -195,17 +210,19 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 12,
-      "firstName": "Emma",
-      "lastName": "Johnson",
-      "email": "emma.johnson@email.com",
-      "password": "password12",
-      "telephone": "5559012345"
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     },
     "totalPrice": 22.99,
     "createdAt": 1698846300000,
@@ -222,8 +239,9 @@
         "firstName": "Michael",
         "lastName": "Brown",
         "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -233,17 +251,19 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 13,
-      "firstName": "Alexander",
-      "lastName": "Miller",
-      "email": "alexander.miller@email.com",
-      "password": "password13",
-      "telephone": "5550123456"
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     },
     "totalPrice": 18.50,
     "createdAt": 1701450000000,
@@ -260,8 +280,9 @@
         "firstName": "Michael",
         "lastName": "Brown",
         "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -271,17 +292,19 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 10,
-      "firstName": "Sophia",
-      "lastName": "Hernandez",
-      "email": "sophia.hernandez@email.com",
-      "password": "password10",
-      "telephone": "5557890123"
+      "id": 5,
+      "firstName": "Michael",
+      "lastName": "Brown",
+      "email": "michael.brown@email.com",
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     },
     "totalPrice": 32.75,
     "createdAt": 1704096900000,
@@ -292,14 +315,15 @@
         "x": 42.3601,
         "y": -71.0589
       },
-      "primary": true,
+      "primary": false,
       "customer": {
         "id": 5,
         "firstName": "Michael",
         "lastName": "Brown",
         "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -309,17 +333,19 @@
       "id": 4,
       "companyName": "Vegan Vibes",
       "email": "vegan@vibes.com",
-      "password": "password4",
+      "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
       "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
+      "taxIdNumber": "TAX999",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 11,
-      "firstName": "James",
-      "lastName": "Smith",
-      "email": "james.smith@email.com",
-      "password": "password11",
-      "telephone": "5558901234"
+      "id": 6,
+      "firstName": "Emily",
+      "lastName": "Martinez",
+      "email": "emily.martinez@email.com",
+      "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+      "telephone": "5553456789",
+      "role": "CUSTOMER"
     },
     "totalPrice": 19.99,
     "createdAt": 1706783400000,
@@ -336,8 +362,9 @@
         "firstName": "Emily",
         "lastName": "Martinez",
         "email": "emily.martinez@email.com",
-        "password": "password6",
-        "telephone": "5553456789"
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
       }
     }
   },
@@ -347,17 +374,19 @@
       "id": 5,
       "companyName": "Sizzling Grill",
       "email": "sizzle@grill.com",
-      "password": "password5",
+      "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
       "telephone": "9998887777",
-      "taxIdNumber": "TAX000"
+      "taxIdNumber": "TAX000",
+      "role": "BUSINESS"
     },
     "customerId": {
-      "id": 9,
-      "firstName": "William",
-      "lastName": "Gonzalez",
-      "email": "william.gonzalez@email.com",
-      "password": "password9",
-      "telephone": "5556789012"
+      "id": 7,
+      "firstName": "Daniel",
+      "lastName": "Garcia",
+      "email": "daniel.garcia@email.com",
+      "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+      "telephone": "5554567890",
+      "role": "CUSTOMER"
     },
     "totalPrice": 27.00,
     "createdAt": 1709297100000,
@@ -374,8 +403,9 @@
         "firstName": "Daniel",
         "lastName": "Garcia",
         "email": "daniel.garcia@email.com",
-        "password": "password7",
-        "telephone": "5554567890"
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
       }
     }
   }

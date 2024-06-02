@@ -4,103 +4,116 @@
     "firstName": "John",
     "lastName": "Doe",
     "email": "john.doe@email.com",
-    "password": "password1",
-    "telephone": "5551112233"
+    "password": "$2a$10$S2Dknl89hpp468yF49DHpuv3PLT2s2OM8AV0DJ2qAnW0Ivwlw1UPq",
+    "telephone": "5551112233",
+    "role": "CUSTOMER"
   },
   {
     "id": 2,
     "firstName": "Jane",
     "lastName": "Smith",
     "email": "jane.smith@email.com",
-    "password": "password2",
-    "telephone": "5554445566"
+    "password": "$2a$10$U/6fzCXGPEyI57xUlX50peF4DOIl17jRjobwC5.aFk.nj6/GDGGp2",
+    "telephone": "5554445566",
+    "role": "CUSTOMER"
   },
   {
     "id": 3,
     "firstName": "Bob",
     "lastName": "Johnson",
     "email": "bob.johnson@email.com",
-    "password": "password3",
-    "telephone": "5557778899"
+    "password": "$2a$10$UWUcTqdLVhJvmoFebZbFo.tFNJ3UwYI6ynYxfIFwhN716piaymmeG",
+    "telephone": "5557778899",
+    "role": "CUSTOMER"
   },
   {
     "id": 4,
     "firstName": "Alice",
     "lastName": "Johnson",
     "email": "alice.johnson@email.com",
-    "password": "password4",
-    "telephone": "5551234567"
+    "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+    "telephone": "5551234567",
+    "role": "CUSTOMER"
   },
   {
     "id": 5,
     "firstName": "Michael",
     "lastName": "Brown",
     "email": "michael.brown@email.com",
-    "password": "password5",
-    "telephone": "5552345678"
+    "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+    "telephone": "5552345678",
+    "role": "CUSTOMER"
   },
   {
     "id": 6,
     "firstName": "Emily",
     "lastName": "Martinez",
     "email": "emily.martinez@email.com",
-    "password": "password6",
-    "telephone": "5553456789"
+    "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+    "telephone": "5553456789",
+    "role": "CUSTOMER"
   },
   {
     "id": 7,
     "firstName": "Daniel",
     "lastName": "Garcia",
     "email": "daniel.garcia@email.com",
-    "password": "password7",
-    "telephone": "5554567890"
+    "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+    "telephone": "5554567890",
+    "role": "CUSTOMER"
   },
   {
     "id": 8,
     "firstName": "Olivia",
     "lastName": "Lopez",
     "email": "olivia.lopez@email.com",
-    "password": "password8",
-    "telephone": "5555678901"
+    "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+    "telephone": "5555678901",
+    "role": "CUSTOMER"
   },
   {
     "id": 9,
     "firstName": "William",
     "lastName": "Gonzalez",
     "email": "william.gonzalez@email.com",
-    "password": "password9",
-    "telephone": "5556789012"
+    "password": "$2a$10$iLrOhVJ9SbwQ.aRyMN/3Aej650BzQZamt5FnFxjFPd0MWe3cc9ley",
+    "telephone": "5556789012",
+    "role": "CUSTOMER"
   },
   {
     "id": 10,
     "firstName": "Sophia",
     "lastName": "Hernandez",
     "email": "sophia.hernandez@email.com",
-    "password": "password10",
-    "telephone": "5557890123"
+    "password": "$2a$10$bmoHp7cSxabud510ZnwAMeFiZFYuJSGdL/c4XsOPbBvIapZ5DNjAG",
+    "telephone": "5557890123",
+    "role": "CUSTOMER"
   },
   {
     "id": 11,
     "firstName": "James",
     "lastName": "Smith",
     "email": "james.smith@email.com",
-    "password": "password11",
-    "telephone": "5558901234"
+    "password": "$2a$10$PD406.FvyEtqDl/RunnnmODkP7w0wJ2Ov/MDQdsWMdUGi3dOeYXWu",
+    "telephone": "5558901234",
+    "role": "CUSTOMER"
   },
   {
     "id": 12,
     "firstName": "Emma",
     "lastName": "Johnson",
     "email": "emma.johnson@email.com",
-    "password": "password12",
-    "telephone": "5559012345"
+    "password": "$2a$10$D7L1Nve4jLHL5Om/REQHbeNHIShMo2KBG9NLziN/kfpdxuo4fgLNm",
+    "telephone": "5559012345",
+    "role": "CUSTOMER"
   },
   {
     "id": 13,
     "firstName": "Alexander",
     "lastName": "Miller",
     "email": "alexander.miller@email.com",
-    "password": "password13",
-    "telephone": "5550123456"
+    "password": "$2a$10$Lcc5PjPUZXqMnMb5gHMcruXlVeOparhWdrPxLPgcH7z1fRD8pLZKG",
+    "telephone": "5550123456",
+    "role": "CUSTOMER"
   }
 ]

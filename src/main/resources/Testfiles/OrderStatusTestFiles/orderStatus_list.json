@@ -1,382 +1,1647 @@
 [
   {
-    "id": 6,
-    "businessId": {
-      "id": 1,
-      "companyName": "Flavors of Curry",
-      "email": "flavor@curry.al",
-      "password": "password1",
-      "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
-    },
-    "customerId": {
-      "id": 11,
-      "firstName": "James",
-      "lastName": "Smith",
-      "email": "james.smith@email.com",
-      "password": "password11",
-      "telephone": "5558901234"
-    },
-    "totalPrice": 28.50,
-    "createdAt": 1685611800000,
-    "customerAddressId": {
-      "id": 10,
-      "address": "890 Spruce Street, Faraway City, USA",
-      "geolocation": {
-        "x": 37.7749,
-        "y": -122.4194
+    "id": 29,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
       },
-      "primary": false,
-      "customer": {
+      "customerId": {
         "id": 6,
         "firstName": "Emily",
         "lastName": "Martinez",
         "email": "emily.martinez@email.com",
-        "password": "password6",
-        "telephone": "5553456789"
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "CART",
+    "sessionId": "session6",
+    "statusChangedAt": 1685611800000
   },
   {
-    "id": 7,
-    "businessId": {
-      "id": 2,
-      "companyName": "Crispy Bites",
-      "email": "crispy@bites.com",
-      "password": "password2",
-      "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
-    },
-    "customerId": {
-      "id": 4,
-      "firstName": "Alice",
-      "lastName": "Johnson",
-      "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
-    },
-    "totalPrice": 20.75,
-    "createdAt": 1688222700000,
-    "customerAddressId": {
-      "id": 4,
-      "address": "789 Oak Street, Another Town, USA",
-      "geolocation": {
-        "x": 37.7749,
-        "y": -122.4194
+    "id": 30,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
       },
-      "primary": false,
-      "customer": {
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PROCESSING_ORDER",
+    "sessionId": "session6",
+    "statusChangedAt": 1685611860000
+  },
+  {
+    "id": 31,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "ACCEPTED",
+    "sessionId": "session6",
+    "statusChangedAt": 1685612100000
+  },
+  {
+    "id": 32,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "COOKING",
+    "sessionId": "session6",
+    "statusChangedAt": 1685612400000
+  },
+  {
+    "id": 33,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PREPARING",
+    "sessionId": "session6",
+    "statusChangedAt": 1685612700000
+  },
+  {
+    "id": 34,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERY",
+    "sessionId": "session6",
+    "statusChangedAt": 1685613600000
+  },
+  {
+    "id": 35,
+    "orderId": {
+      "id": 6,
+      "businessId": {
+        "id": 1,
+        "companyName": "Flavors of Curry",
+        "email": "flavor@curry.al",
+        "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+        "telephone": "1234567890",
+        "taxIdNumber": "TAX123",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 28.50,
+      "createdAt": 1685611800000,
+      "customerAddressId": {
+        "id": 10,
+        "address": "890 Spruce Street, Faraway City, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 6,
+          "firstName": "Emily",
+          "lastName": "Martinez",
+          "email": "emily.martinez@email.com",
+          "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+          "telephone": "5553456789",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERED",
+    "sessionId": "session6",
+    "statusChangedAt": 1685614500000
+  },
+  {
+    "id": 36,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
         "id": 4,
         "firstName": "Alice",
         "lastName": "Johnson",
         "email": "alice.johnson@email.com",
-        "password": "password4",
-        "telephone": "5551234567"
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "CART",
+    "sessionId": "session7",
+    "statusChangedAt": 1688222700000
   },
   {
-    "id": 8,
-    "businessId": {
-      "id": 3,
-      "companyName": "Green Delight",
-      "email": "green@delight.com",
-      "password": "password3",
-      "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
-    },
-    "customerId": {
-      "id": 5,
-      "firstName": "Michael",
-      "lastName": "Brown",
-      "email": "michael.brown@email.com",
-      "password": "password5",
-      "telephone": "5552345678"
-    },
-    "totalPrice": 16.99,
-    "createdAt": 1690916400000,
-    "customerAddressId": {
+    "id": 37,
+    "orderId": {
       "id": 7,
-      "address": "789 Elm Street, New City, USA",
-      "geolocation": {
-        "x": 41.8781,
-        "y": -87.6298
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
       },
-      "primary": false,
-      "customer": {
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PROCESSING_ORDER",
+    "sessionId": "session7",
+    "statusChangedAt": 1688222760000
+  },
+  {
+    "id": 38,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "ACCEPTED",
+    "sessionId": "session7",
+    "statusChangedAt": 1688223000000
+  },
+  {
+    "id": 39,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "COOKING",
+    "sessionId": "session7",
+    "statusChangedAt": 1688223300000
+  },
+  {
+    "id": 40,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PREPARING",
+    "sessionId": "session7",
+    "statusChangedAt": 1688223600000
+  },
+  {
+    "id": 41,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERY",
+    "sessionId": "session7",
+    "statusChangedAt": 1688224500000
+  },
+  {
+    "id": 42,
+    "orderId": {
+      "id": 7,
+      "businessId": {
+        "id": 2,
+        "companyName": "Crispy Bites",
+        "email": "crispy@bites.com",
+        "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
+        "telephone": "9876543210",
+        "taxIdNumber": "TAX456",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 4,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@email.com",
+        "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+        "telephone": "5551234567",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 20.75,
+      "createdAt": 1688222700000,
+      "customerAddressId": {
+        "id": 4,
+        "address": "789 Oak Street, Another Town, USA",
+        "geolocation": {
+          "x": 37.7749,
+          "y": -122.4194
+        },
+        "primary": true,
+        "customer": {
+          "id": 4,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@email.com",
+          "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+          "telephone": "5551234567",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERED",
+    "sessionId": "session7",
+    "statusChangedAt": 1688225400000
+  },
+  {
+    "id": 43,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
         "id": 5,
         "firstName": "Michael",
         "lastName": "Brown",
         "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "CART",
+    "sessionId": "session8",
+    "statusChangedAt": 1690916400000
   },
   {
-    "id": 9,
-    "businessId": {
-      "id": 4,
-      "companyName": "Vegan Vibes",
-      "email": "vegan@vibes.com",
-      "password": "password4",
-      "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
-    },
-    "customerId": {
+    "id": 44,
+    "orderId": {
       "id": 8,
-      "firstName": "Olivia",
-      "lastName": "Lopez",
-      "email": "olivia.lopez@email.com",
-      "password": "password8",
-      "telephone": "5555678901"
-    },
-    "totalPrice": 35.25,
-    "createdAt": 1693556100000,
-    "customerAddressId": {
-      "id": 13,
-      "address": "678 Maple Lane, Quiet Town, USA",
-      "geolocation": {
-        "x": 41.8781,
-        "y": -87.6298
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
       },
-      "primary": true,
-      "customer": {
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PROCESSING_ORDER",
+    "sessionId": "session8",
+    "statusChangedAt": 1690916460000
+  },
+  {
+    "id": 45,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "ACCEPTED",
+    "sessionId": "session8",
+    "statusChangedAt": 1690916700000
+  },
+  {
+    "id": 46,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "COOKING",
+    "sessionId": "session8",
+    "statusChangedAt": 1690917000000
+  },
+  {
+    "id": 47,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PREPARING",
+    "sessionId": "session8",
+    "statusChangedAt": 1690917300000
+  },
+  {
+    "id": 48,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERY",
+    "sessionId": "session8",
+    "statusChangedAt": 1690918200000
+  },
+  {
+    "id": 49,
+    "orderId": {
+      "id": 8,
+      "businessId": {
+        "id": 3,
+        "companyName": "Green Delight",
+        "email": "green@delight.com",
+        "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+        "telephone": "5556667777",
+        "taxIdNumber": "TAX789",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 5,
+        "firstName": "Michael",
+        "lastName": "Brown",
+        "email": "michael.brown@email.com",
+        "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+        "telephone": "5552345678",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 16.99,
+      "createdAt": 1690916400000,
+      "customerAddressId": {
+        "id": 7,
+        "address": "789 Elm Street, New City, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": false,
+        "customer": {
+          "id": 5,
+          "firstName": "Michael",
+          "lastName": "Brown",
+          "email": "michael.brown@email.com",
+          "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+          "telephone": "5552345678",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERED",
+    "sessionId": "session8",
+    "statusChangedAt": 1690919100000
+  },
+  {
+    "id": 50,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
         "id": 8,
         "firstName": "Olivia",
         "lastName": "Lopez",
         "email": "olivia.lopez@email.com",
-        "password": "password8",
-        "telephone": "5555678901"
-      }
-    }
-  },
-  {
-    "id": 10,
-    "businessId": {
-      "id": 5,
-      "companyName": "Sizzling Grill",
-      "email": "sizzle@grill.com",
-      "password": "password5",
-      "telephone": "9998887777",
-      "taxIdNumber": "TAX000"
-    },
-    "customerId": {
-      "id": 4,
-      "firstName": "Alice",
-      "lastName": "Johnson",
-      "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
-    },
-    "totalPrice": 40.00,
-    "createdAt": 1696156200000,
-    "customerAddressId": {
-      "id": 12,
-      "address": "345 Elm Street, Suburbia, USA",
-      "geolocation": {
-        "x": 40.7128,
-        "y": -74.006
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
       },
-      "primary": false,
-      "customer": {
-        "id": 7,
-        "firstName": "Daniel",
-        "lastName": "Garcia",
-        "email": "daniel.garcia@email.com",
-        "password": "password7",
-        "telephone": "5554567890"
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "CART",
+    "sessionId": "session9",
+    "statusChangedAt": 1693556100000
   },
   {
-    "id": 11,
-    "businessId": {
-      "id": 1,
-      "companyName": "Flavors of Curry",
-      "email": "flavor@curry.al",
-      "password": "password1",
-      "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
-    },
-    "customerId": {
-      "id": 12,
-      "firstName": "Emma",
-      "lastName": "Johnson",
-      "email": "emma.johnson@email.com",
-      "password": "password12",
-      "telephone": "5559012345"
-    },
-    "totalPrice": 22.99,
-    "createdAt": 1698846300000,
-    "customerAddressId": {
-      "id": 6,
-      "address": "456 Pine Street, New Place, USA",
-      "geolocation": {
-        "x": 40.7128,
-        "y": -74.006
+    "id": 51,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
       },
-      "primary": true,
-      "customer": {
-        "id": 5,
-        "firstName": "Michael",
-        "lastName": "Brown",
-        "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
-      }
-    }
-  },
-  {
-    "id": 12,
-    "businessId": {
-      "id": 2,
-      "companyName": "Crispy Bites",
-      "email": "crispy@bites.com",
-      "password": "password2",
-      "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
-    },
-    "customerId": {
-      "id": 13,
-      "firstName": "Alexander",
-      "lastName": "Miller",
-      "email": "alexander.miller@email.com",
-      "password": "password13",
-      "telephone": "5550123456"
-    },
-    "totalPrice": 18.50,
-    "createdAt": 1701450000000,
-    "customerAddressId": {
-      "id": 7,
-      "address": "789 Elm Street, New City, USA",
-      "geolocation": {
-        "x": 41.8781,
-        "y": -87.6298
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
       },
-      "primary": false,
-      "customer": {
-        "id": 5,
-        "firstName": "Michael",
-        "lastName": "Brown",
-        "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "PROCESSING_ORDER",
+    "sessionId": "session9",
+    "statusChangedAt": 1693556160000
   },
   {
-    "id": 13,
-    "businessId": {
-      "id": 3,
-      "companyName": "Green Delight",
-      "email": "green@delight.com",
-      "password": "password3",
-      "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+    "id": 52,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
+      }
     },
-    "customerId": {
+    "orderStatusEnum": "ACCEPTED",
+    "sessionId": "session9",
+    "statusChangedAt": 1693556400000
+  },
+  {
+    "id": 53,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "COOKING",
+    "sessionId": "session9",
+    "statusChangedAt": 1693557000000
+  },
+  {
+    "id": 54,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PREPARING",
+    "sessionId": "session9",
+    "statusChangedAt": 1693557900000
+  },
+  {
+    "id": 55,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERY",
+    "sessionId": "session9",
+    "statusChangedAt": 1693558800000
+  },
+  {
+    "id": 56,
+    "orderId": {
+      "id": 9,
+      "businessId": {
+        "id": 4,
+        "companyName": "Vegan Vibes",
+        "email": "vegan@vibes.com",
+        "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+        "telephone": "1112223333",
+        "taxIdNumber": "TAX999",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 8,
+        "firstName": "Olivia",
+        "lastName": "Lopez",
+        "email": "olivia.lopez@email.com",
+        "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+        "telephone": "5555678901",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 35.25,
+      "createdAt": 1693556100000,
+      "customerAddressId": {
+        "id": 13,
+        "address": "678 Maple Lane, Quiet Town, USA",
+        "geolocation": {
+          "x": 41.8781,
+          "y": -87.6298
+        },
+        "primary": true,
+        "customer": {
+          "id": 8,
+          "firstName": "Olivia",
+          "lastName": "Lopez",
+          "email": "olivia.lopez@email.com",
+          "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+          "telephone": "5555678901",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERED",
+    "sessionId": "session9",
+    "statusChangedAt": 1693559700000
+  },
+  {
+    "id": 57,
+    "orderId": {
       "id": 10,
-      "firstName": "Sophia",
-      "lastName": "Hernandez",
-      "email": "sophia.hernandez@email.com",
-      "password": "password10",
-      "telephone": "5557890123"
-    },
-    "totalPrice": 32.75,
-    "createdAt": 1704096900000,
-    "customerAddressId": {
-      "id": 8,
-      "address": "234 Birch Lane, Nearby Town, USA",
-      "geolocation": {
-        "x": 42.3601,
-        "y": -71.0589
-      },
-      "primary": true,
-      "customer": {
+      "businessId": {
         "id": 5,
-        "firstName": "Michael",
-        "lastName": "Brown",
-        "email": "michael.brown@email.com",
-        "password": "password5",
-        "telephone": "5552345678"
-      }
-    }
-  },
-  {
-    "id": 14,
-    "businessId": {
-      "id": 4,
-      "companyName": "Vegan Vibes",
-      "email": "vegan@vibes.com",
-      "password": "password4",
-      "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
-    },
-    "customerId": {
-      "id": 11,
-      "firstName": "James",
-      "lastName": "Smith",
-      "email": "james.smith@email.com",
-      "password": "password11",
-      "telephone": "5558901234"
-    },
-    "totalPrice": 19.99,
-    "createdAt": 1706783400000,
-    "customerAddressId": {
-      "id": 9,
-      "address": "567 Cedar Street, Next Door, USA",
-      "geolocation": {
-        "x": 39.7392,
-        "y": -104.9903
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
       },
-      "primary": false,
-      "customer": {
-        "id": 6,
-        "firstName": "Emily",
-        "lastName": "Martinez",
-        "email": "emily.martinez@email.com",
-        "password": "password6",
-        "telephone": "5553456789"
-      }
-    }
-  },
-  {
-    "id": 15,
-    "businessId": {
-      "id": 5,
-      "companyName": "Sizzling Grill",
-      "email": "sizzle@grill.com",
-      "password": "password5",
-      "telephone": "9998887777",
-      "taxIdNumber": "TAX000"
-    },
-    "customerId": {
-      "id": 9,
-      "firstName": "William",
-      "lastName": "Gonzalez",
-      "email": "william.gonzalez@email.com",
-      "password": "password9",
-      "telephone": "5556789012"
-    },
-    "totalPrice": 27.00,
-    "createdAt": 1709297100000,
-    "customerAddressId": {
-      "id": 11,
-      "address": "901 Pine Street, Downtown, USA",
-      "geolocation": {
-        "x": 34.0522,
-        "y": -118.2437
-      },
-      "primary": true,
-      "customer": {
+      "customerId": {
         "id": 7,
         "firstName": "Daniel",
         "lastName": "Garcia",
         "email": "daniel.garcia@email.com",
-        "password": "password7",
-        "telephone": "5554567890"
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
       }
-    }
+    },
+    "orderStatusEnum": "CART",
+    "sessionId": "session10",
+    "statusChangedAt": 1696156200000
+  },
+  {
+    "id": 58,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PROCESSING_ORDER",
+    "sessionId": "session10",
+    "statusChangedAt": 1696156260000
+  },
+  {
+    "id": 59,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "ACCEPTED",
+    "sessionId": "session10",
+    "statusChangedAt": 1696156500000
+  },
+  {
+    "id": 60,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "COOKING",
+    "sessionId": "session10",
+    "statusChangedAt": 1696156800000
+  },
+  {
+    "id": 61,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "PREPARING",
+    "sessionId": "session10",
+    "statusChangedAt": 1696157100000
+  },
+  {
+    "id": 62,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERY",
+    "sessionId": "session10",
+    "statusChangedAt": 1696158000000
+  },
+  {
+    "id": 63,
+    "orderId": {
+      "id": 10,
+      "businessId": {
+        "id": 5,
+        "companyName": "Sizzling Grill",
+        "email": "sizzle@grill.com",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
+        "telephone": "9998887777",
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
+      },
+      "customerId": {
+        "id": 7,
+        "firstName": "Daniel",
+        "lastName": "Garcia",
+        "email": "daniel.garcia@email.com",
+        "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+        "telephone": "5554567890",
+        "role": "CUSTOMER"
+      },
+      "totalPrice": 40.00,
+      "createdAt": 1696156200000,
+      "customerAddressId": {
+        "id": 12,
+        "address": "345 Elm Street, Suburbia, USA",
+        "geolocation": {
+          "x": 40.7128,
+          "y": -74.006
+        },
+        "primary": false,
+        "customer": {
+          "id": 7,
+          "firstName": "Daniel",
+          "lastName": "Garcia",
+          "email": "daniel.garcia@email.com",
+          "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+          "telephone": "5554567890",
+          "role": "CUSTOMER"
+        }
+      }
+    },
+    "orderStatusEnum": "DELIVERED",
+    "sessionId": "session10",
+    "statusChangedAt": 1696158900000
   }
 ]

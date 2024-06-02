@@ -5,8 +5,9 @@
     "id": 2,
     "companyName": "Crispy Bites",
     "email": "crispy@bites.com",
-    "password": "password2",
+    "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
     "telephone": "9876543210",
-    "taxIdNumber": "TAX456"
+    "taxIdNumber": "TAX456",
+    "role": "BUSINESS"
   }
 }

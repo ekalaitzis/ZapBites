@@ -11,7 +11,8 @@
     "firstName": "Alice",
     "lastName": "Johnson",
     "email": "alice.johnson@email.com",
-    "password": "password4",
-    "telephone": "5551234567"
+    "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+    "telephone": "5551234567",
+    "role": "CUSTOMER"
   }
 }

@@ -6,9 +6,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -18,9 +19,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -30,9 +32,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -42,9 +45,10 @@
       "id": 4,
       "companyName": "Vegan Vibes",
       "email": "vegan@vibes.com",
-      "password": "password4",
+      "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
       "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
+      "taxIdNumber": "TAX999",
+      "role": "BUSINESS"
     }
   },
   {
@@ -54,9 +58,10 @@
       "id": 5,
       "companyName": "Sizzling Grill",
       "email": "sizzle@grill.com",
-      "password": "password5",
+      "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
       "telephone": "9998887777",
-      "taxIdNumber": "TAX000"
+      "taxIdNumber": "TAX000",
+      "role": "BUSINESS"
     }
   },
   {
@@ -66,9 +71,10 @@
       "id": 6,
       "companyName": "Taste of Mexico",
       "email": "taste@mexico.com",
-      "password": "password6",
+      "password": "$2a$10$LZoO97Q8rycW4dLBej5yFuvSRlz3q9qyp3EDAdABiVITkrtbKdROy",
       "telephone": "3332221111",
-      "taxIdNumber": "TAX111"
+      "taxIdNumber": "TAX111",
+      "role": "BUSINESS"
     }
   },
   {
@@ -78,9 +84,10 @@
       "id": 7,
       "companyName": "Asian Fusion",
       "email": "asian@fusion.com",
-      "password": "password7",
+      "password": "$2a$10$HCF1xLHm5rb2ovRQdzWG6uz1LvspVwCZSmco4mLwyww2KyR3wv.jm",
       "telephone": "4445556666",
-      "taxIdNumber": "TAX222"
+      "taxIdNumber": "TAX222",
+      "role": "BUSINESS"
     }
   },
   {
@@ -90,9 +97,10 @@
       "id": 8,
       "companyName": "Mediterranean Delights",
       "email": "med@delights.com",
-      "password": "password8",
+      "password": "$2a$10$vZOrH1QAZOfiOxUO4K6yu.GI/pF65wtNmIsz9.DHBL0zRUUh6yhJa",
       "telephone": "7778889999",
-      "taxIdNumber": "TAX333"
+      "taxIdNumber": "TAX333",
+      "role": "BUSINESS"
     }
   },
   {
@@ -102,9 +110,10 @@
       "id": 9,
       "companyName": "Burger Haven",
       "email": "burger@haven.com",
-      "password": "password9",
+      "password": "$2a$10$9zF3njA88g66JtxTp0DJM.bSGl1SuHxzqYwi.oMwGEbK.cQr6LQv.",
       "telephone": "6667778888",
-      "taxIdNumber": "TAX444"
+      "taxIdNumber": "TAX444",
+      "role": "BUSINESS"
     }
   },
   {
@@ -114,9 +123,10 @@
       "id": 10,
       "companyName": "Pizza Paradise",
       "email": "pizza@paradise.com",
-      "password": "password10",
+      "password": "$2a$10$dp4wJYtxd7OklcJNnuDuyu0QhFYY3kChnw2l9h0yMdIs3o45XkyMi",
       "telephone": "2223334444",
-      "taxIdNumber": "TAX555"
+      "taxIdNumber": "TAX555",
+      "role": "BUSINESS"
     }
   }
 ]

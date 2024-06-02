@@ -12,9 +12,10 @@
         "id": 5,
         "companyName": "Sizzling Grill",
         "email": "sizzle@grill.com",
-        "password": "password5",
+        "password": "$2a$10$rw9TMJE1GYMFE02Gtzpq8edofMr2aLCD9eUCF.7O2K6pGxLqXKyAm",
         "telephone": "9998887777",
-        "taxIdNumber": "TAX000"
+        "taxIdNumber": "TAX000",
+        "role": "BUSINESS"
       }
     }
   },

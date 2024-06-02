@@ -1,8 +1,9 @@
 {
   "id": 1,
   "companyName": "Updated Flavors of Curry",
-  "email": "updated@curry.al",
-  "password": "updatedpass",
+  "email": "flavor@curry.al",
+  "password": "$2a$10$42HrUXJAX5d/ddlYs7np8uXZn67HbXhk12.o/UU7y60HlKpuox206",
   "telephone": "1234567890",
-  "taxIdNumber": "TAX123"
+  "taxIdNumber": "TAX123",
+  "role": "BUSINESS"
 }

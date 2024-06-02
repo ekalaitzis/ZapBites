@@ -3,5 +3,32 @@
   "vegan": true,
   "spicy": false,
   "glutenFree": true,
-  "products": []
+  "products": [
+    {
+      "id": 31,
+      "name": "Cheesecake",
+      "description": "Creamy cheesecake topped with strawberries",
+      "price": 7.99,
+      "category": {
+        "id": 21,
+        "name": "Desserts",
+        "menu": {
+          "id": 3,
+          "name": "Green Delight Menu",
+          "business": {
+            "id": 3,
+            "companyName": "Green Delight",
+            "email": "green@delight.com",
+            "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
+            "telephone": "5556667777",
+            "taxIdNumber": "TAX789",
+            "role": "BUSINESS"
+          }
+        }
+      },
+      "ingredients": [
+        1
+      ]
+    }
+  ]
 }

@@ -5,8 +5,9 @@
     "id": 1,
     "companyName": "Flavors of Curry",
     "email": "flavor@curry.al",
-    "password": "password1",
+    "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
     "telephone": "1234567890",
-    "taxIdNumber": "TAX123"
+    "taxIdNumber": "TAX123",
+    "role": "BUSINESS"
   }
 }

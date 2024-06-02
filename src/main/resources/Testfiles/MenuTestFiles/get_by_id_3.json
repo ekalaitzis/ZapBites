@@ -5,8 +5,9 @@
     "id": 3,
     "companyName": "Green Delight",
     "email": "green@delight.com",
-    "password": "password3",
+    "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
     "telephone": "5556667777",
-    "taxIdNumber": "TAX789"
+    "taxIdNumber": "TAX789",
+    "role": "BUSINESS"
   }
 }

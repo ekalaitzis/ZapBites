@@ -3,6 +3,7 @@
   "firstName": "updatedName",
   "lastName": "updatedLast",
   "email": "updated.doe@email.com",
-  "password": "password1",
-  "telephone": "5551112233"
+  "password": "$2a$10$6ttDRoenXnkiX.6bb4AnbuN/vQLD1TuskCLieZRs5OcjIKJQ9xkOm",
+  "telephone": "3331112233",
+  "role": "CUSTOMER"
 }

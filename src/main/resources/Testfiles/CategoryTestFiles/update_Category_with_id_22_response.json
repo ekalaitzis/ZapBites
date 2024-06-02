@@ -8,9 +8,10 @@
       "id": 4,
       "companyName": "Vegan Vibes",
       "email": "vegan@vibes.com",
-      "password": "password4",
+      "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
       "telephone": "1112223333",
-      "taxIdNumber": "TAX999"
+      "taxIdNumber": "TAX999",
+      "role": "BUSINESS"
     }
   }
 }

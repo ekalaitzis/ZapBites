@@ -6,14 +6,15 @@
       "x": 37.7749,
       "y": -122.4194
     },
-    "primary": false,
+    "primary": true,
     "customer": {
       "id": 4,
       "firstName": "Alice",
       "lastName": "Johnson",
       "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
+      "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+      "telephone": "5551234567",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -29,8 +30,9 @@
       "firstName": "Alice",
       "lastName": "Johnson",
       "email": "alice.johnson@email.com",
-      "password": "password4",
-      "telephone": "5551234567"
+      "password": "$2a$10$LCmQ4.fWnf6eLCUflHI8nulf8iAt6bLolT2og6b6z/0WyP5FOlE1i",
+      "telephone": "5551234567",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -46,8 +48,9 @@
       "firstName": "Michael",
       "lastName": "Brown",
       "email": "michael.brown@email.com",
-      "password": "password5",
-      "telephone": "5552345678"
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -63,8 +66,9 @@
       "firstName": "Michael",
       "lastName": "Brown",
       "email": "michael.brown@email.com",
-      "password": "password5",
-      "telephone": "5552345678"
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -74,14 +78,15 @@
       "x": 42.3601,
       "y": -71.0589
     },
-    "primary": true,
+    "primary": false,
     "customer": {
       "id": 5,
       "firstName": "Michael",
       "lastName": "Brown",
       "email": "michael.brown@email.com",
-      "password": "password5",
-      "telephone": "5552345678"
+      "password": "$2a$10$LhbMVKZrXsPOY8qrMG3ereddfMfmGYcGGFtTt6ea9v6kT8VGeMTXq",
+      "telephone": "5552345678",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -97,8 +102,9 @@
       "firstName": "Emily",
       "lastName": "Martinez",
       "email": "emily.martinez@email.com",
-      "password": "password6",
-      "telephone": "5553456789"
+      "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+      "telephone": "5553456789",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -108,14 +114,15 @@
       "x": 37.7749,
       "y": -122.4194
     },
-    "primary": false,
+    "primary": true,
     "customer": {
       "id": 6,
       "firstName": "Emily",
       "lastName": "Martinez",
       "email": "emily.martinez@email.com",
-      "password": "password6",
-      "telephone": "5553456789"
+      "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+      "telephone": "5553456789",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -131,8 +138,9 @@
       "firstName": "Daniel",
       "lastName": "Garcia",
       "email": "daniel.garcia@email.com",
-      "password": "password7",
-      "telephone": "5554567890"
+      "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+      "telephone": "5554567890",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -148,8 +156,9 @@
       "firstName": "Daniel",
       "lastName": "Garcia",
       "email": "daniel.garcia@email.com",
-      "password": "password7",
-      "telephone": "5554567890"
+      "password": "$2a$10$Cv6ZQbMTwogOVjtAbpivbu2jLvZ5fBuCIgs/GFaOHgBDYEdv8.yR6",
+      "telephone": "5554567890",
+      "role": "CUSTOMER"
     }
   },
   {
@@ -165,8 +174,9 @@
       "firstName": "Olivia",
       "lastName": "Lopez",
       "email": "olivia.lopez@email.com",
-      "password": "password8",
-      "telephone": "5555678901"
+      "password": "$2a$10$876XDArRHUR/JgZmqZT3TOPiIWOLaItLURYaBe0qtIangd4Gk8Vxm",
+      "telephone": "5555678901",
+      "role": "CUSTOMER"
     }
   }
 ]

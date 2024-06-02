@@ -3,5 +3,33 @@
   "name": "Updated Ingredient Name",
   "vegan": false,
   "spicy": true,
-  "glutenFree": true
+  "glutenFree": true,
+  "products": [
+    {
+      "id": 32,
+      "name": "Classic Cheeseburger",
+      "description": "Juicy beef patty with melted cheese",
+      "price": 9.99,
+      "category": {
+        "id": 22,
+        "name": "Burgers",
+        "menu": {
+          "id": 4,
+          "name": "Vegan Vibes Menu",
+          "business": {
+            "id": 4,
+            "companyName": "Vegan Vibes",
+            "email": "vegan@vibes.com",
+            "password": "$2a$10$MjAnfTJiS9louLPsDP1yV..0XifJHrli6u0j9oi2YvOXVH5CPRa4u",
+            "telephone": "1112223333",
+            "taxIdNumber": "TAX999",
+            "role": "BUSINESS"
+          }
+        }
+      },
+      "ingredients": [
+        2
+      ]
+    }
+  ]
 }

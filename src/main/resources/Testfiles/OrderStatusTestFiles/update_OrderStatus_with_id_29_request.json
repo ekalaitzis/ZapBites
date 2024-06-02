@@ -1,5 +1,5 @@
 {
-  "id": 64,
+  "id": 29,
   "orderId": {
     "id": 6,
     "businessId": {
@@ -41,7 +41,7 @@
       }
     }
   },
-  "orderStatusEnum": "CART",
-  "sessionId": "session20",
+  "orderStatusEnum": "ACCEPTED",
+  "sessionId": "session6",
   "statusChangedAt": 1685611800000
 }

@@ -3,6 +3,7 @@
   "firstName": "Bob",
   "lastName": "Johnson",
   "email": "bob.johnson@email.com",
-  "password": "password3",
-  "telephone": "5557778899"
+  "password": "$2a$10$UWUcTqdLVhJvmoFebZbFo.tFNJ3UwYI6ynYxfIFwhN716piaymmeG",
+  "telephone": "5557778899",
+  "role": "CUSTOMER"
 }

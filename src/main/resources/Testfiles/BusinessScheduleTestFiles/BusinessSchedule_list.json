@@ -8,9 +8,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -22,9 +23,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -36,9 +38,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -50,9 +53,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -64,9 +68,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -78,9 +83,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -92,9 +98,10 @@
       "id": 1,
       "companyName": "Flavors of Curry",
       "email": "flavor@curry.al",
-      "password": "password1",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
       "telephone": "1234567890",
-      "taxIdNumber": "TAX123"
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     }
   },
   {
@@ -106,9 +113,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -120,9 +128,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -134,9 +143,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -148,9 +158,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -162,9 +173,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -176,9 +188,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -190,9 +203,10 @@
       "id": 2,
       "companyName": "Crispy Bites",
       "email": "crispy@bites.com",
-      "password": "password2",
+      "password": "$2a$10$kKnbPJ/S.pcdrop/F22GEeCxb0GWq..cjZN6ymtwyLtbh4imNiaoO",
       "telephone": "9876543210",
-      "taxIdNumber": "TAX456"
+      "taxIdNumber": "TAX456",
+      "role": "BUSINESS"
     }
   },
   {
@@ -204,9 +218,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -218,9 +233,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -232,9 +248,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -246,9 +263,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -260,9 +278,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   },
   {
@@ -274,9 +293,10 @@
       "id": 3,
       "companyName": "Green Delight",
       "email": "green@delight.com",
-      "password": "password3",
+      "password": "$2a$10$oZjAtaccxVAB00lN/nqGDuJ6E3kN46fxUAt5HGBioQ/cQokpR5uUG",
       "telephone": "5556667777",
-      "taxIdNumber": "TAX789"
+      "taxIdNumber": "TAX789",
+      "role": "BUSINESS"
     }
   }
 ]

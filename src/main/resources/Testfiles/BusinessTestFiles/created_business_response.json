@@ -4,5 +4,6 @@
   "email": "pizza@piazza.com",
   "password": "passwordpiazza",
   "telephone": "2223334441",
-  "taxIdNumber": "TAX556"
+  "taxIdNumber": "TAX556",
+  "role": "BUSINESS"
 }

@@ -1,37 +1,46 @@
 {
-  "businessId": {
-    "id": 1,
-    "companyName": "Flavors of Curry",
-    "email": "flavor@curry.al",
-    "password": "password1",
-    "telephone": "1234567890",
-    "taxIdNumber": "TAX123"
-  },
-  "customerId": {
-    "id": 11,
-    "firstName": "James",
-    "lastName": "Smith",
-    "email": "james.smith@email.com",
-    "password": "password11",
-    "telephone": "5558901234"
-  },
-  "totalPrice": 28.50,
-  "createdAt": 1685611800000,
-  "customerAddressId": {
-    "id": 10,
-    "address": "890 Spruce Street, Faraway City, USA",
-    "geolocation": {
-      "x": 37.7749,
-      "y": -122.4194
+  "orderId": {
+    "id": 6,
+    "businessId": {
+      "id": 1,
+      "companyName": "Flavors of Curry",
+      "email": "flavor@curry.al",
+      "password": "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",
+      "telephone": "1234567890",
+      "taxIdNumber": "TAX123",
+      "role": "BUSINESS"
     },
-    "primary": false,
-    "customer": {
+    "customerId": {
       "id": 6,
       "firstName": "Emily",
       "lastName": "Martinez",
       "email": "emily.martinez@email.com",
-      "password": "password6",
-      "telephone": "5553456789"
+      "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+      "telephone": "5553456789",
+      "role": "CUSTOMER"
+    },
+    "totalPrice": 28.50,
+    "createdAt": 1685611800000,
+    "customerAddressId": {
+      "id": 10,
+      "address": "890 Spruce Street, Faraway City, USA",
+      "geolocation": {
+        "x": 37.7749,
+        "y": -122.4194
+      },
+      "primary": true,
+      "customer": {
+        "id": 6,
+        "firstName": "Emily",
+        "lastName": "Martinez",
+        "email": "emily.martinez@email.com",
+        "password": "$2a$10$JDJGgMREC.wVDumVe3Ty3eoQ3g2ZxT0ObrYyo7DbPLxvZHagfVn.2",
+        "telephone": "5553456789",
+        "role": "CUSTOMER"
+      }
     }
-  }
+  },
+  "orderStatusEnum": "CART",
+  "sessionId": "session20",
+  "statusChangedAt": 1685611800000
 }
