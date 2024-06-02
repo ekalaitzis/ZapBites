@@ -1,5 +1,6 @@
 package com.example.zapbites.OrderProduct;
 
+import com.example.zapbites.Evaluators.OrderProductEvaluator;
 import com.example.zapbites.OrderProduct.Exceptions.OrderProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import java.util.Optional;
 @Transactional
 public class OrderProductServiceImpl implements OrderProductService {
     private final OrderProductRepository orderProductRepository;
+    private final OrderProductEvaluator orderProductEvaluator;
 
-    public OrderProductServiceImpl(OrderProductRepository orderProductRepository) {
+    public OrderProductServiceImpl(OrderProductRepository orderProductRepository,  OrderProductEvaluator orderProductEvaluator) {
         this.orderProductRepository = orderProductRepository;
+        this.orderProductEvaluator = orderProductEvaluator;
     }
 
     @Override
@@ -28,6 +31,7 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     @Override
     public OrderProduct createOrderProduct(OrderProduct orderProduct) {
+        orderProductEvaluator.checkForOrderProductConditions(orderProduct);
         return orderProductRepository.save(orderProduct);
     }
 
@@ -36,6 +40,7 @@ public class OrderProductServiceImpl implements OrderProductService {
         List<OrderProduct> allOrderProducts = getAllOrderProducts();
 
         if (allOrderProducts.stream().anyMatch(op -> op.getId().equals(updatedOrderProduct.getId()))) {
+            orderProductEvaluator.checkForOrderProductConditions(updatedOrderProduct);
             return orderProductRepository.save(updatedOrderProduct);
         } else {
             throw new OrderProductNotFoundException("OrderProduct not found.");
