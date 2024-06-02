@@ -1,6 +1,5 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class BusinessServiceImpl implements BusinessService {
 
     private final BusinessRepository businessRepository;
-    private BCryptPasswordEncoder encoder;
+    private final BCryptPasswordEncoder encoder;
 
 
     @Override
@@ -43,13 +42,8 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public Business updateBusiness(Business updatedBusiness) {
-        List<Business> allBusinesses = getAllBusinesses();
-
-        if (allBusinesses.stream().anyMatch(b -> b.getId().equals(updatedBusiness.getId()))) {
-            return businessRepository.save(updatedBusiness);
-        } else {
-            throw new BusinessNotFoundException("Business: " + updatedBusiness.getCompanyName() + " not found.");
-        }
+        updatedBusiness.setPassword(encoder.encode(updatedBusiness.getPassword()));
+        return businessRepository.save(updatedBusiness);
     }
 
     @Override
