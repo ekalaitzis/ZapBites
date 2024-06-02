@@ -30,6 +30,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/*/register").permitAll()
+                .requestMatchers("/*/create").permitAll()
                 .requestMatchers("/business/***").hasRole("BUSINESS")
                 .requestMatchers("/business_schedule/***").hasRole("BUSINESS")
                 .requestMatchers("/category/***").hasRole("BUSINESS")
