@@ -46,6 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> allCustomers = getAllCustomers();
 
         if (allCustomers.stream().anyMatch(c -> c.getId().equals(updatedCustomer.getId()))) {
+            updatedCustomer.setPassword(encoder.encode(updatedCustomer.getPassword()));
             return customerRepository.save(updatedCustomer);
         } else {
             throw new CustomerNotFoundException("Customer with id: " + updatedCustomer.getId() + " not found.");
