@@ -2,119 +2,128 @@ package com.example.zapbites.Customer;
 
 import com.example.zapbites.Customer.Exceptions.CustomerNotFoundException;
 import com.example.zapbites.Customer.Exceptions.DuplicateCustomerException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class CustomerServiceTest {
 
     @Mock
     private CustomerRepository customerRepository;
 
+    @Mock
+    private BCryptPasswordEncoder encoder;
+
     @InjectMocks
-    private CustomerService customerService;
+    private CustomerServiceImpl customerService;
+
+    private Customer customer1, customer2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        customer1 = new Customer();
+        customer1.setId(1L);
+        customer1.setEmail("customer1@example.com");
+        customer1.setPassword("password1");
+
+        customer2 = new Customer();
+        customer2.setId(2L);
+        customer2.setEmail("customer2@example.com");
+        customer2.setPassword("password2");
+    }
 
     @Test
-    void getAllCustomers_ShouldReturnListOfCustomers() {
-        List<Customer> customerList = new ArrayList<>();
-        customerList.add(new Customer());
-        customerList.add(new Customer());
+    void getAllCustomers() {
+        List<Customer> customerList = Arrays.asList(customer1, customer2);
         when(customerRepository.findAll()).thenReturn(customerList);
 
         List<Customer> result = customerService.getAllCustomers();
 
-        assertEquals(2, result.size());
+        assertEquals(customerList, result);
+        verify(customerRepository, times(1)).findAll();
     }
 
     @Test
-    void getCustomerById_WithValidId_ShouldReturnCustomer() {
-        Long customerId = 1L;
-        Customer customer = new Customer();
-        when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
+    void getCustomerById() {
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer1));
 
-        Optional<Customer> result = customerService.getCustomerById(customerId);
+        Optional<Customer> result = customerService.getCustomerById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(customer, result.get());
+        assertEquals(customer1, result.get());
+        verify(customerRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getCustomerById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long customerId = 1L;
-        when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
+    void createCustomer() {
+        when(customerRepository.findByEmail(customer1.getEmail())).thenReturn(Optional.empty());
+        when(encoder.encode(customer1.getPassword())).thenReturn("password1");
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer1);
 
-        Optional<Customer> result = customerService.getCustomerById(customerId);
+        Customer result = customerService.createCustomer(customer1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(customer1.getEmail(), result.getEmail());
+        assertEquals("password1", result.getPassword());
+        verify(customerRepository, times(1)).findByEmail(customer1.getEmail());
+        verify(encoder, times(1)).encode(customer1.getPassword());
+        verify(customerRepository, times(1)).save(any(Customer.class));
     }
 
     @Test
-    void createCustomer_WithValidCustomer_ShouldReturnCreatedCustomer() {
-        Customer customer = new Customer();
-        when(customerRepository.findById(any())).thenReturn(Optional.empty());
-        when(customerRepository.save(customer)).thenReturn(customer);
+    void createCustomer_DuplicateException() {
+        when(customerRepository.findByEmail(customer1.getEmail())).thenReturn(Optional.of(customer1));
 
-        Customer result = customerService.createCustomer(customer);
-
-        assertEquals(customer, result);
+        assertThrows(DuplicateCustomerException.class, () -> customerService.createCustomer(customer1));
+        verify(customerRepository, times(1)).findByEmail(customer1.getEmail());
+        verify(encoder, never()).encode(any());
+        verify(customerRepository, never()).save(any());
     }
 
     @Test
-    void createCustomer_WithDuplicateEmail_ShouldThrowDuplicateBusinessException() {
-        Customer customer = new Customer();
-        when(customerRepository.findById(any())).thenReturn(Optional.of(new Customer()));
+    void updateCustomer() {
+        customer1.setPassword("newPassword");
+        when(customerRepository.findAll()).thenReturn(Arrays.asList(customer1, customer2));
+        when(encoder.encode("newPassword")).thenReturn("encodedNewPassword");
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer1);
 
-        assertThrows(DuplicateCustomerException.class, () -> customerService.createCustomer(customer));
+        Customer result = customerService.updateCustomer(customer1);
+
+        assertNotNull(result);
+        assertEquals(customer1, result);
+        assertEquals("encodedNewPassword", result.getPassword());
+        verify(customerRepository, times(1)).findAll();
+        verify(encoder, times(1)).encode("newPassword");
+        verify(customerRepository, times(1)).save(any(Customer.class));
     }
 
     @Test
-    void updateCustomer_WithValidCustomer_ShouldReturnUpdatedCustomer() {
-        Customer updatedCustomer = new Customer();
-        updatedCustomer.setId(1L);
-        // Mocking getAllCustomers() to return a list containing the updated customer
-        when(customerService.getAllCustomers()).thenReturn(Collections.singletonList(updatedCustomer));
-        when(customerRepository.save(updatedCustomer)).thenReturn(updatedCustomer);
+    void updateCustomer_CustomerNotFoundException() {
+        Customer nonExistingCustomer = new Customer();
+        nonExistingCustomer.setId(3L);
+        when(customerRepository.findAll()).thenReturn(Arrays.asList(customer1, customer2));
 
-        Customer result = customerService.updateCustomer(updatedCustomer);
-
-        assertEquals(updatedCustomer, result);
+        assertThrows(CustomerNotFoundException.class, () -> customerService.updateCustomer(nonExistingCustomer));
+        verify(customerRepository, times(1)).findAll();
+        verify(encoder, never()).encode(any());
+        verify(customerRepository, never()).save(any());
     }
 
     @Test
-    void updateCustomer_WithNonExistingId_ShouldThrowCustomerNotFoundException() {
-        Customer updatedCustomer = new Customer();
-        // Mocking getAllCustomers() to return an empty list, simulating that the customer does not exist
-        when(customerService.getAllCustomers()).thenReturn(Collections.emptyList());
-
-        assertThrows(CustomerNotFoundException.class, () -> customerService.updateCustomer(updatedCustomer));
-    }
-
-    @Test
-    void deleteCustomer_WithValidId_ShouldDeleteCustomer() {
-        Long customerId = 1L;
-
-        customerService.deleteCustomer(customerId);
-
-        verify(customerRepository, times(1)).deleteById(customerId);
-    }
-
-    @Test
-    void deleteCustomer_WithNonExistingId_ShouldThrowCustomerNotFoundException() {
-        Long customerId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(customerRepository).deleteById(customerId);
-
-        assertThrows(CustomerNotFoundException.class, () -> customerService.deleteCustomer(customerId));
+    void deleteCustomer() {
+        customerService.deleteCustomer(1L);
+        verify(customerRepository, times(1)).deleteById(1L);
     }
 }

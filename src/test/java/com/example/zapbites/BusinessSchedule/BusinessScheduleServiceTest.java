@@ -1,19 +1,13 @@
 package com.example.zapbites.BusinessSchedule;
 
-import com.example.zapbites.Business.Business;
 import com.example.zapbites.BusinessSchedule.Exceptions.BusinessScheduleNotFoundException;
-import com.example.zapbites.BusinessSchedule.Exceptions.DuplicateBusinessScheduleException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,123 +15,87 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class BusinessScheduleServiceTest {
 
     @Mock
     private BusinessScheduleRepository businessScheduleRepository;
 
     @InjectMocks
-    private BusinessScheduleService businessScheduleService;
+    private BusinessScheduleServiceImpl businessScheduleService;
+
+    private BusinessSchedule businessSchedule1, businessSchedule2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        businessSchedule1 = new BusinessSchedule();
+        businessSchedule1.setId(1L);
+
+        businessSchedule2 = new BusinessSchedule();
+        businessSchedule2.setId(2L);
+    }
 
     @Test
-    void getAllBusinessSchedules_ShouldReturnListOfBusinessSchedules() {
-        List<BusinessSchedule> businessScheduleList = new ArrayList<>();
-        businessScheduleList.add(new BusinessSchedule());
-        businessScheduleList.add(new BusinessSchedule());
+    void getAllBusinessSchedules() {
+        List<BusinessSchedule> businessScheduleList = Arrays.asList(businessSchedule1, businessSchedule2);
         when(businessScheduleRepository.findAll()).thenReturn(businessScheduleList);
 
         List<BusinessSchedule> result = businessScheduleService.getAllBusinessSchedules();
 
-        assertEquals(2, result.size());
+        assertEquals(businessScheduleList, result);
+        verify(businessScheduleRepository, times(1)).findAll();
     }
 
     @Test
-    void getBusinessScheduleById_WithValidId_ShouldReturnBusinessSchedule() {
-        Long businessScheduleId = 1L;
-        BusinessSchedule businessSchedule = new BusinessSchedule();
-        when(businessScheduleRepository.findById(businessScheduleId)).thenReturn(Optional.of(businessSchedule));
+    void getBusinessScheduleById() {
+        when(businessScheduleRepository.findById(1L)).thenReturn(Optional.of(businessSchedule1));
 
-        Optional<BusinessSchedule> result = businessScheduleService.getBusinessScheduleById(businessScheduleId);
+        Optional<BusinessSchedule> result = businessScheduleService.getBusinessScheduleById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(businessSchedule, result.get());
+        assertEquals(businessSchedule1, result.get());
+        verify(businessScheduleRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getBusinessScheduleById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long businessScheduleId = 1L;
-        when(businessScheduleRepository.findById(businessScheduleId)).thenReturn(Optional.empty());
+    void createBusinessSchedule() {
+        when(businessScheduleRepository.save(any(BusinessSchedule.class))).thenReturn(businessSchedule1);
 
-        Optional<BusinessSchedule> result = businessScheduleService.getBusinessScheduleById(businessScheduleId);
+        BusinessSchedule result = businessScheduleService.createBusinessSchedule(businessSchedule1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(businessSchedule1, result);
+        verify(businessScheduleRepository, times(1)).save(any(BusinessSchedule.class));
     }
 
     @Test
-    void createBusinessSchedule_WithValidBusinessSchedule_ShouldReturnCreatedBusinessSchedule() {
-        BusinessSchedule businessSchedule = new BusinessSchedule();
-        when(businessScheduleRepository.findById(any())).thenReturn(Optional.empty());
-        when(businessScheduleRepository.save(businessSchedule)).thenReturn(businessSchedule);
+    void updateBusinessSchedule() {
+        when(businessScheduleRepository.findAll()).thenReturn(Arrays.asList(businessSchedule1, businessSchedule2));
+        when(businessScheduleRepository.save(any(BusinessSchedule.class))).thenReturn(businessSchedule1);
 
-        BusinessSchedule result = businessScheduleService.createBusinessSchedule(businessSchedule);
+        BusinessSchedule result = businessScheduleService.updateBusinessSchedule(businessSchedule1);
 
-        assertEquals(businessSchedule, result);
+        assertNotNull(result);
+        assertEquals(businessSchedule1, result);
+        verify(businessScheduleRepository, times(1)).findAll();
+        verify(businessScheduleRepository, times(1)).save(any(BusinessSchedule.class));
     }
 
     @Test
-    void createBusinessSchedule_WithDuplicateEmail_ShouldThrowDuplicateBusinessScheduleException() {
-        BusinessSchedule businessSchedule = new BusinessSchedule();
-        when(businessScheduleRepository.findById(any())).thenReturn(Optional.of(new BusinessSchedule()));
+    void updateBusinessSchedule_BusinessScheduleNotFoundException() {
+        BusinessSchedule nonExistingBusinessSchedule = new BusinessSchedule();
+        nonExistingBusinessSchedule.setId(3L);
+        when(businessScheduleRepository.findAll()).thenReturn(Arrays.asList(businessSchedule1, businessSchedule2));
 
-        assertThrows(DuplicateBusinessScheduleException.class, () -> businessScheduleService.createBusinessSchedule(businessSchedule));
+        assertThrows(BusinessScheduleNotFoundException.class, () -> businessScheduleService.updateBusinessSchedule(nonExistingBusinessSchedule));
+        verify(businessScheduleRepository, times(1)).findAll();
+        verify(businessScheduleRepository, never()).save(any());
     }
 
     @Test
-    void updateBusinessSchedule_WithValidBusinessSchedule_ShouldReturnUpdatedBusinessSchedule() {
-        BusinessSchedule updatedBusinessSchedule = new BusinessSchedule();
-        updatedBusinessSchedule.setId(1L);
-        when(businessScheduleService.getAllBusinessSchedules()).thenReturn(Collections.singletonList(updatedBusinessSchedule));
-        when(businessScheduleRepository.save(updatedBusinessSchedule)).thenReturn(updatedBusinessSchedule);
-
-
-        // Act
-        BusinessSchedule result = businessScheduleService.updateBusinessSchedule(updatedBusinessSchedule);
-
-        // Assert
-        assertEquals(updatedBusinessSchedule, result);
-        verify(businessScheduleRepository, times(1)).save(updatedBusinessSchedule);
+    void deleteBusinessSchedule() {
+        businessScheduleService.deleteBusinessSchedule(1L);
+        verify(businessScheduleRepository, times(1)).deleteById(1L);
     }
-
-    @Test
-    void updateBusinessSchedule_WithNonExistingId_ShouldThrowBusinessScheduleNotFoundException() {
-        // Arrange
-        BusinessSchedule updatedBusinessSchedule = new BusinessSchedule();
-        updatedBusinessSchedule.setId(1L);
-
-        updatedBusinessSchedule.setOpeningTime(LocalTime.of(9,0));
-        updatedBusinessSchedule.setClosingTime(LocalTime.of(18,0));
-        updatedBusinessSchedule.setBusiness(new Business(1L, "Test Company", "test@example.com", "password123", "1234567890", "1234567890"));
-        when(businessScheduleService.getAllBusinessSchedules()).thenReturn(Collections.emptyList());
-
-        // Act & Assert
-        assertThrows(BusinessScheduleNotFoundException.class, () -> businessScheduleService.updateBusinessSchedule(updatedBusinessSchedule));
-        verify(businessScheduleRepository, times(0)).save(updatedBusinessSchedule);
-    }
-
-    @Test
-    void deleteBusinessScheduleById_WithValidId_ShouldDeleteBusinessSchedule() {
-        Long businessScheduleId = 1L;
-
-        businessScheduleService.deleteBusinessSchedule(businessScheduleId);
-
-        verify(businessScheduleRepository, times(1)).deleteById(businessScheduleId);
-    }
-
-    @Test
-    void deleteBusinessScheduleById_WithNonExistingId_ShouldThrowBusinessScheduleNotFoundException() {
-        Long businessScheduleId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(businessScheduleRepository).deleteById(businessScheduleId);
-
-        assertThrows(BusinessScheduleNotFoundException.class, () -> businessScheduleService.deleteBusinessSchedule(businessScheduleId));
-    }
-
-//    @Test
-//    void updateBusinessSchedule_WithDataAccessException_ShouldThrowBusinessScheduleNotFoundException() {
-//        BusinessSchedule updatedBusinessSchedule = new BusinessSchedule();
-//        doThrow(new DataAccessException("Simulating DataAccessException") {
-//        }).when(businessScheduleRepository).save(updatedBusinessSchedule);
-//
-//        assertThrows(BusinessScheduleNotFoundException.class, () -> businessScheduleService.updateBusinessSchedule(updatedBusinessSchedule));
-//    }
 }

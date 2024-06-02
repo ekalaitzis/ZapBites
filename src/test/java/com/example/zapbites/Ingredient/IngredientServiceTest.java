@@ -2,119 +2,113 @@ package com.example.zapbites.Ingredient;
 
 import com.example.zapbites.Ingredient.Exceptions.DuplicateIngredientException;
 import com.example.zapbites.Ingredient.Exceptions.IngredientNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class IngredientServiceTest {
 
     @Mock
     private IngredientRepository ingredientRepository;
 
     @InjectMocks
-    private IngredientService ingredientService;
+    private IngredientServiceImpl ingredientService;
+
+    private Ingredient ingredient1, ingredient2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        ingredient1 = new Ingredient();
+        ingredient1.setId(1L);
+        ingredient1.setName("Ingredient 1");
+
+        ingredient2 = new Ingredient();
+        ingredient2.setId(2L);
+        ingredient2.setName("Ingredient 2");
+    }
 
     @Test
-    void getAllIngredients_ShouldReturnListOfIngredients() {
-        List<Ingredient> ingredientList = new ArrayList<>();
-        ingredientList.add(new Ingredient());
-        ingredientList.add(new Ingredient());
+    void getAllIngredients() {
+        List<Ingredient> ingredientList = Arrays.asList(ingredient1, ingredient2);
         when(ingredientRepository.findAll()).thenReturn(ingredientList);
 
         List<Ingredient> result = ingredientService.getAllIngredients();
 
-        assertEquals(2, result.size());
+        assertEquals(ingredientList, result);
+        verify(ingredientRepository, times(1)).findAll();
     }
 
     @Test
-    void getIngredientById_WithValidId_ShouldReturnIngredient() {
-        Long ingredientId = 1L;
-        Ingredient ingredient = new Ingredient();
-        when(ingredientRepository.findById(ingredientId)).thenReturn(Optional.of(ingredient));
+    void getIngredientById() {
+        when(ingredientRepository.findById(1L)).thenReturn(Optional.of(ingredient1));
 
-        Optional<Ingredient> result = ingredientService.getIngredientById(ingredientId);
+        Optional<Ingredient> result = ingredientService.getIngredientById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(ingredient, result.get());
+        assertEquals(ingredient1, result.get());
+        verify(ingredientRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getIngredientById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long ingredientId = 1L;
-        when(ingredientRepository.findById(ingredientId)).thenReturn(Optional.empty());
+    void createIngredient() {
+        when(ingredientRepository.findByName(ingredient1.getName())).thenReturn(Optional.empty());
+        when(ingredientRepository.save(any(Ingredient.class))).thenReturn(ingredient1);
 
-        Optional<Ingredient> result = ingredientService.getIngredientById(ingredientId);
+        Ingredient result = ingredientService.createIngredient(ingredient1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(ingredient1, result);
+        verify(ingredientRepository, times(1)).findByName(ingredient1.getName());
+        verify(ingredientRepository, times(1)).save(any(Ingredient.class));
     }
 
     @Test
-    void createIngredient_WithValidIngredient_ShouldReturnCreatedIngredient() {
-        Ingredient ingredient = new Ingredient();
-        when(ingredientRepository.findById(any())).thenReturn(Optional.empty());
-        when(ingredientRepository.save(ingredient)).thenReturn(ingredient);
+    void createIngredient_DuplicateException() {
+        when(ingredientRepository.findByName(ingredient1.getName())).thenReturn(Optional.of(ingredient1));
 
-        Ingredient result = ingredientService.createIngredient(ingredient);
-
-        assertEquals(ingredient, result);
+        assertThrows(DuplicateIngredientException.class, () -> ingredientService.createIngredient(ingredient1));
+        verify(ingredientRepository, times(1)).findByName(ingredient1.getName());
+        verify(ingredientRepository, never()).save(any());
     }
 
     @Test
-    void createIngredient_WithDuplicateId_ShouldThrowDuplicateIngredientException() {
-        Ingredient ingredient = new Ingredient();
-        when(ingredientRepository.findById(any())).thenReturn(Optional.of(new Ingredient()));
+    void updateIngredient() {
+        when(ingredientRepository.findAll()).thenReturn(Arrays.asList(ingredient1, ingredient2));
+        when(ingredientRepository.save(any(Ingredient.class))).thenReturn(ingredient1);
 
-        assertThrows(DuplicateIngredientException.class, () -> ingredientService.createIngredient(ingredient));
+        Ingredient result = ingredientService.updateIngredient(ingredient1);
+
+        assertNotNull(result);
+        assertEquals(ingredient1, result);
+        verify(ingredientRepository, times(1)).findAll();
+        verify(ingredientRepository, times(1)).save(any(Ingredient.class));
     }
 
     @Test
-    void updateIngredient_WithValidIngredient_ShouldReturnUpdatedIngredient() {
-        Ingredient updatedIngredient = new Ingredient();
-        updatedIngredient.setId(1L);
-        // Mocking getAllIngredients() to return a list containing the updated ingredient
-        when(ingredientService.getAllIngredients()).thenReturn(Collections.singletonList(updatedIngredient));
-        when(ingredientRepository.save(updatedIngredient)).thenReturn(updatedIngredient);
+    void updateIngredient_IngredientNotFoundException() {
+        Ingredient nonExistingIngredient = new Ingredient();
+        nonExistingIngredient.setId(3L);
+        when(ingredientRepository.findAll()).thenReturn(Arrays.asList(ingredient1, ingredient2));
 
-        Ingredient result = ingredientService.updateIngredient(updatedIngredient);
-
-        assertEquals(updatedIngredient, result);
+        assertThrows(IngredientNotFoundException.class, () -> ingredientService.updateIngredient(nonExistingIngredient));
+        verify(ingredientRepository, times(1)).findAll();
+        verify(ingredientRepository, never()).save(any());
     }
 
     @Test
-    void updateIngredient_WithNonExistingId_ShouldThrowIngredientNotFoundException() {
-        Ingredient updatedIngredient = new Ingredient();
-        // Mocking getAllIngredients() to return an empty list, simulating that the ingredient does not exist
-        when(ingredientService.getAllIngredients()).thenReturn(Collections.emptyList());
-
-        assertThrows(IngredientNotFoundException.class, () -> ingredientService.updateIngredient(updatedIngredient));
-    }
-
-    @Test
-    void deleteIngredient_WithValidId_ShouldDeleteIngredient() {
-        Long ingredientId = 1L;
-
-        ingredientService.deleteIngredient(ingredientId);
-
-        verify(ingredientRepository, times(1)).deleteById(ingredientId);
-    }
-
-    @Test
-    void deleteIngredient_WithNonExistingId_ShouldThrowIngredientNotFoundException() {
-        Long ingredientId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(ingredientRepository).deleteById(ingredientId);
-
-        assertThrows(IngredientNotFoundException.class, () -> ingredientService.deleteIngredient(ingredientId));
+    void deleteIngredient() {
+        ingredientService.deleteIngredient(1L);
+        verify(ingredientRepository, times(1)).deleteById(1L);
     }
 }

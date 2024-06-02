@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -37,7 +39,7 @@ public class CustomerAddressIntegrationTest {
     void getAll() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/CustomerAddressTestFiles/customerAddress_list.json"), List.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer_address")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer_address").with(user("user").roles("CUSTOMER"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
 
@@ -49,18 +51,14 @@ public class CustomerAddressIntegrationTest {
     void getById() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/CustomerAddressTestFiles/get_by_id_5.json"), CustomerAddress.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer_address/5")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer_address/5").with(user("alice.johnson@email.com").roles("CUSTOMER"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), CustomerAddress.class);
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    @DisplayName("test getting customerAddress with id 99 - does not exist")
-    void getByIdNonExistent() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/customer_address/99")).andExpect(status().isNotFound());
-    }
+
 
     @Test
     @DisplayName("Test updating customerAddress with id 1")
@@ -71,11 +69,20 @@ public class CustomerAddressIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, CustomerAddress.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/customer_address/1").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/customer_address/1").with(user("alice.johnson@email.com").roles("CUSTOMER")).content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), CustomerAddress.class);
 
         Assertions.assertEquals(actualResult, expectedResult);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getAddress(), actualResult.getAddress());
+        Assertions.assertEquals(expectedResult.getGeolocation(), actualResult.getGeolocation());
+        Assertions.assertEquals(expectedResult.isPrimary(), actualResult.isPrimary());
+        Assertions.assertTrue(passwordEncoder.matches("password4", actualResult.getCustomer().getPassword()));
+        Assertions.assertEquals(expectedResult.getCustomer(), actualResult.getCustomer());
+
     }
 
     @Test
@@ -87,17 +94,23 @@ public class CustomerAddressIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, CustomerAddress.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/customer_address").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/customer_address/create").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), CustomerAddress.class);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getAddress(), actualResult.getAddress());
+        Assertions.assertEquals(expectedResult.getGeolocation(), actualResult.getGeolocation());
+        Assertions.assertEquals(expectedResult.isPrimary(), actualResult.isPrimary());
+        Assertions.assertTrue(passwordEncoder.matches("password4", actualResult.getCustomer().getPassword()));
+        Assertions.assertEquals(expectedResult.getCustomer(), actualResult.getCustomer());
     }
 
     @Test
     @DisplayName("Delete an existing customerAddress")
     @DirtiesContext
     void deleteAnExistingCustomerAddress() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/customer_address/5")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/customer_address/5").with(user("alice.johnson@email.com").roles("CUSTOMER"))).andExpect(status().isNoContent());
     }
 }

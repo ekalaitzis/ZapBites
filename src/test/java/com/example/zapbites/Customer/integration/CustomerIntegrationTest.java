@@ -74,7 +74,14 @@ public class CustomerIntegrationTest {
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Customer.class);
 
-        Assertions.assertEquals(actualResult, expectedResult);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getFirstName(), actualResult.getFirstName());
+        Assertions.assertEquals(expectedResult.getLastName(), actualResult.getLastName());
+        Assertions.assertEquals(expectedResult.getEmail(), actualResult.getEmail());
+        Assertions.assertTrue(passwordEncoder.matches("updatedpassword", actualResult.getPassword()));
+        Assertions.assertEquals(expectedResult.getTelephone(), actualResult.getTelephone());
+        Assertions.assertEquals(expectedResult.getRole(), actualResult.getRole());
     }
 
     @Test

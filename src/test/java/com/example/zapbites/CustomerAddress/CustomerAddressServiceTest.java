@@ -1,120 +1,134 @@
 package com.example.zapbites.CustomerAddress;
 
+import com.example.zapbites.Customer.Customer;
 import com.example.zapbites.CustomerAddress.Exceptions.CustomerAddressNotFoundException;
-import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
+import com.example.zapbites.CustomerAddress.Exceptions.DuplicateCustomerAddressException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class CustomerAddressServiceTest {
-
     @Mock
     private CustomerAddressRepository customerAddressRepository;
 
     @InjectMocks
-    private CustomerAddressService customerAddressService;
+    private CustomerAddressServiceImpl customerAddressService;
+
+    private CustomerAddress customerAddress1, customerAddress2;
+
+    private Customer customer1, customer2;
+    private Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        customer1 = new Customer();
+        customer1.setId(1L);
+        customer1.setEmail("customer1@example.com");
+        customer1.setPassword("password1");
+
+        customer2 = new Customer();
+        customer2.setId(2L);
+        customer2.setEmail("customer2@example.com");
+        customer2.setPassword("password2");
+
+        customerAddress1 = new CustomerAddress();
+        customerAddress1.setId(1L);
+        customerAddress1.setAddress("Address 1");
+        customerAddress1.setCustomer(customer);
+        customerAddress1.setPrimary(true);
+
+        customerAddress2 = new CustomerAddress();
+        customerAddress2.setId(2L);
+        customerAddress2.setAddress("Address 2");
+        customerAddress2.setCustomer(customer);
+        customerAddress2.setPrimary(false);
+    }
 
     @Test
-    void getAllCustomerAddresses_ShouldReturnListOfCustomerAddresses() {
-        List<CustomerAddress> customerAddressList = new ArrayList<>();
-        customerAddressList.add(new CustomerAddress());
-        customerAddressList.add(new CustomerAddress());
-        when(customerAddressRepository.findAll()).thenReturn(customerAddressList);
+    void getAllCustomerAddresses() {
+        List<CustomerAddress> addressList = Arrays.asList(customerAddress1, customerAddress2);
+        when(customerAddressRepository.findAll()).thenReturn(addressList);
 
         List<CustomerAddress> result = customerAddressService.getAllCustomerAddresses();
 
-        assertEquals(2, result.size());
+        assertEquals(addressList, result);
+        verify(customerAddressRepository, times(1)).findAll();
     }
 
     @Test
-    void getCustomerAddressById_WithValidId_ShouldReturnCustomerAddress() {
-        Long customerAddressId = 1L;
-        CustomerAddress customerAddress = new CustomerAddress();
-        when(customerAddressRepository.findById(customerAddressId)).thenReturn(Optional.of(customerAddress));
+    void getCustomerAddressById() {
+        when(customerAddressRepository.findById(1L)).thenReturn(Optional.of(customerAddress1));
 
-        Optional<CustomerAddress> result = customerAddressService.getCustomerAddressById(customerAddressId);
+        Optional<CustomerAddress> result = customerAddressService.getCustomerAddressById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(customerAddress, result.get());
+        assertEquals(customerAddress1, result.get());
+        verify(customerAddressRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getCustomerAddressById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long customerAddressId = 1L;
-        when(customerAddressRepository.findById(customerAddressId)).thenReturn(Optional.empty());
+    void createCustomerAddress() {
+        when(customerAddressRepository.findByAddress(customerAddress1.getAddress())).thenReturn(Optional.empty());
+        when(customerAddressRepository.findAllByCustomer(customer)).thenReturn(Arrays.asList(customerAddress2)).thenReturn(Arrays.asList(customerAddress2));
+        when(customerAddressRepository.save(any(CustomerAddress.class))).thenReturn(customerAddress1);
 
-        Optional<CustomerAddress> result = customerAddressService.getCustomerAddressById(customerAddressId);
+        CustomerAddress result = customerAddressService.createCustomerAddress(customerAddress1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(customerAddress1, result);
+        assertTrue(result.isPrimary());
+        verify(customerAddressRepository, times(1)).findByAddress(customerAddress1.getAddress());
+        verify(customerAddressRepository, times(2)).findAllByCustomer(customer);
+        verify(customerAddressRepository, times(1)).save(any(CustomerAddress.class));
     }
 
     @Test
-    void createCustomerAddress_WithValidCustomerAddress_ShouldReturnCreatedCustomerAddress() {
-        CustomerAddress customerAddress = new CustomerAddress();
-        when(customerAddressRepository.findById(any())).thenReturn(Optional.empty());
-        when(customerAddressRepository.save(customerAddress)).thenReturn(customerAddress);
+    void createCustomerAddress_DuplicateException() {
+        when(customerAddressRepository.findByAddress(customerAddress1.getAddress())).thenReturn(Optional.of(customerAddress1));
 
-        CustomerAddress result = customerAddressService.createCustomerAddress(customerAddress);
-
-        assertEquals(customerAddress, result);
+        assertThrows(DuplicateCustomerAddressException.class, () -> customerAddressService.createCustomerAddress(customerAddress1));
+        verify(customerAddressRepository, times(1)).findByAddress(customerAddress1.getAddress());
+        verify(customerAddressRepository, never()).findAllByCustomer(any());
+        verify(customerAddressRepository, never()).save(any());
     }
 
     @Test
-    void createCustomerAddress_WithDuplicateId_ShouldThrowDuplicateBusinessException() {
-        CustomerAddress customerAddress = new CustomerAddress();
-        when(customerAddressRepository.findById(any())).thenReturn(Optional.of(new CustomerAddress()));
+    void updateCustomerAddress() {
+        when(customerAddressRepository.findAllByCustomer(customer)).thenReturn(Arrays.asList(customerAddress1, customerAddress2)).thenReturn(Arrays.asList(customerAddress1, customerAddress2));
+        when(customerAddressRepository.save(any(CustomerAddress.class))).thenReturn(customerAddress1);
 
-        assertThrows(DuplicateBusinessException.class, () -> customerAddressService.createCustomerAddress(customerAddress));
+        CustomerAddress result = customerAddressService.updateCustomerAddress(customerAddress1);
+
+        assertNotNull(result);
+        assertEquals(customerAddress1, result);
+        assertFalse(result.isPrimary()); // No need to change this assertion
+        verify(customerAddressRepository, times(2)).findAllByCustomer(customer);
+        verify(customerAddressRepository, times(1)).save(any(CustomerAddress.class));
     }
 
     @Test
-    void updateCustomerAddress_WithValidCustomerAddress_ShouldReturnUpdatedCustomerAddress() {
-        CustomerAddress updatedCustomerAddress = new CustomerAddress();
-        updatedCustomerAddress.setId(1L);
-        // Mocking getAllCustomerAddresses() to return a list containing the updated customer address
-        when(customerAddressService.getAllCustomerAddresses()).thenReturn(Collections.singletonList(updatedCustomerAddress));
-        when(customerAddressRepository.save(updatedCustomerAddress)).thenReturn(updatedCustomerAddress);
+    void updateCustomerAddress_CustomerAddressNotFoundException() {
+        customerAddress1.setId(null);
 
-        CustomerAddress result = customerAddressService.updateCustomerAddress(updatedCustomerAddress);
-
-        assertEquals(updatedCustomerAddress, result);
+        assertThrows(CustomerAddressNotFoundException.class, () -> customerAddressService.updateCustomerAddress(customerAddress1));
+        verify(customerAddressRepository, never()).findAllByCustomer(any());
+        verify(customerAddressRepository, never()).save(any());
     }
 
     @Test
-    void updateCustomerAddress_WithNonExistingId_ShouldThrowCustomerAddressNotFoundException() {
-        CustomerAddress updatedCustomerAddress = new CustomerAddress();
-        // Mocking getAllCustomerAddresses() to return an empty list, simulating that the customer address does not exist
-        when(customerAddressService.getAllCustomerAddresses()).thenReturn(Collections.emptyList());
-
-        assertThrows(CustomerAddressNotFoundException.class, () -> customerAddressService.updateCustomerAddress(updatedCustomerAddress));
-    }
-
-    @Test
-    void deleteCustomerAddressById_WithValidId_ShouldDeleteCustomerAddress() {
-        Long customerAddressId = 1L;
-
-        customerAddressService.deleteCustomerAddressById(customerAddressId);
-
-        verify(customerAddressRepository, times(1)).deleteById(customerAddressId);
-    }
-
-    @Test
-    void deleteCustomerAddressById_WithNonExistingId_ShouldThrowCustomerAddressNotFoundException() {
-        Long customerAddressId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(customerAddressRepository).deleteById(customerAddressId);
-
-        assertThrows(CustomerAddressNotFoundException.class, () -> customerAddressService.deleteCustomerAddressById(customerAddressId));
+    void deleteCustomerAddressById() {
+        customerAddressService.deleteCustomerAddressById(1L);
+        verify(customerAddressRepository, times(1)).deleteById(1L);
     }
 }

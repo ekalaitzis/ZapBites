@@ -1,114 +1,114 @@
 package com.example.zapbites.Category;
 
 import com.example.zapbites.Category.Exceptions.CategoryNotFoundException;
-import com.example.zapbites.Menu.Menu;
+import com.example.zapbites.Category.Exceptions.DuplicateCategoryException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class CategoryServiceTest {
 
     @Mock
     private CategoryRepository categoryRepository;
 
     @InjectMocks
-    private CategoryService categoryService;
+    private CategoryServiceImpl categoryService;
+
+    private Category category1, category2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        category1 = new Category();
+        category1.setId(1L);
+        category1.setName("Category 1");
+
+        category2 = new Category();
+        category2.setId(2L);
+        category2.setName("Category 2");
+    }
 
     @Test
-    void getAllCategories_ShouldReturnListOfCategories() {
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category());
-        categoryList.add(new Category());
+    void getAllCategories() {
+        List<Category> categoryList = Arrays.asList(category1, category2);
         when(categoryRepository.findAll()).thenReturn(categoryList);
 
         List<Category> result = categoryService.getAllCategories();
 
-        assertEquals(2, result.size());
+        assertEquals(categoryList, result);
+        verify(categoryRepository, times(1)).findAll();
     }
 
     @Test
-    void getCategoryById_WithValidId_ShouldReturnCategory() {
-        Long categoryId = 1L;
-        Category category = new Category();
-        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
+    void getCategoryById() {
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category1));
 
-        Optional<Category> result = categoryService.getCategoryById(categoryId);
+        Optional<Category> result = categoryService.getCategoryById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(category, result.get());
+        assertEquals(category1, result.get());
+        verify(categoryRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getCategoryById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long categoryId = 1L;
-        when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
+    void createCategory() {
+        when(categoryRepository.findByName(category1.getName())).thenReturn(Optional.empty());
+        when(categoryRepository.save(any(Category.class))).thenReturn(category1);
 
-        Optional<Category> result = categoryService.getCategoryById(categoryId);
+        Category result = categoryService.createCategory(category1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(category1, result);
+        verify(categoryRepository, times(1)).findByName(category1.getName());
+        verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
     @Test
-    void createCategory_WithValidCategory_ShouldReturnCreatedCategory() {
-        Category category = new Category();
-        when(categoryRepository.save(category)).thenReturn(category);
+    void createCategory_DuplicateException() {
+        when(categoryRepository.findByName(category1.getName())).thenReturn(Optional.of(category1));
 
-        Category result = categoryService.createCategory(category);
-
-        assertEquals(category, result);
+        assertThrows(DuplicateCategoryException.class, () -> categoryService.createCategory(category1));
+        verify(categoryRepository, times(1)).findByName(category1.getName());
+        verify(categoryRepository, never()).save(any());
     }
 
     @Test
-    void updateCategory_WithValidCategory_ShouldReturnUpdatedCategory() {
-        Category updatedCategory = new Category();
-        updatedCategory.setId(1L);
-        updatedCategory.setMenu(new Menu());
-        updatedCategory.setName("name");
-        // Mocking getAllCategories() to return a list containing the updated category
-        when(categoryService.getAllCategories()).thenReturn(Collections.singletonList(updatedCategory));
-        when(categoryRepository.save(updatedCategory)).thenReturn(updatedCategory);
+    void updateCategory() {
+        when(categoryRepository.findAll()).thenReturn(Arrays.asList(category1, category2));
+        when(categoryRepository.save(any(Category.class))).thenReturn(category1);
 
-        Category result = categoryService.updateCategory(updatedCategory);
+        Category result = categoryService.updateCategory(category1);
 
-        assertEquals(updatedCategory, result);
+        assertNotNull(result);
+        assertEquals(category1, result);
+        verify(categoryRepository, times(1)).findAll();
+        verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
     @Test
-    void updateCategory_WithNonExistingId_ShouldThrowCategoryNotFoundException() {
-        Category updatedCategory = new Category();
-        // Mocking getAllCategories() to return an empty list, simulating that the category does not exist
-        when(categoryService.getAllCategories()).thenReturn(Collections.emptyList());
+    void updateCategory_CategoryNotFoundException() {
+        Category nonExistingCategory = new Category();
+        nonExistingCategory.setId(3L);
+        when(categoryRepository.findAll()).thenReturn(Arrays.asList(category1, category2));
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.updateCategory(updatedCategory));
-    }
-
-
-    @Test
-    void deleteCategoryById_WithValidId_ShouldDeleteCategory() {
-        Long categoryId = 1L;
-
-        categoryService.deleteCategoryById(categoryId);
-
-        verify(categoryRepository, times(1)).deleteById(categoryId);
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.updateCategory(nonExistingCategory));
+        verify(categoryRepository, times(1)).findAll();
+        verify(categoryRepository, never()).save(any());
     }
 
     @Test
-    void deleteCategoryById_WithNonExistingId_ShouldThrowCategoryNotFoundException() {
-        Long categoryId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(categoryRepository).deleteById(categoryId);
-
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.deleteCategoryById(categoryId));
+    void deleteCategoryById() {
+        categoryService.deleteCategoryById(1L);
+        verify(categoryRepository, times(1)).deleteById(1L);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -37,7 +39,7 @@ public class OrderProductIntegrationTest {
     void getAll() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/OrderProductTestFiles/orderProduct_list.json"), List.class); //objectMapper gets a String representation of the .json with TestHelper.readJsonFile() method
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/order_product")).andExpect(status().isOk()).andReturn(); //mvcResult is the response body of the get call.
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/order_product").with(user("crispy@bites.com").roles("BUSINESS"))).andExpect(status().isOk()).andReturn(); //mvcResult is the response body of the get call.
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class); // objectMapper gets a String representation of the response body we called earlier.
 
@@ -49,7 +51,7 @@ public class OrderProductIntegrationTest {
     void getById() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/OrderProductTestFiles/get_by_id_11.json"), OrderProduct.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/order_product/11")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/order_product/11").with(user("flavor@curry.al").roles("BUSINESS"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), OrderProduct.class);
 
@@ -57,10 +59,17 @@ public class OrderProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("test getting orderProduct with id 99 - does not exist")
-    void getByIdNonExistent() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/order_product/99")).andExpect(status().isNotFound());
+    @DisplayName("Test getting orderProduct with id 11")
+    void getByIdByCustomer() throws Exception {
+        var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/OrderProductTestFiles/get_by_id_11.json"), OrderProduct.class);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/order_product/11").with(user("emily.martinez@email.com").roles("CUSTOMER"))).andExpect(status().isOk()).andReturn();
+
+        var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), OrderProduct.class);
+
+        Assertions.assertEquals(expectedResult, actualResult);
     }
+
 
     @Test
     @DisplayName("Test updating orderProduct with id 11")
@@ -71,11 +80,18 @@ public class OrderProductIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, OrderProduct.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/order_product/1").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/order_product/1").with(user("flavor@curry.al").roles("BUSINESS")).content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), OrderProduct.class);
 
         Assertions.assertEquals(actualResult, expectedResult);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getOrderId(), actualResult.getOrderId());
+        Assertions.assertEquals(expectedResult.getQuantity(), actualResult.getQuantity());
+        Assertions.assertTrue(passwordEncoder.matches("password1", actualResult.getOrderId().getBusinessId().getPassword()));
+        Assertions.assertEquals(expectedResult.getProduct_id(), actualResult.getProduct_id());
     }
 
     @Test
@@ -87,17 +103,22 @@ public class OrderProductIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, OrderProduct.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/order_product").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/order_product/create").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), OrderProduct.class);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getOrderId(), actualResult.getOrderId());
+        Assertions.assertEquals(expectedResult.getQuantity(), actualResult.getQuantity());
+        Assertions.assertTrue(passwordEncoder.matches("password1", actualResult.getOrderId().getBusinessId().getPassword()));
+        Assertions.assertEquals(expectedResult.getProduct_id(), actualResult.getProduct_id());
     }
 
     @Test
     @DisplayName("Delete an existing orderProduct")
     @DirtiesContext
     void deleteAnExistingOrderProduct() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/order_product/12")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/order_product/11").with(user("flavor@curry.al").roles("BUSINESS"))).andExpect(status().isNoContent());
     }
 }

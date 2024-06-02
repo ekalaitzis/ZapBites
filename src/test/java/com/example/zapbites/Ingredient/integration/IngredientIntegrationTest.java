@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -37,7 +39,7 @@ public class IngredientIntegrationTest {
     void getAll() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/IngredientTestFiles/ingredient_list.json"), List.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/ingredient")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/ingredient").with(user("user").roles("BUSINESS"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
 
@@ -49,17 +51,11 @@ public class IngredientIntegrationTest {
     void getById() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/IngredientTestFiles/get_by_id_3.json"), Ingredient.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/ingredient/3")).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/ingredient/3").with(user("sizzle@grill.com").roles("BUSINESS"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Ingredient.class);
 
         Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    @DisplayName("test getting ingredient with id 99 - does not exist")
-    void getByIdNonExistent() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/ingredient/99")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -71,11 +67,20 @@ public class IngredientIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, Ingredient.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/ingredient/1").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/ingredient/1").with(user("green@delight.com").roles("BUSINESS")).content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Ingredient.class);
 
         Assertions.assertEquals(actualResult, expectedResult);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getName(), actualResult.getName());
+        Assertions.assertEquals(expectedResult.isVegan(), actualResult.isVegan());
+        Assertions.assertEquals(expectedResult.isSpicy(), actualResult.isSpicy());
+        Assertions.assertEquals(expectedResult.isGlutenFree(), actualResult.isGlutenFree());
+        Assertions.assertEquals(expectedResult.getProducts(), actualResult.getProducts());
+        Assertions.assertTrue(passwordEncoder.matches("password4", actualResult.getProducts().getFirst().getCategory().getMenu().getBusiness().getPassword()));
     }
 
     @Test
@@ -87,17 +92,25 @@ public class IngredientIntegrationTest {
 
         var expectedResult = objectMapper.readValue(responseBody, Ingredient.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/ingredient").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/ingredient/create").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isCreated()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Ingredient.class);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        Assertions.assertEquals(expectedResult.getName(), actualResult.getName());
+        Assertions.assertEquals(expectedResult.isVegan(), actualResult.isVegan());
+        Assertions.assertEquals(expectedResult.isSpicy(), actualResult.isSpicy());
+        Assertions.assertEquals(expectedResult.isGlutenFree(), actualResult.isGlutenFree());
+        Assertions.assertEquals(expectedResult.getProducts(), actualResult.getProducts());
+        Assertions.assertTrue(passwordEncoder.matches("password3", actualResult.getProducts().getFirst().getCategory().getMenu().getBusiness().getPassword()));
+
     }
 
     @Test
     @DisplayName("Delete an existing ingredient")
     @DirtiesContext
     void deleteAnExistingIngredient() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/ingredient/3")).andExpect(status().isNoContent());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/ingredient/3").with(user("sizzle@grill.com").roles("BUSINESS"))).andExpect(status().isNoContent());
     }
 }

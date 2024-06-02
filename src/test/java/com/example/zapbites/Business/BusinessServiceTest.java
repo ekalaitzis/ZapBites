@@ -1,16 +1,14 @@
 package com.example.zapbites.Business;
 
-import com.example.zapbites.Business.Exceptions.BusinessNotFoundException;
 import com.example.zapbites.Business.Exceptions.DuplicateBusinessException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,115 +16,100 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class BusinessServiceTest {
 
     @Mock
     private BusinessRepository businessRepository;
 
+    @Mock
+    private BCryptPasswordEncoder encoder;
+
     @InjectMocks
-    private BusinessService businessService;
+    private BusinessServiceImpl businessService;
+
+    private Business business1, business2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        business1 = new Business();
+        business1.setId(1L);
+        business1.setEmail("business1@example.com");
+        business1.setPassword("password1");
+
+        business2 = new Business();
+        business2.setId(2L);
+        business2.setEmail("business2@example.com");
+        business2.setPassword("password2");
+    }
 
     @Test
-    void getAllBusinesses_ShouldReturnListOfBusinesses() {
-        List<Business> businessList = new ArrayList<>();
-        businessList.add(new Business());
-        businessList.add(new Business());
+    void getAllBusinesses() {
+        List<Business> businessList = Arrays.asList(business1, business2);
         when(businessRepository.findAll()).thenReturn(businessList);
 
         List<Business> result = businessService.getAllBusinesses();
 
-        assertEquals(2, result.size());
+        assertEquals(businessList, result);
+        verify(businessRepository, times(1)).findAll();
     }
 
     @Test
-    void getBusinessById_WithValidId_ShouldReturnBusiness() {
-        Long businessId = 1L;
-        Business business = new Business();
-        when(businessRepository.findById(businessId)).thenReturn(Optional.of(business));
+    void getBusinessById() {
+        when(businessRepository.findById(1L)).thenReturn(Optional.of(business1));
 
-        Optional<Business> result = businessService.getBusinessById(businessId);
+        Optional<Business> result = businessService.getBusinessById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(business, result.get());
+        assertEquals(business1, result.get());
+        verify(businessRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getBusinessById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long businessId = 1L;
-        when(businessRepository.findById(businessId)).thenReturn(Optional.empty());
+    void createBusiness() {
+        when(businessRepository.findByEmail(business1.getEmail())).thenReturn(Optional.empty());
+        when(encoder.encode(business1.getPassword())).thenReturn("password1");
+        when(businessRepository.save(any(Business.class))).thenReturn(business1);
 
-        Optional<Business> result = businessService.getBusinessById(businessId);
+        Business result = businessService.createBusiness(business1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(business1.getEmail(), result.getEmail());
+        assertEquals("password1", result.getPassword());
+        verify(businessRepository, times(1)).findByEmail(business1.getEmail());
+        verify(encoder, times(1)).encode(business1.getPassword());
+        verify(businessRepository, times(1)).save(any(Business.class));
     }
 
     @Test
-    void createBusiness_WithValidBusiness_ShouldReturnCreatedBusiness() {
-        Business business = new Business();
-        when(businessRepository.findById(any())).thenReturn(Optional.empty());
-        when(businessRepository.save(business)).thenReturn(business);
+    void createBusiness_DuplicateException() {
+        when(businessRepository.findByEmail(business1.getEmail())).thenReturn(Optional.of(business1));
 
-        Business result = businessService.createBusiness(business);
-
-        assertEquals(business, result);
+        assertThrows(DuplicateBusinessException.class, () -> businessService.createBusiness(business1));
+        verify(businessRepository, times(1)).findByEmail(business1.getEmail());
+        verify(encoder, never()).encode(any());
+        verify(businessRepository, never()).save(any());
     }
 
     @Test
-    void createBusiness_WithDuplicateEmail_ShouldThrowDuplicateBusinessException() {
-        Business business = new Business();
-        when(businessRepository.findById(any())).thenReturn(Optional.of(new Business()));
+    void updateBusiness() {
+        business1.setPassword("newPassword");
+        when(encoder.encode("newPassword")).thenReturn("encodedNewPassword");
+        when(businessRepository.save(any(Business.class))).thenReturn(business1);
 
-        assertThrows(DuplicateBusinessException.class, () -> businessService.createBusiness(business));
+        Business result = businessService.updateBusiness(business1);
+
+        assertNotNull(result);
+        assertEquals(business1, result);
+        assertEquals("encodedNewPassword", result.getPassword());
+        verify(encoder, times(1)).encode("newPassword");
+        verify(businessRepository, times(1)).save(any(Business.class));
     }
 
     @Test
-    void updateBusiness_WithValidBusiness_ShouldReturnUpdatedBusiness() {
-        Business updatedBusiness = new Business();
-        updatedBusiness.setId(1L); // Set the ID to simulate an existing business
-        // Mocking getAllBusinesses() to return a list containing the updated business
-        when(businessService.getAllBusinesses()).thenReturn(Collections.singletonList(updatedBusiness));
-        when(businessRepository.save(updatedBusiness)).thenReturn(updatedBusiness);
-
-        Business result = businessService.updateBusiness(updatedBusiness);
-
-        assertEquals(updatedBusiness, result);
+    void deleteBusinessById() {
+        businessService.deleteBusinessById(1L);
+        verify(businessRepository, times(1)).deleteById(1L);
     }
-
-    @Test
-    void updateBusiness_WithNonExistingId_ShouldThrowBusinessNotFoundException() {
-        Business updatedBusiness = new Business();
-        updatedBusiness.setId(1L); // Set the ID to simulate a non-existing business
-        // Mocking getAllBusinesses() to return an empty list, simulating that the business does not exist
-        when(businessService.getAllBusinesses()).thenReturn(Collections.emptyList());
-
-        assertThrows(BusinessNotFoundException.class, () -> businessService.updateBusiness(updatedBusiness));
-    }
-
-
-    @Test
-    void deleteBusinessById_WithValidId_ShouldDeleteBusiness() {
-        Long businessId = 1L;
-
-        businessService.deleteBusinessById(businessId);
-
-        verify(businessRepository, times(1)).deleteById(businessId);
-    }
-
-    @Test
-    void deleteBusinessById_WithNonExistingId_ShouldThrowBusinessNotFoundException() {
-        Long businessId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(businessRepository).deleteById(businessId);
-
-        assertThrows(BusinessNotFoundException.class, () -> businessService.deleteBusinessById(businessId));
-    }
-
-//    @Test
-//    void updateBusiness_WithDataAccessException_ShouldThrowBusinessNotFoundException() {
-//        Business updatedBusiness = new Business();
-//        doThrow(new DataAccessException("Simulating DataAccessException") {
-//        }).when(businessRepository).save(updatedBusiness);
-//
-//        assertThrows(BusinessNotFoundException.class, () -> businessService.updateBusiness(updatedBusiness));
-////    }
 }

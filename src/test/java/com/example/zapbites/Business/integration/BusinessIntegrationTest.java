@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,7 +36,6 @@ public class BusinessIntegrationTest {
 
     @Test
     @DisplayName("Test getting all businesses")
-    @WithMockUser(roles = "BUSINESS")
     void getAll() throws Exception {
         var expectedResult = objectMapper.readValue(TestHelper.readJsonFile("/Testfiles/BusinessTestFiles/business_list.json"), List.class); //objectMapper gets a String representation of the .json with TestHelper.readJsonFile() method
 
@@ -62,18 +60,25 @@ public class BusinessIntegrationTest {
     @Test
     @DisplayName("Test updating business with id 1")
     @DirtiesContext
-    @WithMockUser(username = "flavor@curry.al",password = "$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6",roles = "BUSINESS") //even if the requestBody / responseBody username / password is changed the Business is still updated and I don't get bad credentials
     void updateById() throws Exception {
         var requestBody = TestHelper.readJsonFile("/Testfiles/BusinessTestFiles/update_Business_with_id_1_request.json");
         var responseBody = TestHelper.readJsonFile("/Testfiles/BusinessTestFiles/update_Business_with_id_1_response.json");
 
         var expectedResult = objectMapper.readValue(responseBody, Business.class);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/business/1").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE).with(user("flavor@curry.al").password("$2a$10$UxvZ/kvLYMCqtUthk3Wznea7JqX.ejUaJ9UZBIgUWSYnHF7WhVJ/6").roles("BUSINESS"))).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/business/1").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE).with(user("flavor@curry.al").roles("BUSINESS"))).andExpect(status().isOk()).andReturn();
 
         var actualResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Business.class);
 
-        Assertions.assertEquals(actualResult, expectedResult);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        // Compare fields except the password
+        Assertions.assertEquals(expectedResult.getCompanyName(), actualResult.getCompanyName());
+        Assertions.assertEquals(expectedResult.getEmail(), actualResult.getEmail());
+        Assertions.assertTrue(passwordEncoder.matches("updatedpass", actualResult.getPassword()));
+        Assertions.assertEquals(expectedResult.getTelephone(), actualResult.getTelephone());
+        Assertions.assertEquals(expectedResult.getTaxIdNumber(), actualResult.getTaxIdNumber());
+        Assertions.assertEquals(expectedResult.getRole(), actualResult.getRole());
     }
 
     @Test

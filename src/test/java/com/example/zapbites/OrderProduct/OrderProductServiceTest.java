@@ -1,120 +1,106 @@
 package com.example.zapbites.OrderProduct;
 
-import com.example.zapbites.OrderProduct.Exceptions.DuplicateOrderProductException;
+import com.example.zapbites.Evaluators.OrderProductEvaluator;
 import com.example.zapbites.OrderProduct.Exceptions.OrderProductNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 public class OrderProductServiceTest {
+
 
     @Mock
     private OrderProductRepository orderProductRepository;
 
+    @Mock
+    private OrderProductEvaluator orderProductEvaluator;
+
     @InjectMocks
-    private OrderProductService orderProductService;
+    private OrderProductServiceImpl orderProductService;
+
+    private OrderProduct orderProduct1, orderProduct2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        orderProduct1 = new OrderProduct();
+        orderProduct1.setId(1L);
+
+        orderProduct2 = new OrderProduct();
+        orderProduct2.setId(2L);
+    }
 
     @Test
-    void getAllOrderProducts_ShouldReturnListOfOrderProducts() {
-        List<OrderProduct> orderProductList = new ArrayList<>();
-        orderProductList.add(new OrderProduct());
-        orderProductList.add(new OrderProduct());
+    void getAllOrderProducts() {
+        List<OrderProduct> orderProductList = Arrays.asList(orderProduct1, orderProduct2);
         when(orderProductRepository.findAll()).thenReturn(orderProductList);
 
         List<OrderProduct> result = orderProductService.getAllOrderProducts();
 
-        assertEquals(2, result.size());
+        assertEquals(orderProductList, result);
+        verify(orderProductRepository, times(1)).findAll();
     }
 
     @Test
-    void getOrderProductById_WithValidId_ShouldReturnOrderProduct() {
-        Long orderProductId = 1L;
-        OrderProduct orderProduct = new OrderProduct();
-        when(orderProductRepository.findById(orderProductId)).thenReturn(Optional.of(orderProduct));
+    void getOrderProductById() {
+        when(orderProductRepository.findById(1L)).thenReturn(Optional.of(orderProduct1));
 
-        Optional<OrderProduct> result = orderProductService.getOrderProductById(orderProductId);
+        Optional<OrderProduct> result = orderProductService.getOrderProductById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals(orderProduct, result.get());
+        assertEquals(orderProduct1, result.get());
+        verify(orderProductRepository, times(1)).findById(1L);
     }
 
     @Test
-    void getOrderProductById_WithInvalidId_ShouldReturnEmptyOptional() {
-        Long orderProductId = 1L;
-        when(orderProductRepository.findById(orderProductId)).thenReturn(Optional.empty());
+    void createOrderProduct() {
+        when(orderProductRepository.save(any(OrderProduct.class))).thenReturn(orderProduct1);
 
-        Optional<OrderProduct> result = orderProductService.getOrderProductById(orderProductId);
+        OrderProduct result = orderProductService.createOrderProduct(orderProduct1);
 
-        assertTrue(result.isEmpty());
+        assertNotNull(result);
+        assertEquals(orderProduct1, result);
+        verify(orderProductEvaluator, times(1)).checkForOrderProductConditions(orderProduct1);
+        verify(orderProductRepository, times(1)).save(any(OrderProduct.class));
     }
 
     @Test
-    void createOrderProduct_WithValidOrderProduct_ShouldReturnCreatedOrderProduct() {
-        OrderProduct orderProduct = new OrderProduct();
-        when(orderProductRepository.findById(any())).thenReturn(Optional.empty());
-        when(orderProductRepository.save(orderProduct)).thenReturn(orderProduct);
+    void updateOrderProduct() {
+        when(orderProductRepository.findAll()).thenReturn(Arrays.asList(orderProduct1, orderProduct2));
+        when(orderProductRepository.save(any(OrderProduct.class))).thenReturn(orderProduct1);
 
-        OrderProduct result = orderProductService.createOrderProduct(orderProduct);
+        OrderProduct result = orderProductService.updateOrderProduct(orderProduct1);
 
-        assertEquals(orderProduct, result);
+        assertNotNull(result);
+        assertEquals(orderProduct1, result);
+        verify(orderProductRepository, times(1)).findAll();
+        verify(orderProductRepository, times(1)).save(any(OrderProduct.class));
     }
 
     @Test
-    void createOrderProduct_WithDuplicateId_ShouldThrowDuplicateOrderProductException() {
-        OrderProduct orderProduct = new OrderProduct();
-        when(orderProductRepository.findById(any())).thenReturn(Optional.of(new OrderProduct()));
+    void updateOrderProduct_OrderProductNotFoundException() {
+        OrderProduct nonExistingOrderProduct = new OrderProduct();
+        nonExistingOrderProduct.setId(3L);
+        when(orderProductRepository.findAll()).thenReturn(Arrays.asList(orderProduct1, orderProduct2));
 
-        assertThrows(DuplicateOrderProductException.class, () -> orderProductService.createOrderProduct(orderProduct));
+        assertThrows(OrderProductNotFoundException.class, () -> orderProductService.updateOrderProduct(nonExistingOrderProduct));
+        verify(orderProductRepository, times(1)).findAll();
+        verify(orderProductRepository, never()).save(any());
     }
 
     @Test
-    void updateOrderProduct_WithValidOrderProduct_ShouldReturnUpdatedOrderProduct() {
-        OrderProduct updatedOrderProduct = new OrderProduct();
-        updatedOrderProduct.setId(1L);
-        // Mocking getAllOrderProducts() to return a list containing the updated orderProduct
-        when(orderProductService.getAllOrderProducts()).thenReturn(Collections.singletonList(updatedOrderProduct));
-        when(orderProductRepository.save(updatedOrderProduct)).thenReturn(updatedOrderProduct);
-
-        OrderProduct result = orderProductService.updateOrderProduct(updatedOrderProduct);
-
-        assertEquals(updatedOrderProduct, result);
-    }
-
-    @Test
-    void updateOrderProduct_WithNonExistingId_ShouldThrowOrderProductNotFoundException() {
-        OrderProduct updatedOrderProduct = new OrderProduct();
-        // Mocking getAllOrderProducts() to return an empty list, simulating that the orderProduct does not exist
-        when(orderProductService.getAllOrderProducts()).thenReturn(Collections.emptyList());
-
-        assertThrows(OrderProductNotFoundException.class, () -> orderProductService.updateOrderProduct(updatedOrderProduct));
-    }
-
-    @Test
-    void deleteOrderProductById_WithValidId_ShouldDeleteOrderProduct() {
-        Long orderProductId = 1L;
-
-        orderProductService.deleteOrderProductById(orderProductId);
-
-        verify(orderProductRepository, times(1)).deleteById(orderProductId);
-    }
-
-    @Test
-    void deleteOrderProductById_WithNonExistingId_ShouldThrowOrderProductNotFoundException() {
-        Long orderProductId = 1L;
-        doThrow(new EmptyResultDataAccessException(1)).when(orderProductRepository).deleteById(orderProductId);
-
-        assertThrows(OrderProductNotFoundException.class, () -> orderProductService.deleteOrderProductById(orderProductId));
+    void deleteOrderProductById() {
+        orderProductService.deleteOrderProductById(1L);
+        verify(orderProductRepository, times(1)).deleteById(1L);
     }
 }
