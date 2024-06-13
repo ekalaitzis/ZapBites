@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div hx-target="this" hx-swap="outerHTML">
+    <h1>login</h1>
+    <form th:action="@{/business/login}" method="post">
+        <input type="email" id="email" name="email" placeholder="Email"><br><br>
+        <input type="password" id="password" name="password" placeholder="Password"><br><br>
+        <button type="submit">Login</button>
+        <a href="/business/register">Register</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <title>Register your Business</title>
+</head>
+
+<body class="d-flex-column h-100">
+<main class="flex-shrink-0">
+    <section layout:fragment="body" class="py-5">
+        <div class="container">
+            <div class="container px-5 my-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Register your Business</h1>
+                </div>
+            </div>
+            <form role="form" method="post" th:action="@{/businesses/submitForm}" th:object="${business}">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                th:field="*{email}"
+                                placeholder="Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                th:field="*{password}"
+                                placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Company Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="inputAddress2"
+                            th:field="*{companyName}"
+                            placeholder="Your company's name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputAddress3">Telephone</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="inputAddress3"
+                            th:field="*{telephone}"
+                            placeholder="1234567890">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="inputAddress">Tax ID Number</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="inputAddress"
+                            th:field="*{taxIdNumber}"
+                            placeholder="ABC123">
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container px-5 my-5">
+            <h2 class="display-4 fw-bolder mb-4">Let's build something together</h2>
+            <a class="btn btn-lg btn-primary" href="#!">Contact us</a>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

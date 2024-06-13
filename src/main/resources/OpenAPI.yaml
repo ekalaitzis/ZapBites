@@ -1,0 +1,1597 @@
+openapi: 3.0.3
+info:
+  title: ZapBites API
+  description: Food Delivery Application API Documentation
+  version: "1.0"
+  contact:
+    name: Emmanouil
+    email: emmanouil@kalaitzis.pro
+    url: https://kalaitzis.com/zapbites
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8080/api
+    description: local ENV
+
+tags:
+  - name: Business
+    description: Operations related to businesses
+  - name: BusinessSchedule
+    description: Operations related to business schedules
+  - name: Menu
+    description: Operations related to menus
+  - name: Category
+    description: Operations related to categories
+  - name: Product
+    description: Operations related to products
+  - name: Ingredient
+    description: Operations related to ingredients
+  - name: Customer
+    description: Operations related to customers
+  - name: CustomerAddress
+    description: Operations related to customer addresses
+  - name: Order
+    description: Operations related to orders
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+    Business:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        companyName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        telephone:
+          type: string
+        taxIdNumber:
+          type: string
+        role:
+          type: string
+          default: BUSINESS
+      required:
+        - companyName
+        - email
+        - password
+        - telephone
+        - taxIdNumber
+        - role
+
+    BusinessSchedule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        weekday:
+          type: string
+          enum: [ MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY ]
+        openingTime:
+          type: string
+          format: time
+        closingTime:
+          type: string
+          format: time
+        business:
+          $ref: '#/components/schemas/Business'
+      required:
+        - weekday
+        - business
+
+    Menu:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        business:
+          $ref: '#/components/schemas/Business'
+      required:
+        - name
+        - business
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        menu:
+          $ref: '#/components/schemas/Menu'
+      required:
+        - name
+        - menu
+
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        category:
+          $ref: '#/components/schemas/Category'
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ingredient'
+      required:
+        - name
+        - price
+        - category
+
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        vegan:
+          type: boolean
+        spicy:
+          type: boolean
+        glutenFree:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+        - name
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+          maxLength: 20
+        lastName:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 100
+        password:
+          type: string
+        telephone:
+          type: string
+          minLength: 10
+          maxLength: 14
+        role:
+          type: string
+        customerAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerAddress'
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+        - telephone
+        - role
+
+    CustomerAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        address:
+          type: string
+          maxLength: 65535
+        geolocation:
+          type: string
+          format: point
+        primary:
+          type: boolean
+        customer:
+          $ref: '#/components/schemas/Customer'
+      required:
+        - address
+        - geolocation
+        - customer
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        businessId:
+          $ref: '#/components/schemas/Business'
+        customerId:
+          $ref: '#/components/schemas/Customer'
+        CustomerAddressId:
+          $ref: '#/components/schemas/CustomerAddress'
+        totalPrice:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - businessId
+        - customerId
+        - CustomerAddressId
+        - totalPrice
+        - createdAt
+
+    OrderProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderId:
+          $ref: '#/components/schemas/Order'
+        quantity:
+          type: integer
+          format: int32
+        productId:
+          $ref: '#/components/schemas/Product'
+      required:
+        - orderId
+        - quantity
+        - productId
+
+    OrderStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderId:
+          $ref: '#/components/schemas/Order'
+        orderStatusEnum:
+          type: string
+          enum:
+            - CART
+            - PROCESSING_ORDER
+            - ACCEPTED
+            - COOKING
+            - PREPARING
+            - DELIVERY
+            - DELIVERED
+            - DECLINED_BY_BUSINESS
+            - CANCELLED_BY_CUSTOMER
+            - REFUNDED
+        sessionId:
+          type: string
+        statusChangedAt:
+          type: string
+          format: date-time
+      required:
+        - orderId
+        - orderStatusEnum
+        - statusChangedAt
+
+
+security:
+  - basicAuth: [ ]
+
+paths:
+
+  # Business API Paths
+  /business:
+    get:
+      tags:
+        - Business
+      summary: Get all businesses
+      description: Retrieve a list of all businesses.
+      operationId: getAllBusinesses
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of businesses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Business'
+  /business/{id}:
+    get:
+      tags:
+        - Business
+      summary: Get a business by ID
+      description: Retrieve details of a business by its ID.
+      operationId: getBusinessById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The business data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+        '404':
+          description: Business not found
+    put:
+      tags:
+        - Business
+      summary: Update a business by ID
+      description: Update the details of a business by its ID.
+      operationId: updateBusinessById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Business'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated business data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+    delete:
+      tags:
+        - Business
+      summary: Delete a business by ID
+      description: Delete a business by its ID.
+      operationId: deleteBusinessById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Business deleted
+  /business/register:
+    post:
+      tags:
+        - Business
+      summary: Create a new business
+      description: Register a new business.
+      operationId: createBusiness
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Business'
+      responses:
+        '201':
+          description: The created business
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business'
+        '409':
+          description: Business with the given email already exists
+
+
+  # Business Schedule API Paths
+  /business_schedule:
+    get:
+      tags:
+        - BusinessSchedule
+      summary: Get all business schedules
+      description: Retrieve a list of all business schedules.
+      operationId: getAllBusinessSchedules
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of business schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessSchedule'
+  /business_schedule/{id}:
+    get:
+      tags:
+        - BusinessSchedule
+      summary: Get a business schedule by ID
+      description: Retrieve details of a business schedule by its ID.
+      operationId: getBusinessScheduleById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business schedule to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The business schedule data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSchedule'
+        '404':
+          description: Business schedule not found
+    put:
+      tags:
+        - BusinessSchedule
+      summary: Update a business schedule by ID
+      description: Update the details of a business schedule by its ID.
+      operationId: updateBusinessScheduleById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business schedule to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessSchedule'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated business schedule data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSchedule'
+    delete:
+      tags:
+        - BusinessSchedule
+      summary: Delete a business schedule by ID
+      description: Delete a business schedule by its ID.
+      operationId: deleteBusinessScheduleById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the business schedule to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Business schedule deleted
+  /business_schedule/create:
+    post:
+      tags:
+        - BusinessSchedule
+      summary: Create a new business schedule
+      description: Register a new business schedule.
+      operationId: createBusinessSchedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessSchedule'
+      responses:
+        '201':
+          description: The created business schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSchedule'
+        '409':
+          description: Business schedule with the given details already exists
+  # menu API Paths
+  /nemu:
+    get:
+      tags:
+        - Menu
+      summary: Get all menus
+      description: Retrieve a list of all menus.
+      operationId: getAllMenus
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of menus
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'
+  /menu/{id}:
+    get:
+      tags:
+        - Menu
+      summary: Get a menu by ID
+      description: Retrieve details of a menu by its ID.
+      operationId: getMenuById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the menu to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The menu data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+        '404':
+          description: Menu not found
+    put:
+      tags:
+        - Menu
+      summary: Update a menu by ID
+      description: Update the details of a menu by its ID.
+      operationId: updateMenuById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the menu to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated menu data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+        '404':
+          description: Menu not found
+    delete:
+      tags:
+        - Menu
+      summary: Delete a menu by ID
+      description: Delete a menu by its ID.
+      operationId: deleteMenuById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the menu to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Menu deleted
+  /menu/create:
+    post:
+      tags:
+        - Menu
+      summary: Create a new menu
+      description: Register a new menu.
+      operationId: createMenu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+      responses:
+        '201':
+          description: The created menu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+        '409':
+          description: Menu with the given name already exists
+
+
+  # Category API Paths
+  /category:
+    get:
+      tags:
+        - Category
+      summary: Get all categories
+      description: Retrieve a list of all categories.
+      operationId: getAllCategories
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+  /category/{id}:
+    get:
+      tags:
+        - Category
+      summary: Get a category by ID
+      description: Retrieve details of a category by its ID.
+      operationId: getCategoryById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the category to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The category data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: Category not found
+    put:
+      tags:
+        - Category
+      summary: Update a category by ID
+      description: Update the details of a category by its ID.
+      operationId: updateCategoryById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the category to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated category data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: Category not found
+    delete:
+      tags:
+        - Category
+      summary: Delete a category by ID
+      description: Delete a category by its ID.
+      operationId: deleteCategoryById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the category to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Category deleted
+  /category/create:
+    post:
+      tags:
+        - Category
+      summary: Create a new category
+      description: Register a new category.
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          description: The created category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '409':
+          description: Category with the given name already exists
+
+  # Product API Paths
+  /product:
+    get:
+      tags:
+        - Product
+      summary: Get all products
+      description: Retrieve a list of all products.
+      operationId: getAllProducts
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /product/{id}:
+    get:
+      tags:
+        - Product
+      summary: Get a product by ID
+      description: Retrieve details of a product by its ID.
+      operationId: getProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the product to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The product data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - Product
+      summary: Update a product by ID
+      description: Update the details of a product by its ID.
+      operationId: updateProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the product to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated product data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+    delete:
+      tags:
+        - Product
+      summary: Delete a product by ID
+      description: Delete a product by its ID.
+      operationId: deleteProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the product to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Product deleted
+  /product/create:
+    post:
+      tags:
+        - Product
+      summary: Create a new product
+      description: Register a new product.
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: The created product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '409':
+          description: Product with the given name already exists
+
+
+  /ingredient:
+    get:
+      tags:
+        - Ingredient
+      summary: Get all ingredients
+      description: Retrieve a list of all ingredients.
+      operationId: getAllIngredients
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of ingredients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+  /ingredient/{id}:
+    get:
+      tags:
+        - Ingredient
+      summary: Get an ingredient by ID
+      description: Retrieve details of an ingredient by its ID.
+      operationId: getIngredientById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the ingredient to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The ingredient data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+        '404':
+          description: Ingredient not found
+    put:
+      tags:
+        - Ingredient
+      summary: Update an ingredient by ID
+      description: Update the details of an ingredient by its ID.
+      operationId: updateIngredientById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the ingredient to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated ingredient data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+        '404':
+          description: Ingredient not found
+    delete:
+      tags:
+        - Ingredient
+      summary: Delete an ingredient by ID
+      description: Delete an ingredient by its ID.
+      operationId: deleteIngredientById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the ingredient to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Ingredient deleted
+  /ingredient/create:
+    post:
+      tags:
+        - Ingredient
+      summary: Create a new ingredient
+      description: Register a new ingredient.
+      operationId: createIngredient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+      responses:
+        '201':
+          description: The created ingredient
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+        '409':
+          description: Ingredient with the given name already exists
+
+
+
+  /customer:
+    get:
+      tags:
+        - Customer
+      summary: Get all customers
+      description: Retrieve a list of all customers.
+      operationId: getAllCustomers
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /customer/{id}:
+    get:
+      tags:
+        - Customer
+      summary: Get a customer by ID
+      description: Retrieve details of a customer by their ID.
+      operationId: getCustomerById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The customer data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+    put:
+      tags:
+        - Customer
+      summary: Update a customer by ID
+      description: Update the details of a customer by their ID.
+      operationId: updateCustomerById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated customer data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+    delete:
+      tags:
+        - Customer
+      summary: Delete a customer by ID
+      description: Delete a customer by their ID.
+      operationId: deleteCustomerById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Customer deleted
+  /customer/register:
+    post:
+      tags:
+        - Customer
+      summary: Create a new customer
+      description: Register a new customer.
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: The created customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '409':
+          description: Customer with the given email already exists
+
+
+
+  /customerAddress:
+    get:
+      tags:
+        - CustomerAddress
+      summary: Get all customer addresses
+      description: Retrieve a list of all customer addresses.
+      operationId: getAllCustomerAddresses
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of customer addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerAddress'
+  /customerAddress/{id}:
+    get:
+      tags:
+        - CustomerAddress
+      summary: Get a customer address by ID
+      description: Retrieve details of a customer address by its ID.
+      operationId: getCustomerAddressById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer address to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The customer address data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddress'
+        '404':
+          description: Customer address not found
+    put:
+      tags:
+        - CustomerAddress
+      summary: Update a customer address by ID
+      description: Update the details of a customer address by its ID.
+      operationId: updateCustomerAddressById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer address to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddress'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated customer address data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddress'
+        '404':
+          description: Customer address not found
+    delete:
+      tags:
+        - CustomerAddress
+      summary: Delete a customer address by ID
+      description: Delete a customer address by its ID.
+      operationId: deleteCustomerAddressById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the customer address to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Customer address deleted
+  /customerAddress/create:
+    post:
+      tags:
+        - CustomerAddress
+      summary: Create a new customer address
+      description: Create a new customer address.
+      operationId: createCustomerAddress
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddress'
+      responses:
+        '201':
+          description: The created customer address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAddress'
+        '409':
+          description: Customer address already exists
+
+  /orders:
+    get:
+      tags:
+        - Order
+      summary: Get all orders
+      description: Retrieve a list of all orders.
+      operationId: getAllOrders
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+  /orders/{id}:
+    get:
+      tags:
+        - Order
+      summary: Get an order by ID
+      description: Retrieve details of an order by its ID.
+      operationId: getOrderById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The order data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+    put:
+      tags:
+        - Order
+      summary: Update an order by ID
+      description: Update the details of an order by its ID.
+      operationId: updateOrderById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated order data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+    delete:
+      tags:
+        - Order
+      summary: Delete an order by ID
+      description: Delete an order by its ID.
+      operationId: deleteOrderById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Order deleted
+  /orders/create:
+    post:
+      tags:
+        - Order
+      summary: Create a new order
+      description: Create a new order.
+      operationId: createOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: The created order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '409':
+          description: Order already exists
+
+
+  /order-products:
+    get:
+      tags:
+        - OrderProduct
+      summary: Get all order products
+      description: Retrieve a list of all order products.
+      operationId: getAllOrderProducts
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of order products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderProduct'
+  /order-products/{id}:
+    get:
+      tags:
+        - OrderProduct
+      summary: Get an order product by ID
+      description: Retrieve details of an order product by its ID.
+      operationId: getOrderProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order product to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The order product data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '404':
+          description: Order product not found
+    put:
+      tags:
+        - OrderProduct
+      summary: Update an order product by ID
+      description: Update the details of an order product by its ID.
+      operationId: updateOrderProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order product to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderProduct'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated order product data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '404':
+          description: Order product not found
+    delete:
+      tags:
+        - OrderProduct
+      summary: Delete an order product by ID
+      description: Delete an order product by its ID.
+      operationId: deleteOrderProductById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order product to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Order product deleted
+  /order-products/create:
+    post:
+      tags:
+        - OrderProduct
+      summary: Create a new order product
+      description: Create a new order product.
+      operationId: createOrderProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderProduct'
+      responses:
+        '201':
+          description: The created order product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderProduct'
+        '409':
+          description: Order product already exists
+
+
+  /order-statuses:
+    get:
+      tags:
+        - OrderStatus
+      summary: Get all order statuses
+      description: Retrieve a list of all order statuses.
+      operationId: getAllOrderStatuses
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: A list of order statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderStatus'
+  /order-statuses/{id}:
+    get:
+      tags:
+        - OrderStatus
+      summary: Get an order status by ID
+      description: Retrieve details of an order status by its ID.
+      operationId: getOrderStatusById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order status to retrieve.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The order status data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatus'
+        '404':
+          description: Order status not found
+    put:
+      tags:
+        - OrderStatus
+      summary: Update an order status by ID
+      description: Update the details of an order status by its ID.
+      operationId: updateOrderStatusById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order status to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatus'
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          description: The updated order status data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatus'
+        '404':
+          description: Order status not found
+    delete:
+      tags:
+        - OrderStatus
+      summary: Delete an order status by ID
+      description: Delete an order status by its ID.
+      operationId: deleteOrderStatusById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: The ID of the order status to delete.
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          description: Order status deleted
+  /order-statuses/create:
+    post:
+      tags:
+        - OrderStatus
+      summary: Create a new order status
+      description: Create a new order status.
+      operationId: createOrderStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatus'
+      responses:
+        '201':
+          description: The created order status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatus'

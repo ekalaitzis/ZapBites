@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Menu</title>
+</head>
+<body>
+    <h1>Change Menu</h1>
+    <div id="menu-panel">
+        <!-- Menu display goes here -->
+        <button onclick="document.getElementById('create-menu-form').style.display='block'">Create Menu</button>
+        <div id="create-menu-form" style="display:none;">
+            <form action="#" method="post">
+                <label for="menu-name">Menu Name:</label>
+                <input type="text" id="menu-name" name="menuName"><br><br>
+                <button type="submit">Save</button>
+                <button type="button" onclick="document.getElementById('create-menu-form').style.display='none'">Cancel</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

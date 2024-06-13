@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Schedule</title>
+</head>
+<body>
+    <h1>Change Schedule</h1>
+    <div id="schedule-panel">
+        <!-- Schedule display goes here -->
+    </div>
+    <form action="#" method="post">
+        <label>Day:</label><br>
+        <input type="radio" id="monday" name="day" value="Monday"> Monday<br>
+        <input type="radio" id="tuesday" name="day" value="Tuesday"> Tuesday<br>
+        <input type="radio" id="wednesday" name="day" value="Wednesday"> Wednesday<br>
+        <input type="radio" id="thursday" name="day" value="Thursday"> Thursday<br>
+        <input type="radio" id="friday" name="day" value="Friday"> Friday<br>
+        <input type="radio" id="saturday" name="day" value="Saturday"> Saturday<br>
+        <input type="radio" id="sunday" name="day" value="Sunday"> Sunday<br><br>
+        <label for="opening-time">Opening Time:</label>
+        <input type="time" id="opening-time" name="openingTime"><br><br>
+        <label for="closing-time">Closing Time:</label>
+        <input type="time" id="closing-time" name="closingTime"><br><br>
+        <button type="submit">Post Schedule</button>
+    </form>
+</body>
+</html>
