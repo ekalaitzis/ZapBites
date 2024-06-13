@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @AllArgsConstructor
@@ -29,7 +31,22 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults());
 
         http.authorizeHttpRequests(c -> c
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/v2/api-docs").permitAll()
+                .requestMatchers("/v3/api-docs").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-resources").permitAll()
+                .requestMatchers("/swagger-resources/**").permitAll()
+                .requestMatchers("/configuration/ui").permitAll()
+                .requestMatchers("/configuration/security").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/webjars/**").permitAll()
+                .requestMatchers("/swagger-ui.html").permitAll()
                 .requestMatchers("/*/register").permitAll()
+                .requestMatchers("/*/register/save").permitAll()
+                .requestMatchers("/*/login").permitAll()
+                .requestMatchers("/*/test").permitAll()
                 .requestMatchers("/*/create").permitAll()
                 .requestMatchers("/business/***").hasRole("BUSINESS")
                 .requestMatchers("/business_schedule/***").hasRole("BUSINESS")
@@ -45,6 +62,20 @@ public class SecurityConfig {
                 .requestMatchers("/customer_address/***").hasRole("CUSTOMER")
                 .anyRequest()
                 .authenticated());
+
+        http.formLogin(form -> form
+                        .loginPage("/businesses/login")
+                        .defaultSuccessUrl("/businesses/business_home")
+                        .loginProcessingUrl("/businesses/login")
+                        .failureForwardUrl("/businesses/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AndRequestMatcher(
+                                new AntPathRequestMatcher("/businesses/logout", "GET")
+                        ))
+                        .permitAll()
+                );
 
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
